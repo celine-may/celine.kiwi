@@ -12,6 +12,7 @@ var coffee = require( 'gulp-coffee' );
 var coffeelint = require( 'gulp-coffeelint' );
 var concat = require( 'gulp-concat' );
 var cssnano = require( 'gulp-cssnano' );
+var uglify = require( 'gulp-uglify' );
 var del = require( 'del' );
 var runSequence = require( 'run-sequence' );
 
@@ -33,6 +34,11 @@ var coffeeOptions = {
 };
 var coffeeLintOptions = {
   optFile: 'coffeelint.json',
+};
+var uglifyOptions = {
+  compress: {
+    drop_console: true,
+  },
 };
 var renameOptions = {
   suffix: '.min',
@@ -110,7 +116,7 @@ gulp.task( 'sass', function() {
 });
 
 // CSS Concat
-gulp.task( 'styles', function() {
+gulp.task( 'cssconcat', function() {
   return gulp
     .src( [appAssets + 'css/vendor/*.css', appAssets + 'css/build/*.css'] )
     .pipe( concat( 'application.css' ) )
@@ -136,8 +142,25 @@ gulp.task( 'coffee', function() {
     .pipe( sourcemaps.init() )
     .pipe( coffee( coffeeOptions ).on( 'error', gutil.log ) )
     .pipe( sourcemaps.write() )
-    .pipe( gulp.dest( appAssets + 'js' ) )
+    .pipe( gulp.dest( appAssets + 'js/build' ) )
     .pipe( livereload() )
+});
+
+// JS Concat
+gulp.task( 'jsconcat', function() {
+  return gulp
+    .src( [appAssets + 'js/vendor/*.js', appAssets + 'js/build/*.js'] )
+    .pipe( concat( 'application.js' ) )
+    .pipe( gulp.dest( appAssets + 'js' ) )
+});
+
+// JS Uglify
+gulp.task( 'uglify', function() {
+  return gulp
+    .src( appAssets + 'js/*.js' )
+    .pipe( uglify( uglifyOptions ) )
+    .pipe( rename( renameOptions ) )
+    .pipe( gulp.dest( distAssets + 'javascripts' ) )
 });
 
 // Watch
@@ -159,7 +182,8 @@ gulp.task( 'default', function(callback) {
 // Production
 gulp.task( 'prod', function(callback) {
   runSequence( 'clean:dist',
-    [ 'fonts', 'images', 'videos', 'styles', 'cssnano' ],
+    [ 'fonts', 'images', 'videos', 'cssconcat', 'jsconcat' ],
+    [ 'cssnano', 'uglify' ],
     callback
   )
 })
