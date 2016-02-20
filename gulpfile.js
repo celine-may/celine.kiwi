@@ -54,7 +54,11 @@ gulp.task('clean:app', function() {
 });
 
 gulp.task('clean:dist', function() {
-  return del( dist );
+  return del([
+    distAssets,
+    dist + 'controllers',
+    dist + 'views',
+  ]);
 });
 
 // PHP
