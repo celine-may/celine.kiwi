@@ -35,3 +35,11 @@ body
     +calc(height, "100% - #{$gap * 2}")
     background-color: $black
     opacity: .2
+
+// Device
+.device
+  +center('horizontal')
+  display: inline-block
+  +square($device)
+  border: 16px solid $white
+  z-index: $zXTop

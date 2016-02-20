@@ -33,6 +33,8 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <script>
     window.App = {};
     App.path = "<?php echo PATH; ?>";
+    App.deviceSize = 196;
+    App.deviceBorder = 16;
   </script>
 </head>
 
@@ -50,13 +52,15 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php if (is_file("sections/$view.php")) include("sections/$view.php"); ?>
   </main>
 
-  <button class="link contact-link">contact</button>
+  <button class="link contact-link do-show-contact">contact</button>
 
   <div class="overlay">
     <div class="overlay-panel top"></div>
     <div class="overlay-panel bottom"></div>
     <?php include("sections/contact.php"); ?>
   </div>
+
+  <span class="device"></span>
 
   <script type="text/javascript">
     var video = document.getElementsByTagName("video")[0];

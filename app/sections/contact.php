@@ -20,7 +20,7 @@
     </div>
   </form>
 
-  <button class="overlay-close">
+  <button class="overlay-close do-hide-contact">
     <svg class="shape-cross">
       <use xlink:href="#shape-cross"></use>
     </svg>

@@ -3,7 +3,8 @@
 
 .overlay
   +position(fixed, 0, null, null, 0)
-  +square(100%)
+  +size(100%, 100vh)
+  pointer-events: none
   z-index: $zTop
 
 .overlay-panel
@@ -13,6 +14,7 @@
 
   &.top
     top: 0
+    transform: translateY(-100%)
 
     &::before
       content: ""
@@ -22,10 +24,13 @@
 
   &.bottom
     bottom: 0
+    transform: translateY(100%)
 
 .overlay-content
   +center('both')
-  width: 600px
+  +square(600px)
+  opacity: 0
+  pointer-events: auto
   text-align: center
   z-index: $zBase
 

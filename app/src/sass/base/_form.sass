@@ -28,9 +28,11 @@
   width: 100%
   +font($primary, $sansSerif, 1.0625rem, 500)
 
+.form-action
+  +position(absolute, null, null, 0, 0)
+  width: 100%
+
 .form-btn
-  +position(relative, null, null, null, -$gap * 2)
-  +calc(width, "100% + #{$gap * 4}")
   background-color: $primary
   color: $secondary
   line-height: $gap * 3

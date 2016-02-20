@@ -16,7 +16,14 @@ $assets = array();
 
 $js_path = PATH.'assets/js/';
 $css_path = PATH.'assets/css/';
-$assets['javascripts'] = array();
+$assets['javascripts'] = array(
+  $js_path . 'vendor/jquery-2.2.0.min.js',
+  $js_path . 'vendor/TweenMax.min.js',
+  $js_path . 'vendor/TimelineMax.min.js',
+  $js_path . 'vendor/CSSPlugin.min.js',
+  $js_path . 'build/app.js',
+  $js_path . 'build/animations.js',
+);
 $assets['stylesheets'] = array(
   $css_path . 'vendor/normalize.css',
   $css_path . 'build/application.css',
