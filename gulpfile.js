@@ -48,9 +48,7 @@ gulp.task('clean:app', function() {
 });
 
 gulp.task('clean:dist', function() {
-  return del([
-    distAssets + 'stylesheets/*.css',
-  ]);
+  return del( distAssets );
 });
 
 // PHP
@@ -72,6 +70,27 @@ gulp.task( 'jsVendor', function() {
   return gulp
     .src( src + 'js/**/*.js' )
     .pipe( gulp.dest( appAssets + 'js/vendor' ) )
+});
+
+// Move font files to dist/assets
+gulp.task( 'fonts', function() {
+  return gulp
+    .src( appAssets + 'fonts/**' )
+    .pipe( gulp.dest( distAssets + 'fonts' ) )
+});
+
+// Move images to dist/assets
+gulp.task( 'images', function() {
+  return gulp
+    .src( appAssets + 'images/**' )
+    .pipe( gulp.dest( distAssets + 'images' ) )
+});
+
+// Move videos to dist/assets
+gulp.task( 'videos', function() {
+  return gulp
+    .src( appAssets + 'videos/**' )
+    .pipe( gulp.dest( distAssets + 'videos' ) )
 });
 
 // SASS
@@ -139,7 +158,8 @@ gulp.task( 'default', function(callback) {
 
 // Production
 gulp.task( 'prod', function(callback) {
-  runSequence( 'clean:dist', 'styles', 'cssnano',
+  runSequence( 'clean:dist',
+    [ 'fonts', 'images', 'videos', 'styles', 'cssnano' ],
     callback
   )
 })
