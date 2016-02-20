@@ -13,12 +13,20 @@ body
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
+// Video background
+.video-bg
+  +center('horizontal')
+  bottom: 0
+  +square(auto)
+  min-width: 100%
+  min-height: 100%
+  z-index: $zHidden
+
 // Wrappers
 .main
   position: relative
   +size(100vw, 100vh)
-  background: url(#{$imagePath}home-bg.jpg) no-repeat center center
-  background-size: cover
+  overflow: hidden
 
   &::before
     content: ""
@@ -33,3 +41,4 @@ body
 
 .section-content
   +center('both')
+  z-index: $zBase

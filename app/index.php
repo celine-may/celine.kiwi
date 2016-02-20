@@ -45,10 +45,24 @@ include('controllers/' . $controller . 'Controller.php');
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
   <main class="main">
+    <video loop poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
+      <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
+      <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
+      <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
+    </video>
+
     <?php if (is_file("views/$controller.php")) include("views/$controller.php"); ?>
   </main>
 
   <button class="link contact-link">contact</button>
+
+  <script type="text/javascript">
+    var video = document.getElementsByTagName("video")[0];
+    playVideo = function() {
+      video.play();
+    }
+    video.addEventListener('canplay', playVideo(), true);
+  </script>
 
   <?php foreach ($assets['javascripts'] as $file_path) : ?>
     <script src="<?php echo $file_path; ?>"></script>

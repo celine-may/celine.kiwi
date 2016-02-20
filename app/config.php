@@ -4,6 +4,7 @@
 define('PATH', '/celine.kiwi/app/');
 define('EMAIL', 'celine.may@gmail.com');
 define('IMAGES_PATH', PATH . 'assets/images/');
+define('VIDEOS_PATH', PATH . 'assets/videos/');
 
 
 // Errors display
