@@ -19,5 +19,5 @@ $css_path = PATH.'assets/css/';
 $assets['javascripts'] = array();
 $assets['stylesheets'] = array(
   $css_path . 'vendor/normalize.css',
-  $css_path . 'application.css',
+  $css_path . 'build/application.css',
 );
