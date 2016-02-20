@@ -110,6 +110,13 @@ gulp.task( 'videos', function() {
     .pipe( gulp.dest( distAssets + 'videos' ) )
 });
 
+// Move svgs to dist/assets
+gulp.task( 'svgs', function() {
+  return gulp
+    .src( appAssets + 'svgs/**' )
+    .pipe( gulp.dest( distAssets + 'svgs' ) )
+});
+
 // SASS
 gulp.task( 'sass', function() {
   return gulp
@@ -193,7 +200,7 @@ gulp.task( 'default', function(callback) {
 // Production
 gulp.task( 'prod', function(callback) {
   runSequence( 'clean:dist',
-    [ 'php', 'fonts', 'images', 'videos', 'cssconcat', 'jsconcat' ],
+    [ 'php', 'fonts', 'images', 'videos', 'svgs', 'cssconcat', 'jsconcat' ],
     [ 'cssnano', 'uglify' ],
     callback
   )
