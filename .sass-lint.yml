@@ -33,7 +33,7 @@ rules:
   indentation:
     - 1
     -
-      size: 1
+      size: 2
   property-sort-order:
     - 1
     -
