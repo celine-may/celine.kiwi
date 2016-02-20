@@ -1,0 +1,10 @@
+.sass-cache
+_templates
+node_modules
+app/assets/css
+app/assets/js
+dist
+
+*.sublime-project
+*.sublime-workspace
+.DS_Store
