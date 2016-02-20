@@ -1,0 +1,36 @@
+// OVERLAY
+// -----------------
+
+.overlay
+  +position(fixed, 0, null, null, 0)
+  +square(100%)
+  z-index: $zTop
+
+.overlay-panel
+  +position(absolute, null, null, null, 0)
+  +size(100%, 50%)
+  background-color: $secondary
+
+  &.top
+    top: 0
+
+    &::before
+      content: ""
+      display: block
+      +square(100%)
+      background-color: rgba($primary, .1)
+
+  &.bottom
+    bottom: 0
+
+.overlay-content
+  +center('both')
+  width: 600px
+  text-align: center
+  z-index: $zBase
+
+.overlay-close
+  display: inline-block
+  +position(absolute, 0, -41px)
+  +square(26px)
+  color: $white
