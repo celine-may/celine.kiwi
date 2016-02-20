@@ -3,20 +3,25 @@ var gulp = require( 'gulp' );
 var changed = require( 'gulp-changed' );
 var livereload = require( 'gulp-livereload' );
 var gutil = require( 'gulp-util' );
+var rename = require( 'gulp-rename' );
 var sass = require( 'gulp-sass' );
 var sourcemaps = require( 'gulp-sourcemaps' );
 var autoprefixer = require( 'gulp-autoprefixer' );
 var sassLint = require( 'gulp-sass-lint' );
 var coffee = require( 'gulp-coffee' );
 var coffeelint = require( 'gulp-coffeelint' );
+var concat = require( 'gulp-concat' );
+var cssnano = require( 'gulp-cssnano' );
 var del = require( 'del' );
 var runSequence = require( 'run-sequence' );
 
 
 // Variables
-var app = 'app/'
+var app = 'app/';
 var src = app + 'src/';
 var appAssets = app + 'assets/';
+var dist = 'dist/';
+var distAssets = dist + 'assets/';
 
 // Options
 var sassOptions = {
@@ -29,13 +34,22 @@ var coffeeOptions = {
 var coffeeLintOptions = {
   optFile: 'coffeelint.json',
 };
+var renameOptions = {
+  suffix: '.min',
+};
 
 // TASKS
 // Clean
-gulp.task('clean:src', function() {
+gulp.task('clean:app', function() {
   return del([
     appAssets + 'css/**/*.css',
     appAssets + 'js/**/*.js',
+  ]);
+});
+
+gulp.task('clean:dist', function() {
+  return del([
+    distAssets + 'stylesheets/*.css',
   ]);
 });
 
@@ -72,8 +86,25 @@ gulp.task( 'sass', function() {
     .pipe( sassLint() )
     .pipe( sassLint.format() )
     .pipe( sassLint.failOnError() )
-    .pipe( gulp.dest( appAssets + 'css' ) )
+    .pipe( gulp.dest( appAssets + 'css/build' ) )
     .pipe( livereload() )
+});
+
+// CSS Concat
+gulp.task( 'styles', function() {
+  return gulp
+    .src( [appAssets + 'css/vendor/*.css', appAssets + 'css/build/*.css'] )
+    .pipe( concat( 'application.css' ) )
+    .pipe( gulp.dest( appAssets + 'css' ) )
+});
+
+// CSS Minification
+gulp.task( 'cssnano', function() {
+  return gulp
+    .src( appAssets + 'css/*.css' )
+    .pipe( cssnano() )
+    .pipe( rename( renameOptions ) )
+    .pipe( gulp.dest( distAssets + 'stylesheets' ) )
 });
 
 // CoffeeScript
@@ -100,8 +131,15 @@ gulp.task( 'watch', function() {
 
 // Development
 gulp.task( 'default', function(callback) {
-  runSequence( 'clean:src', 'cssVendor', 'jsVendor',
+  runSequence( 'clean:app', 'cssVendor', 'jsVendor',
     [ 'sass', 'coffee', 'watch' ],
+    callback
+  )
+})
+
+// Production
+gulp.task( 'prod', function(callback) {
+  runSequence( 'clean:dist', 'styles', 'cssnano',
     callback
   )
 })
