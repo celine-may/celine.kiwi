@@ -184,7 +184,7 @@ gulp.task( 'default', function(callback) {
     [ 'sass', 'coffee', 'watch' ],
     callback
   )
-})
+});
 
 // Production
 gulp.task( 'prod', function(callback) {
@@ -193,4 +193,4 @@ gulp.task( 'prod', function(callback) {
     [ 'cssnano', 'uglify' ],
     callback
   )
-})
+});
