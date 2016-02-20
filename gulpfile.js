@@ -54,11 +54,11 @@ gulp.task('clean:app', function() {
 });
 
 gulp.task('clean:dist', function() {
-  return del( distAssets );
+  return del( dist );
 });
 
 // PHP
-gulp.task('php', function() {
+gulp.task('phpWatch', function() {
   return gulp
     .src( app + '**/*.php' )
     .pipe( livereload() )
@@ -76,6 +76,13 @@ gulp.task( 'jsVendor', function() {
   return gulp
     .src( src + 'js/**/*.js' )
     .pipe( gulp.dest( appAssets + 'js/vendor' ) )
+});
+
+// Move php files to dist
+gulp.task( 'php', function() {
+  return gulp
+    .src( [ app + '**/*.php', '!' + app + 'config.php' ] )
+    .pipe( gulp.dest( dist ) )
 });
 
 // Move font files to dist/assets
@@ -166,7 +173,7 @@ gulp.task( 'uglify', function() {
 // Watch
 gulp.task( 'watch', function() {
   livereload.listen();
-  gulp.watch( app + '**/*.php', ['php'] );
+  gulp.watch( app + '**/*.php', ['phpWatch'] );
   gulp.watch( src + 'sass/**/*.sass', ['sass'] );
   gulp.watch( src + 'coffee/**/*.coffee', ['coffee'] );
 });
@@ -182,7 +189,7 @@ gulp.task( 'default', function(callback) {
 // Production
 gulp.task( 'prod', function(callback) {
   runSequence( 'clean:dist',
-    [ 'fonts', 'images', 'videos', 'cssconcat', 'jsconcat' ],
+    [ 'php', 'fonts', 'images', 'videos', 'cssconcat', 'jsconcat' ],
     [ 'cssnano', 'uglify' ],
     callback
   )
