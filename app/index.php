@@ -54,7 +54,7 @@ include('controllers/' . $controller . 'Controller.php');
     <?php if (is_file("views/$controller.php")) include("views/$controller.php"); ?>
   </main>
 
-  <button class="link contact-link">contact</button>
+  <a href="mailto:hello@celine.kiwi" class="link contact-link">contact</a>
 
   <script type="text/javascript">
     var video = document.getElementsByTagName("video")[0];

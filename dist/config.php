@@ -1,7 +1,7 @@
 <?php
 
 // Global variables + SMTP init
-define('PATH', '/celine.kiwi/');
+define('PATH', '/');
 define('EMAIL', 'celine.may@gmail.com');
 define('IMAGES_PATH', PATH . 'assets/images/');
 define('VIDEOS_PATH', PATH . 'assets/videos/');
