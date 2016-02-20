@@ -16,4 +16,7 @@ $assets = array();
 $js_path = PATH.'assets/js/';
 $css_path = PATH.'assets/css/';
 $assets['javascripts'] = array();
-$assets['stylesheets'] = array();
+$assets['stylesheets'] = array(
+  $css_path . 'vendor/normalize.css',
+  $css_path . 'application.css',
+);

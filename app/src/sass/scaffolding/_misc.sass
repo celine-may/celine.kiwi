@@ -1,0 +1,28 @@
+// MISC
+// -----------------
+
+.no-scroll
+  overflow: hidden
+
+.faded-out
+  opacity: 0
+
++max-screen($small)
+  .small-hidden
+    display: none!important
+
++min-screen($small + 1px)
+  .small-only
+    display: none!important
+
++min-screen($medium + 1px)
+  .large-hidden
+    display: none!important
+
++max-screen($medium)
+  .large-only
+    display: none!important
+
++max-screen-height($short)
+  .short-hidden
+    display: none!important

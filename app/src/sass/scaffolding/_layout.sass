@@ -1,0 +1,35 @@
+// LAYOUT
+// -----------------
+
+*
+  box-sizing: border-box
+
+html, body
+  position: relative
+  +square(100%)
+
+body
+  font-size: 100%
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+// Wrappers
+.main
+  position: relative
+  +size(100vw, 100vh)
+  background: url(#{$imagePath}home-bg.jpg) no-repeat center center
+  background-size: cover
+
+  &::before
+    content: ""
+    +position(absolute, $gap, null, null, $gap)
+    +calc(width, "100% - #{$gap * 2}")
+    +calc(height, "100% - #{$gap * 2}")
+    background-color: $black
+    opacity: .3
+
+.section
+  +square(100%)
+
+.section-content
+  +center('both')

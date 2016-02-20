@@ -1,0 +1,163 @@
+// MIXINS
+// -----------------
+
+// LAYOUT
+// Position shorthand
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null)
+  position: $position
+  @if $top != null
+    top: $top
+  @if $right != null
+    right: $right
+  @if $bottom != null
+    bottom: $bottom
+  @if $left != null
+    left: $left
+
+// Horizontal and/or vertical align
+@mixin center($direction)
+  @if $direction == 'both'
+    +position(absolute, 50%, null, null, 50%)
+    transform: translateY(-50%) translateX(-50%)
+  @if $direction == 'horizontal'
+    +position(absolute, null, null, null, 50%)
+    transform: translateX(-50%)
+  @if $direction == 'vertical'
+    +position(absolute, 50%)
+    transform: translateY(-50%)
+
+// Retina Image
+@mixin retina-image($img, $size, $ext: png)
+  background-image: url(#{$img}.#{$ext})
+  background-size: $size
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 2/1), (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx)
+    background-image: url(#{$img}@2x.#{$ext})
+
+// Size shorthand
+@mixin size($width, $height)
+  width: $width
+  height: $height
+
+// Square shorthand
+@mixin square($size)
+  +size($size, $size)
+
+@mixin aspect-ratio($width, $height)
+  &:before
+    content: ""
+    display: block
+    width: 100%
+    padding-top: ($height / $width) * 100%
+
+  > .content
+    +position(absolute, 0, 0, 0, 0)
+
+// Font shorthand
+@mixin font($color: null, $family: null, $size: null, $weight: null, $style: null, $lineHeight: null)
+  @if $color != null
+    color: $color
+  @if $family != null
+    font-family: $family
+  @if $size != null
+    font-size: $size
+  @if $style != null
+    font-style: $style
+  @if $weight != null
+    font-weight: $weight
+  @if $lineHeight != null
+    line-height: $lineHeight
+
+@mixin multilineEllipsis($width, $fontSize, $lineHeight, $linesToShow)
+  display: block // Fallback for non-webkit
+  display: -webkit-box
+  max-width: $width
+  max-height: $fontSize * $lineHeight * $linesToShow // Fallback for non-webkit
+  font-size: $fontSize
+  line-height: $lineHeight
+  -webkit-line-clamp: $linesToShow
+  -webkit-box-orient: vertical
+  overflow: hidden
+  text-overflow: ellipsis
+
+
+// CSS3
+// Appearance
+@mixin appearance($value)
+  -webkit-appearance: $value
+  -moz-appearance: $value
+  -o-appearance: $value
+  -ms-appearance: $value
+  appearance: $value
+
+// Calc
+@mixin calc($property, $value)
+  #{$property}: calc( #{$value} )
+
+// Filter
+@mixin filter($property)
+  -webkit-filter: $property
+  -moz-filter: $property
+  -o-filter: $property
+  -ms-filter: $property
+  filter: $property
+
+// CSS Shapes
+@mixin triangle($size, $color, $direction)
+  +square(0)
+  border-width: $size
+  border-style: solid
+  border-color: transparent
+  border-#{$direction}-color: $color
+
+@mixin trapezoid($width, $height, $direction, $color, $slant)
+  +size($width, 0)
+  border-#{$direction}: $height solid $color
+  border-left: $slant solid transparent
+  border-right: $slant solid transparent
+  box-sizing: content-box
+
+// Image replacement
+%image-replacement
+  overflow: hidden
+  text-indent: 100%
+  white-space: nowrap
+
+%text-overflow
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+%text-hidden
+  position: absolute
+  +square(1px)
+  margin: -1px
+  padding: 0
+  border: 0
+  clip: rect(0 0 0 0)
+  overflow: hidden
+
+// MEDIA QUERIES
+// Max width
+@mixin max-screen($res)
+  @media screen and (max-width: $res)
+    @content
+
+// min width
+@mixin min-screen($res)
+  @media screen and (min-width: $res)
+    @content
+
+@mixin min-max-screen($minRes, $maxRes)
+  @media screen and (min-width: $minRes) and (max-width: $maxRes)
+    @content
+
+// Max height
+@mixin max-screen-height($res)
+  @media screen and (max-height: $res)
+    @content
+
+// Min height
+@mixin min-screen-height($res)
+  @media screen and (min-height: $res)
+    @content
