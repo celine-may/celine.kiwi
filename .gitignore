@@ -3,7 +3,10 @@ _templates
 node_modules
 app/assets/css
 app/assets/js
-dist
+dist/assets
+dist/controllers
+dist/views
+dist/index.php
 
 *.sublime-project
 *.sublime-workspace
