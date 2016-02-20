@@ -1,0 +1,36 @@
+// FORM
+// -----------------
+
+.form
+   padding: 0 $gap * 2
+
+.form-group
+  margin-bottom: $gap * 2
+  text-align: left
+
+.form-input
+  @extend %copy
+  width: 100%
+  margin-bottom: $gap / 2
+  padding: $gap / 3 0
+  border-color: $primary
+  border-style: solid
+  border-width: 0 0 2px 0
+  color: rgba($primary, .9)
+
+.form-textarea
+  @extend .form-input
+  padding: $gap / 2
+  border-width: 2px
+
+.form-label
+  display: block
+  width: 100%
+  +font($primary, $sansSerif, 1.0625rem, 500)
+
+.form-btn
+  +position(relative, null, null, null, -$gap * 2)
+  +calc(width, "100% + #{$gap * 4}")
+  background-color: $primary
+  color: $secondary
+  line-height: $gap * 3

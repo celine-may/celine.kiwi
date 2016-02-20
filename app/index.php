@@ -52,6 +52,12 @@ $view = isset($q[0]) ? $q[0] : 'home';
 
   <button class="link contact-link">contact</button>
 
+  <div class="overlay">
+    <div class="overlay-panel top"></div>
+    <div class="overlay-panel bottom"></div>
+    <?php include("sections/contact.php"); ?>
+  </div>
+
   <script type="text/javascript">
     var video = document.getElementsByTagName("video")[0];
     playVideo = function() {
