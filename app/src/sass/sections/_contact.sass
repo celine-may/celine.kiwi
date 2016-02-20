@@ -1,0 +1,14 @@
+// CONTACT
+// -----------------
+
+// Link
+.contact-link
+  +position(fixed, 50%, $gap * 2)
+  color: $white
+  font-size: .875rem
+  transform-origin: top left
+  transform: translateX(100%) rotate(90deg) translateX(-50%)
+  transition: letter-spacing $transitionDuration $transitionFunction
+
+  &:hover
+    letter-spacing: 2px

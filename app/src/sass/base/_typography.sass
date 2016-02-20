@@ -8,11 +8,21 @@ svg
   +square(100%)
   fill: currentColor
 
+%mainCopy
+  +font(null, $sansSerif, null, 700)
+  text-transform: uppercase
+
+%copy
+  +font(null, $serif, null, 400, italic, 1.4)
+
 // Headings
 .title
   margin-bottom: $gap
-  +font($white, $sansSerif, null, 700)
-  text-transform: uppercase
+  @extend %mainCopy
 
 .lead
-  +font(null, $serif, null, 400, italic, 1.4)
+  @extend %copy
+
+// Links
+.link
+  @extend %mainCopy

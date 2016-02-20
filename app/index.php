@@ -40,19 +40,18 @@ include('controllers/' . $controller . 'Controller.php');
   </script>
 </head>
 
-<body class="<?php echo $controller; ?>">
+<body>
 
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
   <main class="main">
-    <?php
-      if (is_file("views/$controller.php")) include("views/$controller.php");
-      if (is_file("views/$controller/$view.php")) include("views/$controller/$view.php");
-    ?>
+    <?php if (is_file("views/$controller.php")) include("views/$controller.php"); ?>
   </main>
 
+  <button class="link contact-link">contact</button>
+
   <?php foreach ($assets['javascripts'] as $file_path) : ?>
-    <script src="<?php echo $file_path ?>"></script>
+    <script src="<?php echo $file_path; ?>"></script>
   <?php endforeach; ?>
 </body>
 </html>
