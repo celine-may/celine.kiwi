@@ -23,8 +23,9 @@ $assets['javascripts'] = array(
   $js_path . 'vendor/TimelineMax.min.js',
   $js_path . 'vendor/CSSPlugin.min.js',
   $js_path . 'build/app.js',
-  $js_path . 'build/animations.js',
-  $js_path . 'build/form.js',
+  $js_path . 'build/renderer.js',
+  $js_path . 'build/layout/animation.js',
+  $js_path . 'build/base/form.js',
 );
 $assets['stylesheets'] = array(
   $css_path . 'vendor/normalize.css',

@@ -33,8 +33,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <script>
     window.App = {};
     App.path = "<?php echo PATH; ?>";
-    App.deviceSize = 196;
-    App.deviceBorder = 16;
+    App.FXs = [];
   </script>
 </head>
 
