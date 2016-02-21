@@ -137,10 +137,10 @@ gulp.task( 'sass', function() {
       outputStyle: 'expanded',
     }))
     .pipe( sourcemaps.write() )
-    .pipe( autoprefixer() )
     .pipe( sassLint() )
     .pipe( sassLint.format() )
     .pipe( sassLint.failOnError() )
+    .pipe( autoprefixer() )
     .pipe( gulp.dest( appAssets + 'css/build' ) )
     .pipe( livereload() )
 });
