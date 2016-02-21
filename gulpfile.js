@@ -1,5 +1,7 @@
 // Require
 var gulp = require( 'gulp' );
+var plumber = require( 'gulp-plumber' );
+var notify = require( 'gulp-notify' );
 var changed = require( 'gulp-changed' );
 var livereload = require( 'gulp-livereload' );
 var gutil = require( 'gulp-util' );
@@ -24,11 +26,8 @@ var appAssets = app + 'assets/';
 var dist = 'dist/';
 var distAssets = dist + 'assets/';
 
+
 // Options
-var sassOptions = {
-  errLogToConsole: true,
-  outputStyle: 'expanded'
-};
 var coffeeOptions = {
   bare: true,
 };
@@ -42,6 +41,15 @@ var uglifyOptions = {
 };
 var renameOptions = {
   suffix: '.min',
+};
+
+var onError = function(error) {
+  notify.onError({
+    title: "<%= error.plugin %> error",
+    message:  "Error: <%= error.message %>",
+    sound:    "Sosumi"
+  }) (error);
+  this.emit('end');
 };
 
 // TASKS
@@ -121,9 +129,13 @@ gulp.task( 'svgs', function() {
 gulp.task( 'sass', function() {
   return gulp
     .src( src + 'sass/*.sass' )
+    .pipe( plumber( { errorHandler: onError } ) )
     .pipe( changed( src + 'css', { extension: '.css' } ) )
     .pipe( sourcemaps.init() )
-    .pipe( sass( sassOptions ).on( 'error', sass.logError ) )
+    .pipe( sass({
+      errLogToConsole: true,
+      outputStyle: 'expanded',
+    }))
     .pipe( sourcemaps.write() )
     .pipe( autoprefixer() )
     .pipe( sassLint() )
