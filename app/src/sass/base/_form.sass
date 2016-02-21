@@ -2,21 +2,28 @@
 // -----------------
 
 .form
-   padding: 0 $gap * 2
+  position: relative
+  +square(100%)
+  padding: 52px $gap * 2 0
+  overflow: hidden
 
 .form-group
   margin-bottom: $gap * 2
   text-align: left
 
 .form-input
-  @extend %copy
   width: 100%
   margin-bottom: $gap / 2
   padding: $gap / 3 0
   border-color: $primary
   border-style: solid
   border-width: 0 0 2px 0
+  @extend %bodyCopy
   color: rgba($primary, .9)
+  font-style: italic
+
+  .error &
+    border-color: $error
 
 .form-textarea
   @extend .form-input
@@ -28,6 +35,9 @@
   width: 100%
   +font($primary, $sansSerif, 1.0625rem, 500)
 
+  .error &
+    color: $error
+
 .form-action
   +position(absolute, null, null, 0, 0)
   width: 100%
@@ -36,3 +46,51 @@
   background-color: $primary
   color: $secondary
   line-height: $gap * 3
+
+// Error message
+.form-error
+  +position(absolute, null, null, 0, 0)
+  width: 100%
+  background-color: $error
+  @extend %mainCopy
+  color: $white
+  line-height: $gap * 3
+
+// Success message
+.form-success
+  display: table
+  +position(absolute, 0, null, null, 0)
+  +square(100%)
+  opacity: 0
+  background-color: rgba($primary, .2)
+
+.form-success-bg
+  +position(absolute, 0, null, null, 0)
+  +square(100%)
+  border-color: $white
+  border-style: solid
+  border-width: $overlayContent / 2 $deviceBorder
+
+.form-success-copy
+  position: relative
+  display: table-cell
+  padding-bottom: $gap
+  color: $white
+  letter-spacing: 2px
+  vertical-align: middle
+
+// Placeholders
+::-webkit-input-placeholder
+  color: $primary
+  font-style: italic
+  opacity: .4
+
+::-moz-placeholder
+  color: $primary
+  font-style: italic
+  opacity: .4
+
+\:-ms-input-placeholder
+  color: $primary
+  font-style: italic
+  opacity: .4
