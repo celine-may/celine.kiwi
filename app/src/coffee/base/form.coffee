@@ -16,6 +16,7 @@ class App.Form
     @$contactElements = @$contactContent.find '.contact-title, .contact-lead, .form-group, .form-action'
 
     @$formError = undefined
+    @$formSuccess = undefined
 
     # Variables
     @send = false
@@ -55,7 +56,8 @@ class App.Form
 
   validateForm: ->
     @send = true
-
+    @showSuccessMessage()
+    return
     @$form
       .find '.error'
       .removeClass 'error'
@@ -88,7 +90,8 @@ class App.Form
         console.log 'error'
 
   showSuccessMessage: ->
-    $formSuccess = $("""
+    @exports.formSuccess = true
+    @$formSuccess = $("""
 <div class="form-success">
   <div class="form-success-bg"></div>
   <div class="form-success-copy">
@@ -96,23 +99,30 @@ class App.Form
     <p class="lead">I'll be in touch shortly.</p>
   </div>
 </div>""")
-    @$contactContent.append $formSuccess
+    @$contactContent.append @$formSuccess
 
     successTL = new TimelineMax()
     .staggerTo @$contactElements, .3,
       opacity: 0
-    , .2
+    , .15
     .set @$contactContent,
       backgroundColor: 'transparent'
-    .set $formSuccess,
+    .set @$formSuccess,
       opacity: 1
-    .to $formSuccess.find('.form-success-bg'), .3,
+    .to @$formSuccess.find('.form-success-bg'), .3,
       borderWidth: "#{@exports.deviceBorder}px"
-    .fromTo $formSuccess.find('.form-success-copy'), .3,
+    .fromTo @$formSuccess.find('.form-success-copy'), .3,
       opacity: 0
     ,
       opacity: 1
       ease: Power2.easeOut
+
+  resetForm: ->
+    TweenLite.set @$contactElements,
+      opacity: 1
+    TweenLite.set @$contactContent,
+      backgroundColor: '#ffffff'
+    @$formSuccess.remove()
 
   resize: ->
 

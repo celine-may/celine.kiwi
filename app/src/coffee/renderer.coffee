@@ -9,11 +9,12 @@ class Renderer
   init: ->
     exports = @exports =
       path: App.path
-      view: App.view
+      section: 'home'
       windowWidth: @$window.width()
       windowHeight: @$window.height()
       deviceSize: 196
       deviceBorder: 16
+      overlaySize: 600
       controllers: []
     fxs = @fxs
     fxs.sort (a, b) ->

@@ -6,7 +6,7 @@ class App.Animation
     exports.AnimationController = @
     exports.controllers.push @
 
-    @contactTL = undefined
+    @homeToContactTL = undefined
 
     @init exports
 
@@ -16,7 +16,8 @@ class App.Animation
     @$device = $('.device')
     @$sectionContent = $('.home .section-content')
     @$overlay = $('.overlay')
-    @$overlayPanels = @$overlay.find '.overlay-panel'
+    @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
+    @$overlayPanelBottom = @$overlay.find '.overlay-panel.bottom'
     @$overlayContent = @$overlay.find '.overlay-content.contact'
     @$overlayClose = @$overlay.find '.overlay-close'
     @$contactElements = @$overlayContent.find '.contact-title, .contact-lead, .form-group, .form-action'
@@ -25,27 +26,104 @@ class App.Animation
     @$hideContactLink = $('.do-hide-contact')
 
     @setDevicePosition exports
-    yPos = (exports.windowHeight - exports.deviceSize) / 2 - @posTop
+    @yPos = (exports.windowHeight - exports.deviceSize) / 2 - @posTop
 
-    @contactTL = new TimelineMax
+    @initTimelines exports
+
+    @$showContactLink.on 'click', (e) =>
+      e.preventDefault()
+      @showContact exports
+
+    @$hideContactLink.on 'click', (e) =>
+      e.preventDefault()
+      @hideContact exports
+
+  setDevicePosition: (exports) ->
+    @posTop = @$sectionContent.offset().top
+    @$device.css 'top', @posTop
+
+  showContact: (exports) ->
+    if exports.section is 'home'
+      @homeToContactTL.timeScale(.6).play(0)
+
+  hideContact: (exports) ->
+    if exports.formSuccess? and exports.formSuccess and exports.section is 'home'
+      contactTL2 = new TimelineMax
+        paused: true
+      .staggerTo $('.form-success-copy .title, .form-success-copy .lead'), .3,
+        opacity: 0
+      , .15
+      .to $('.form-success-bg'), .3,
+        borderWidth: "#{exports.overlaySize / 2}px #{exports.deviceBorder}px"
+      .to @$overlayClose, .15,
+        opacity: 0
+        x: -100
+      .to @$overlayContent, .3,
+        scale: .32667
+        ease: Power2.easeOut
+      .set @$overlayContent,
+        opacity: 0
+      .set @$device,
+        opacity: 1
+      .to @$overlayPanelTop, .3,
+        y: '-100%'
+      .to @$overlayPanelBottom, .3,
+        y: '100%'
+      , '-=.3'
+      .to @$device, .15,
+        borderWidth: "#{exports.deviceBorder}px"
+      , '-=.3'
+      .to [ @$device, @$logo ], .4,
+        y: 0
+        onComplete: ->
+          exports.FormController.resetForm()
+        ease: Power2.easeOut
+      .staggerTo @$homeElements, .3,
+        opacity: 1
+        y: 0
+      , .15, '-=.4'
+
+      contactTL2.timeScale(1.5).play()
+    else if exports.section is 'home'
+      @homeToContactTL.reverse()
+
+  initTimelines: (exports) ->
+    @homeToContactTL = new TimelineMax
       paused: true
-    .staggerTo @$homeElements, .3,
+    .fromTo [ @$device, @$logo ], .4,
+      y: 0
+    ,
+      y: @yPos
+      ease: Power2.easeOut
+    .staggerFromTo @$homeElements, .3,
+      opacity: 1
+      y: 0
+    ,
       opacity: 0
       y: 20
-    , .15
-    .to [ @$device, @$logo ], .4,
-      y: yPos
-      ease: Power2.easeOut
-    , '-=.6'
-    .to @$overlayPanels, .3,
-      y: 0
-    .to @$device, .15,
+    , .15, '-=.4'
+    .fromTo @$overlayPanelTop, .3,
+      y: '-100%'
+    ,
+      y: '0%'
+    .fromTo @$overlayPanelBottom, .3,
+      y: '100%'
+    ,
+      y: '0%'
+    , '-=.3'
+    .fromTo @$device, .15,
+      borderWidth: "#{exports.deviceBorder}"
+    ,
       borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}"
     , '-=.1'
-    .set @$overlayContent,
+    .fromTo @$overlayContent, 0,
+      opacity: 0
+    ,
       opacity: 1
     , '+=.2'
-    .set @$device,
+    .fromTo @$device, 0,
+      opacity: 1
+    ,
       opacity: 0
     .fromTo @$overlayContent, .3,
       scale: .32667
@@ -65,23 +143,6 @@ class App.Animation
     ,
       x: 0
     , '-=.1'
-
-    @$showContactLink.on 'click', (e) =>
-      e.preventDefault()
-      @showContact()
-    @$hideContactLink.on 'click', (e) =>
-      e.preventDefault()
-      @hideContact()
-
-  setDevicePosition: (exports) ->
-    @posTop = @$sectionContent.offset().top
-    @$device.css 'top', @posTop
-
-  showContact: ->
-    @contactTL.timeScale(.6).play()
-
-  hideContact: ->
-    @contactTL.reverse()
 
   resize: (exports) ->
     @setDevicePosition exports
