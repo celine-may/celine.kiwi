@@ -44,7 +44,7 @@ class App.Animation
 
   showContact: (exports) ->
     if exports.section is 'home'
-      @homeToContactTL.timeScale(.6).play(0)
+      @homeToContactTL.timeScale(.8).play(0)
 
   hideContact: (exports) ->
     if exports.formSuccess? and exports.formSuccess and exports.section is 'home'
@@ -83,7 +83,7 @@ class App.Animation
         y: 0
       , .15, '-=.4'
 
-      contactTL2.timeScale(1.5).play()
+      contactTL2.timeScale(.8).play()
     else if exports.section is 'home'
       @homeToContactTL.reverse()
 

@@ -56,8 +56,7 @@ class App.Form
 
   validateForm: ->
     @send = true
-    @showSuccessMessage()
-    return
+
     @$form
       .find '.error'
       .removeClass 'error'
@@ -101,7 +100,8 @@ class App.Form
 </div>""")
     @$contactContent.append @$formSuccess
 
-    successTL = new TimelineMax()
+    successTL = new TimelineMax
+      paused: true
     .staggerTo @$contactElements, .3,
       opacity: 0
     , .15
@@ -116,6 +116,8 @@ class App.Form
     ,
       opacity: 1
       ease: Power2.easeOut
+
+    successTL.timeScale(.8).play()
 
   resetForm: ->
     TweenLite.set @$contactElements,
