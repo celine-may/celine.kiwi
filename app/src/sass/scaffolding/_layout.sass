@@ -36,9 +36,10 @@ body
     background-color: $black
     opacity: .2
 
-.section
-  +square(100%)
-
-.section-content
-  +center('both')
-  z-index: $zBase
+// Device
+.device
+  +center('horizontal')
+  display: inline-block
+  +square($device)
+  border: 16px solid $white
+  z-index: $zXTop

@@ -4,18 +4,15 @@ include('config.php');
 
 /* Request */
 $q = isset($_GET['q']) ? explode('/', $_GET['q']) : array();
-$controller = isset($q[0]) ? $q[0] : 'home';
-$view = isset($q[1]) ? $q[1] : '';
-
-include('controllers/' . $controller . 'Controller.php');
+$view = isset($q[0]) ? $q[0] : 'home';
 
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
 
-  <title><?php echo $pageTitle; ?></title>
-  <meta name="description" content="<?php echo $pageDescription; ?>">
+  <title>Celine Rufener | Digital Alchemist &amp; Front End Developer | Auckland, New Zealand</title>
+  <meta name="description" content="I am an Auckland based front end developer with a passion for code and bringing designs to life.">
 
   <meta property="og:site_name" content="Celine">
   <meta property="og:type" content="Website">
@@ -36,7 +33,7 @@ include('controllers/' . $controller . 'Controller.php');
   <script>
     window.App = {};
     App.path = "<?php echo PATH; ?>";
-    App.controller = "<?php echo $controller; ?>";
+    App.FXs = [];
   </script>
 </head>
 
@@ -45,23 +42,31 @@ include('controllers/' . $controller . 'Controller.php');
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
   <main class="main">
-    <video loop poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
+    <!-- <video loop poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
-    </video>
+    </video> -->
 
-    <?php if (is_file("views/$controller.php")) include("views/$controller.php"); ?>
+    <?php if (is_file("sections/$view.php")) include("sections/$view.php"); ?>
   </main>
 
-  <a href="mailto:hello@celine.kiwi" class="link contact-link">contact</a>
+  <button class="link contact-link do-show-contact">contact</button>
+
+  <div class="overlay">
+    <div class="overlay-panel top"></div>
+    <div class="overlay-panel bottom"></div>
+    <?php include("sections/contact.php"); ?>
+  </div>
+
+  <span class="device"></span>
 
   <script type="text/javascript">
-    var video = document.getElementsByTagName("video")[0];
-    playVideo = function() {
-      video.play();
-    }
-    video.addEventListener('canplay', playVideo(), true);
+    // var video = document.getElementsByTagName("video")[0];
+    // playVideo = function() {
+    //   video.play();
+    // }
+    // video.addEventListener('canplay', playVideo(), true);
   </script>
 
   <?php foreach ($assets['javascripts'] as $file_path) : ?>

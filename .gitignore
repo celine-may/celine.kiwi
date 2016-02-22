@@ -4,8 +4,8 @@ node_modules
 app/assets/css
 app/assets/js
 dist/assets
-dist/controllers
-dist/views
+dist/helpers
+dist/sections
 dist/index.php
 
 *.sublime-project
