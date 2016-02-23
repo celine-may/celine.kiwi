@@ -3,8 +3,12 @@
 
 .section
   position: relative
-  +square(100%)
+  width: 100%
+  min-height: 100vh
+  display: table
 
 .section-content
-  +center('both')
+  display: table-cell
+  padding: $gap * 2
+  vertical-align: middle
   z-index: $zBase

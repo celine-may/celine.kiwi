@@ -51,7 +51,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php if (is_file("sections/$view.php")) include("sections/$view.php"); ?>
   </main>
 
-  <button class="link contact-link do-show-contact">contact</button>
+  <button class="link contact-link small-hidden do-show-contact">contact</button>
 
   <div class="overlay">
     <div class="overlay-panel top"></div>
