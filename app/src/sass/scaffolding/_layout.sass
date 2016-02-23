@@ -9,7 +9,9 @@ html, body
   +square(100%)
 
 body
+  opacity: 0
   font-size: 100%
+  background-color: $secondary
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
@@ -27,8 +29,6 @@ body
   position: relative
   width: 100vw
   min-height: 100vh
-  background: url(#{$imagePath}home-bg.jpg) no-repeat center center
-  background-size: cover
   overflow: hidden
 
   &::before

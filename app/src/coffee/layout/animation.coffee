@@ -11,6 +11,7 @@ class App.Animation
     @init exports
 
   init: (exports) ->
+    @$body = $('body')
     @$homeElements = $('.home-title, .home-lead, .home-copy')
     @$logo = $('.shape-logo')
     @$device = $('.device')
@@ -29,6 +30,7 @@ class App.Animation
     @yPos = (exports.windowHeight - exports.deviceSize) / 2 - @posTop
 
     @initTimelines exports
+    @initApp()
 
     @$showContactLink.on 'click', (e) =>
       e.preventDefault()
@@ -41,6 +43,11 @@ class App.Animation
   setDevicePosition: (exports) ->
     @posTop = $('.logo').offset().top
     @$device.css 'top', @posTop
+
+  initApp: ->
+    TweenLite.to @$body, 1,
+      opacity: 1
+      delay: .75
 
   showContact: (exports) ->
     if exports.section is 'home'
