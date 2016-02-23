@@ -180,7 +180,7 @@ gulp.task( 'coffee', function() {
 // JS Concat
 gulp.task( 'jsconcat', function() {
   return gulp
-    .src( [appAssets + 'js/vendor/*.js', appAssets + 'js/build/*.js'] )
+    .src( [appAssets + 'js/vendor/*.js', appAssets + 'js/build/**/*.js'] )
     .pipe( concat( 'application.js' ) )
     .pipe( gulp.dest( appAssets + 'js' ) )
 });
