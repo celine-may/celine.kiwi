@@ -166,6 +166,7 @@ gulp.task( 'cssnano', function() {
 gulp.task( 'coffee', function() {
   gulp
     .src( src + 'coffee/**/*.coffee' )
+    .pipe( plumber( { errorHandler: onError } ) )
     .pipe( changed( src + 'js', { extension: '.js' } ) )
     .pipe( coffeelint( coffeeLintOptions ) )
     .pipe( coffeelint.reporter() )
