@@ -39,7 +39,7 @@ class App.Animation
       @hideContact exports
 
   setDevicePosition: (exports) ->
-    @posTop = @$sectionContent.offset().top
+    @posTop = $('.logo').offset().top
     @$device.css 'top', @posTop
 
   showContact: (exports) ->
