@@ -57,3 +57,36 @@
 
     &::after
       transform: translateY(1px)
+
+// Navigation
+.overlay-content.menu
+  border: $deviceBorder solid $white
+  color: $white
+
+  .overlay-close
+    +position(absolute, -$deviceBorder, -$deviceBorder - $gap * 2)
+
+.nav-item
+  display: block
+  margin: 64px 0
+  width: 100%
+  text-align: center
+
+.nav-copy
+  position: relative
+  display: inline-block
+  padding: 0 $gap * 1.5
+  +font(null, null, 2.375rem, null, null, .94)
+  letter-spacing: 4px
+  overflow: hidden
+
+  &::after
+    content: ""
+    +position(absolute, calc(50% - 2px), null, null, 0)
+    +size(100%, 2px)
+    background-color: $white
+    transform: translateX(calc(-100% - 1px))
+    transition: transform $transitionDuration $transitionFunction
+
+  .no-touchevents .nav-item:hover &::after, .active &::after
+    transform: translateX(0)

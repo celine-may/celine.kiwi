@@ -62,6 +62,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <div class="overlay">
     <div class="overlay-panel top"></div>
     <div class="overlay-panel bottom"></div>
+    <?php include("sections/menu.php"); ?>
     <?php include("sections/contact.php"); ?>
   </div>
 

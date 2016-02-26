@@ -24,12 +24,14 @@
 
 
 // Wrapper
-.overlay-content
+.overlay-content.contact
   background-color: $white
   color: $primary
 
-// Title
-.contact
+  .overlay-close
+    +position(absolute, 0, $gap * -2)
+
+  // Title
   .title
     font-size: 2.375rem
     letter-spacing: 8px
