@@ -1,0 +1,59 @@
+// MENU
+// -----------------
+
+// Menu button
+.menu-btn
+  +center('vertical')
+  left: $gap * 2
+  +size(24px, 84px)
+
+  &::before, &::after
+    content: ""
+    +position(absolute, null, null, null, 50%)
+    +size(1px, 24px)
+    background-color: $white
+    transition: transform $transitionDuration $transitionFunction
+
+  &::before
+    top: 0
+
+  &::after
+    bottom: 0
+
+  .no-touchevents &:hover
+    &::before
+      transform: translateY(-3px)
+
+    &::after
+      transform: translateY(3px)
+
+.burger
+  +center('both')
+  display: inline-block
+  +square(24px)
+  border: 1px solid $white
+
+.burger-layer
+  +position(absolute, 50%, null, null, 29%)
+  +size(42%, 1px)
+  background-color: $white
+
+  &::before, &::after
+    content: ""
+    +position(absolute, null, null, null, 0)
+    +square(100%)
+    background-color: $white
+    transition: transform $transitionDuration $transitionFunction
+
+  &::before
+    top: -3px
+
+  &::after
+    top: 3px
+
+  .no-touchevents .menu-btn:hover &
+    &::before
+      transform: translateY(-1px)
+
+    &::after
+      transform: translateY(1px)
