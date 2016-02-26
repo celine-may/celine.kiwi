@@ -1,0 +1,47 @@
+// SKILLS
+// -----------------
+
+.skills
+  color: $white
+  text-align: center
+
+// Title
+.skills-title
+  display: inline-block
+  font-size: 4.125rem
+  letter-spacing: 10px
+
+  &::after
+    +position(absolute, null, null, 0, 50%)
+    margin-left: $separator * -.5
+
+.skills-lead
+  max-width: 320px
+  margin: 0 auto $gap
+  font-size: 1.125rem
+
+// Skills list
+.skills-list
+  display: inline-block
+  width: $label * 3 + 16px
+  margin-bottom: $gap * 1.5
+  font-size: 0
+
+.skill-item
+  @extend .main-copy
+  display: inline-block
+  width: $label
+  margin-bottom: 8px
+  background-color: rgba($white, .3)
+  +font($white, null, 1.125rem, null, null, 38px)
+  text-align: center
+
+  &:nth-child(3n+2)
+    margin: 0 8px
+
+// Skills button
+.skills-btn
+  display: block
+  width: $label * 1.5
+  margin: 0 auto
+  background-color: $secondary

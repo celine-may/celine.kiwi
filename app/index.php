@@ -37,7 +37,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
   </script>
 </head>
 
-<body data-section="work">
+<body data-section="skills">
 
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
@@ -48,12 +48,12 @@ $view = isset($q[0]) ? $q[0] : 'home';
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
     </video>
 
-    <?php include('sections/work.php'); ?>
+    <?php include('sections/skills.php'); ?>
   </main>
 
-  <span class="device state3">
+  <!-- <span class="device">
     <span class="bg"></span>
-  </span>
+  </span> -->
 
   <button class="menu-btn do-show-menu">
     <span class="burger">
