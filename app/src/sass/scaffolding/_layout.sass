@@ -74,3 +74,10 @@ body
       +square(100%)
       background-color: $white
       z-index: $zBase
+
+  &.state3
+    +position(absolute, $gap, null, null, $gap)
+    +square(calc(100% - #{$gap * 2}))
+    margin: 0
+    background-color: $white
+    z-index: $zBase

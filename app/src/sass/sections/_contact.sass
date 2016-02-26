@@ -6,9 +6,13 @@
   color: $white
   font-size: .875rem
   transition: letter-spacing $transitionDuration $transitionFunction
+  z-index: $zXTop
 
   &:hover
     letter-spacing: 2px
+
+  body[data-section="work"] &
+    color: $primary
 
   +max-screen($small)
     display: inline-block

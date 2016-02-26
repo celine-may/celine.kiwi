@@ -6,7 +6,7 @@
       </svg>
     </span>
     <h1 class="title home-title">Celine Rufener</h1>
-    <h2 class="home-lead body-copy">Digital Alchemist &amp; Front&nbsp;End&nbsp;Developer</h2>
+    <h2 class="home-lead lead">Digital Alchemist &amp; Front&nbsp;End&nbsp;Developer</h2>
 
     <a href="mailto:hello@celine.kiwi" class="link contact-link small-only">contact</a>
   </div>

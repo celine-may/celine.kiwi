@@ -95,7 +95,7 @@ class App.Form
   <div class="fs-bg"></div>
   <div class="fs-copy">
     <p class="fs-title contact-title title">Thanks for your message.</p>
-    <p class="fs-lead contact-lead body-copy">I'll be in touch shortly.</p>
+    <p class="fs-lead contact-lead lead">I'll be in touch shortly.</p>
   </div>
 </div>""")
     @$contactContent.append @$formSuccess

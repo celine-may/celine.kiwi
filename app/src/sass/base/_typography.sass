@@ -4,35 +4,38 @@
 a
   text-decoration: none
 
-svg
-  +square(100%)
-  fill: currentColor
-
 .main-copy
   +font(null, $sansSerif, null, 700)
   text-transform: uppercase
 
 .body-copy
-  +font(null, $serif, null, 400, italic, 1.4)
+  +font(null, $serif, null, 400, normal, 1.4)
 
 // Headings
 .title
   @extend .main-copy
   margin-bottom: $gap
 
+.lead
+  @extend .body-copy
+  font-style: italic
+
 // Separator
 .separator
   position: relative
+  margin-bottom: $gap
+  padding-bottom: $gap
 
   &::after
     content: ""
     +position(absolute, null, null, 0)
-    +size(26px, 2px)
+    +size($separator, 2px)
     background-color: currentColor
 
 // Buttons
 .btn
   @extend .main-copy
+  display: inline-block
   width: 100%
   background-color: rgba($primary, .2)
   +font($primary, null, .875rem, null, null, $gap * 2)
@@ -42,3 +45,11 @@ svg
 
   &.inverse
     background-color: $secondary
+
+// SVGs
+svg
+  +square(100%)
+  fill: currentColor
+
+.shape-arrow
+  +size(10px, 97px)
