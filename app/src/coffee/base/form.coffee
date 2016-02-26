@@ -39,7 +39,7 @@ class App.Form
 
   showErrorMessage: ->
     unless @$formError?
-      @$formError = $('<p class="form-error">Please complete highlighted fields</p>')
+      @$formError = $('<p class="form-error main-copy">Please complete highlighted fields</p>')
       @$form.append @$formError
 
     TweenLite.fromTo @$formError, .3,
@@ -92,10 +92,10 @@ class App.Form
     @exports.formSuccess = true
     @$formSuccess = $("""
 <div class="form-success">
-  <div class="form-success-bg"></div>
-  <div class="form-success-copy">
-    <p class="title">Thanks for your message.</p>
-    <p class="lead">I'll be in touch shortly.</p>
+  <div class="fs-bg"></div>
+  <div class="fs-copy">
+    <p class="fs-title contact-title title">Thanks for your message.</p>
+    <p class="fs-lead contact-lead body-copy">I'll be in touch shortly.</p>
   </div>
 </div>""")
     @$contactContent.append @$formSuccess
@@ -109,9 +109,9 @@ class App.Form
       backgroundColor: 'transparent'
     .set @$formSuccess,
       opacity: 1
-    .to @$formSuccess.find('.form-success-bg'), .3,
+    .to @$formSuccess.find('.fs-bg'), .3,
       borderWidth: "#{@exports.deviceBorder}px"
-    .fromTo @$formSuccess.find('.form-success-copy'), .3,
+    .fromTo @$formSuccess.find('.fs-copy'), .3,
       opacity: 0
     ,
       opacity: 1

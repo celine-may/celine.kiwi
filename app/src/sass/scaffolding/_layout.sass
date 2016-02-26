@@ -40,8 +40,37 @@ body
 
 // Device
 .device
-  +center('horizontal')
+  +position(absolute, 50%, null, null, 50%)
   display: inline-block
   +square($device)
+  margin-left: $device * -.5
   border: 16px solid $white
   z-index: $zXTop
+
+  &.state2
+    +square(370px)
+    margin: -185px 0 0 -185px
+    border: 0
+    transform: rotate(45deg)
+    z-index: $zBase
+
+    &::before, &::after
+      content: ""
+      +position(absolute, 0, null, null, 0)
+      +square(100%)
+      z-index: $zHidden
+
+    &::before
+      border: 1px solid $white
+      transform: translate3d(-$gap, $gap, 0)
+
+    &::after
+      border: 1px solid $primary
+      transform: translate3d($gap, -$gap, 0)
+
+    .bg
+      position: relative
+      display: block
+      +square(100%)
+      background-color: $white
+      z-index: $zBase

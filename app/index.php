@@ -48,7 +48,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
     </video>
 
-    <?php if (is_file("sections/$view.php")) include("sections/$view.php"); ?>
+    <?php include('sections/home.php'); ?>
   </main>
 
   <button class="menu-btn do-show-menu">
@@ -57,7 +57,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
     </span>
   </button>
 
-  <button class="link contact-link small-hidden do-show-contact">contact</button>
+  <button class="contact-link main-copy small-hidden do-show-contact">contact</button>
 
   <div class="overlay">
     <div class="overlay-panel top"></div>
@@ -66,7 +66,9 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php include("sections/contact.php"); ?>
   </div>
 
-  <span class="device"></span>
+  <span class="device">
+    <span class="bg"></span>
+  </span>
 
   <script type="text/javascript">
     var video = document.getElementsByTagName("video")[0];

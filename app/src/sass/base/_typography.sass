@@ -8,28 +8,31 @@ svg
   +square(100%)
   fill: currentColor
 
-%mainCopy
+.main-copy
   +font(null, $sansSerif, null, 700)
   text-transform: uppercase
 
-%bodyCopy
+.body-copy
   +font(null, $serif, null, 400, italic, 1.4)
 
 // Headings
 .title
+  @extend .main-copy
   margin-bottom: $gap
-  @extend %mainCopy
 
-.lead
-  @extend %bodyCopy
+// Separator
+.separator
+  position: relative
 
-// Links
-.link
-  @extend %mainCopy
+  &::after
+    content: ""
+    +position(absolute, null, null, 0)
+    +size(26px, 2px)
+    background-color: currentColor
 
 // Buttons
 .btn
-  @extend %mainCopy
+  @extend .main-copy
   width: 100%
   background-color: rgba($primary, .2)
   +font($primary, null, .875rem, null, null, $gap * 2)

@@ -57,10 +57,10 @@ class App.Animation
     if exports.formSuccess? and exports.formSuccess and exports.section is 'home'
       contactTL2 = new TimelineMax
         paused: true
-      .staggerTo $('.form-success-copy .title, .form-success-copy .lead'), .3,
+      .staggerTo $('.fs-title, .fs-lead'), .3,
         opacity: 0
       , .15
-      .to $('.form-success-bg'), .3,
+      .to $('.fs-bg'), .3,
         borderWidth: "#{exports.overlaySize / 2}px #{exports.deviceBorder}px"
       .to @$overlayClose, .15,
         opacity: 0

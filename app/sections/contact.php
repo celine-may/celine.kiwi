@@ -1,18 +1,18 @@
 <div class="overlay-content contact">
   <form action="#" class="form">
-    <h2 class="title contact-title mb-r">Let's talk</h2>
-    <p class="lead contact-lead">hello@celine.kiwi</p>
+    <h2 class="contact-title title mb-r">Let's talk</h2>
+    <p class="contact-lead body-copy">hello@celine.kiwi</p>
 
     <div class="form-group">
-      <input type="text" id="name" class="form-input" data-validation="required">
+      <input type="text" id="name" class="form-input body-copy" data-validation="required">
       <label for="name" class="form-label">Name</label>
     </div>
     <div class="form-group">
-      <input type="email" id="email" class="form-input" data-validation="required">
+      <input type="email" id="email" class="form-input body-copy" data-validation="required">
       <label for="email" class="form-label">Email</label>
     </div>
     <div class="form-group">
-      <textarea id="message" class="form-textarea" rows="3" placeholder="Text..." data-validation="required"></textarea>
+      <textarea id="message" class="form-textarea body-copy" rows="3" placeholder="Text..." data-validation="required"></textarea>
       <label for="message" class="form-label">Message</label>
     </div>
     <div class="form-action">

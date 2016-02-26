@@ -1,0 +1,31 @@
+// ABOUT
+// -----------------
+
+.about
+  color: $primary
+  text-align: center
+
+  .section-content
+    position: relative
+    z-index: $zTop
+
+.about-title
+  +center('both')
+  padding-top: $gap
+  +font(null, null, 13rem, null, null, .8)
+  letter-spacing: $gap
+  word-spacing: $gap
+
+.about-lead
+  margin-bottom: $gap
+  padding-bottom: $gap
+  font-size: 1.125rem
+
+  &::after
+    left: 50%
+    margin-left: -13px
+
+.about-copy
+  display: inline-block
+  max-width: 330px
+  +font(null, null, .9375rem, null, normal)
