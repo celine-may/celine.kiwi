@@ -42,7 +42,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
   <main class="main">
-    <video loop autoplay poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
+    <video loop poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
@@ -50,6 +50,12 @@ $view = isset($q[0]) ? $q[0] : 'home';
 
     <?php if (is_file("sections/$view.php")) include("sections/$view.php"); ?>
   </main>
+
+  <button class="menu-btn do-show-menu">
+    <span class="burger">
+      <span class="burger-layer"></span>
+    </span>
+  </button>
 
   <button class="link contact-link small-hidden do-show-contact">contact</button>
 
