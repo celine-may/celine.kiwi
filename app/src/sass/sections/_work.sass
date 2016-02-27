@@ -2,11 +2,14 @@
 // -----------------
 
 .work
-  +position(fixed, $gap, null, null, $gap)
+  // +position(fixed, $gap, null, null, $gap)
   +size(calc(100vw - #{$gap}), calc(100vh - #{$gap}))
-  padding: $gap * 4 $gap * 4.5
   color: $primary
   z-index: $zTop
+
+  .section-content
+    +square(100%)
+    padding: $gap * 4 $gap * 4.5
 
 .work-bg
   +center('both', fixed)

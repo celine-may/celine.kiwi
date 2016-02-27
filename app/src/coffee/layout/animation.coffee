@@ -11,6 +11,7 @@ class App.Animation
 
     @homeAboutTL = undefined
     @aboutWorkTL = undefined
+    @workSkillsTL = undefined
     @homeToContactTL = undefined
 
     @init exports
@@ -18,6 +19,8 @@ class App.Animation
   init: (exports) ->
     @$window = $(window)
     @$body = $('body')
+
+    @$ui = $('.menu-btn, .contact-link')
 
     @$homeElements = $('.home-title, .home-lead, .home-copy, .scroll-cta')
     @$logo = $('.shape-logo')
@@ -31,6 +34,8 @@ class App.Animation
 
     @$workBg = $('.work-bg')
     @$workElements = $('.work-title, .slideshow-image, .slideshow-description, .slideshow-nav')
+
+    @$skillsElements = $('.skills-title, .skills-lead, .skills-list, .skills-btn')
 
     @$overlay = $('.overlay')
     @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
@@ -135,6 +140,7 @@ class App.Animation
 
     @scrollTween 0, exports.windowHeight, @homeAboutTL
     @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL
+    @scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3, @workSkillsTL
 
   initTimelines: (exports) ->
     @homeAboutTL = new TimelineMax
@@ -204,6 +210,9 @@ class App.Animation
     .to @$workBg, 1,
       width: exports.windowWidth - exports.gap * 2
       height: exports.windowHeight - exports.gap * 2
+    .to @$ui, 1,
+      color: exports.primaryColor
+    , '-=.2'
     .staggerFromTo @$workElements, 1,
       opacity: 0
       y: exports.gap
@@ -211,6 +220,19 @@ class App.Animation
       opacity: 1
       y: 0
     , .3
+
+    @workSkillsTL = new TimelineMax
+      paused: true
+    .to @$ui, 1,
+      color: exports.secondaryColor
+    .staggerFromTo @$skillsElements, 1,
+      opacity: 0
+      y: exports.gap
+    ,
+      opacity: 1
+      y: 0
+    , .3, '=+1'
+
 
 
 

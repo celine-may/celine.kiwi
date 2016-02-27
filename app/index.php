@@ -51,6 +51,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php include('sections/home.php'); ?>
     <?php include('sections/about.php'); ?>
     <?php include('sections/work.php'); ?>
+    <?php include('sections/skills.php'); ?>
   </main>
 
   <div class="device-container">

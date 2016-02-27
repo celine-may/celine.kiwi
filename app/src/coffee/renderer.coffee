@@ -16,6 +16,8 @@ class Renderer
       deviceBorder: 16
       overlaySize: 604
       gap: 22
+      primaryColor: '#125e72'
+      secondaryColor: '#7dffe3'
       controllers: []
     fxs = @fxs
     fxs.sort (a, b) ->
