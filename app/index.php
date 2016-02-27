@@ -37,23 +37,26 @@ $view = isset($q[0]) ? $q[0] : 'home';
   </script>
 </head>
 
-<body data-section="skills">
+<body data-section="home">
 
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
   <main class="main">
-    <video loop poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
+    <!-- <video loop poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
-    </video>
+    </video> -->
 
-    <?php include('sections/skills.php'); ?>
+    <?php include('sections/home.php'); ?>
+    <?php include('sections/about.php'); ?>
   </main>
 
-  <!-- <span class="device">
-    <span class="bg"></span>
-  </span> -->
+  <div class="device-wrapper">
+    <div class="device-border left"></div>
+    <div class="device-border right"></div>
+    <div class="device"></div>
+  </div>
 
   <button class="menu-btn do-show-menu">
     <span class="burger">
@@ -71,11 +74,11 @@ $view = isset($q[0]) ? $q[0] : 'home';
   </div>
 
   <script type="text/javascript">
-    var video = document.getElementsByTagName("video")[0];
-    playVideo = function() {
-      video.play();
-    }
-    video.addEventListener('canplay', playVideo(), true);
+    // var video = document.getElementsByTagName("video")[0];
+    // playVideo = function() {
+    //   video.play();
+    // }
+    // video.addEventListener('canplay', playVideo(), true);
   </script>
 
   <?php foreach ($assets['javascripts'] as $file_path) : ?>

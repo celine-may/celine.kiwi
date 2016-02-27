@@ -6,21 +6,32 @@ class App.Animation
     exports.AnimationController = @
     exports.controllers.push @
 
+    @scrollTop = null
+    @homeAboutTL = undefined
     @homeToContactTL = undefined
 
     @init exports
 
   init: (exports) ->
+    @$window = $(window)
     @$body = $('body')
-    @$homeElements = $('.home-title, .home-lead, .home-copy')
+
+    @$homeElements = $('.home-title, .home-lead, .home-copy, .scroll-cta')
     @$logo = $('.shape-logo')
-    @$device = $('.device')
-    @$sectionContent = $('.home .section-content')
+
+    @$deviceWrapper = $('.device-wrapper')
+    @$device = @$deviceWrapper.find('.device')
+    @$deviceBorderLeft = @$deviceWrapper.find('.device-border.left')
+    @$deviceBorderRight = @$deviceWrapper.find('.device-border.right')
+
+    @$aboutElements = $('.about-lead, .about-copy')
+
     @$overlay = $('.overlay')
     @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
     @$overlayPanelBottom = @$overlay.find '.overlay-panel.bottom'
     @$overlayContent = @$overlay.find '.overlay-content.contact'
     @$overlayClose = @$overlay.find '.overlay-close'
+
     @$contactElements = @$overlayContent.find '.contact-title, .contact-lead, .form-group, .form-action'
 
     @$showContactLink = $('.do-show-contact')
@@ -32,6 +43,9 @@ class App.Animation
     @initTimelines exports
     @initApp()
 
+    @$window.on 'scroll', =>
+      @scrollHandler exports
+
     @$showContactLink.on 'click', (e) =>
       e.preventDefault()
       @showContact exports
@@ -42,7 +56,7 @@ class App.Animation
 
   setDevicePosition: (exports) ->
     @posTop = $('.logo').offset().top
-    @$device.css 'top', @posTop
+    @$deviceWrapper.css 'top', @posTop
 
   initApp: ->
     TweenLite.to @$body, 1,
@@ -94,10 +108,71 @@ class App.Animation
     else if exports.section is 'home'
       @homeToContactTL.reverse()
 
+  scrollTween: (startPoint, endPoint, tweenName) ->
+    progressNumber = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
+
+    if 0 <= progressNumber <= 1
+      tweenName.progress progressNumber
+    else if progressNumber < 0
+      tweenName.progress 0
+    else if progressNumber > 1
+      tweenName.progress 1
+
+  scrollHandler: (exports) ->
+    @scrollTop = @$window.scrollTop()
+
+    @scrollTween 0, exports.windowHeight, @homeAboutTL
+
   initTimelines: (exports) ->
+    @homeAboutTL = new TimelineMax
+      paused: true
+    .fromTo [ @$logo, @$deviceWrapper ], 1,
+      y: 0
+    ,
+      y: @yPos
+      ease: Power2.easeOut
+    .staggerFromTo @$homeElements, 1,
+      opacity: 1
+      y: 0
+    ,
+      opacity: 0
+      y: exports.gap
+    , .15, '-=1'
+    .fromTo @$device, 1,
+      borderWidth: "#{exports.deviceBorder}"
+    ,
+      borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}"
+    .fromTo @$deviceWrapper, 1,
+      scale: 1
+      rotation: 0
+    ,
+      scale: 2
+      rotation: 45
+    .fromTo @$deviceBorderLeft, 1,
+      x: 0
+      y: 0
+    ,
+      x: -exports.gap / 2
+      y: exports.gap / 2
+    .fromTo @$deviceBorderRight, 1,
+      x: 0
+      y: 0
+    ,
+      x: exports.gap / 2
+      y: -exports.gap / 2
+    , '-=1'
+    .staggerFromTo @$aboutElements, 1,
+      opacity: 0
+      y: exports.gap
+    ,
+      opacity: 1
+      y: 0
+    , .15
+
+
     @homeToContactTL = new TimelineMax
       paused: true
-    .fromTo [ @$device, @$logo ], .4,
+    .fromTo [ @$deviceWrapper, @$logo ], .4,
       y: 0
     ,
       y: @yPos

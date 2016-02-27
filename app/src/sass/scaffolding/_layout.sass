@@ -17,7 +17,7 @@ body
 
 // Video background
 .video-bg
-  +center('horizontal')
+  +center('horizontal', fixed)
   bottom: 0
   +square(auto)
   min-width: 100%
@@ -27,57 +27,34 @@ body
 // Wrappers
 .main
   position: relative
-  width: 100vw
-  min-height: 100vh
+  +size(100vw, 200vh)
   overflow: hidden
 
   &::before
     content: ""
-    +position(absolute, $gap, null, null, $gap)
-    +square(calc(100% - #{$gap * 2}))
+    +position(fixed, $gap, null, null, $gap)
+    +size(calc(100% - #{$gap * 2}), calc(100vh - #{$gap * 2}))
     background-color: $black
     opacity: .2
 
 // Device
-.device
-  +position(absolute, 50%, null, null, 50%)
-  display: inline-block
+.device-wrapper
+  +position(fixed, 50%, null, null, 50%)
   +square($device)
   margin-left: $device * -.5
+
+.device
+  +square(100%)
   border: 16px solid $white
   z-index: $zXTop
 
-  &.state2
-    +square(370px)
-    margin: -185px 0 0 -185px
-    border: 0
-    transform: rotate(45deg)
-    z-index: $zBase
+.device-border
+  +position(absolute, 0, null, null, 0)
+  +square(100%)
+  z-index: $zHidden
 
-    &::before, &::after
-      content: ""
-      +position(absolute, 0, null, null, 0)
-      +square(100%)
-      z-index: $zHidden
+  &.left
+    border: 1px solid $white
 
-    &::before
-      border: 1px solid $white
-      transform: translate3d(-$gap, $gap, 0)
-
-    &::after
-      border: 1px solid $primary
-      transform: translate3d($gap, -$gap, 0)
-
-    .bg
-      position: relative
-      display: block
-      +square(100%)
-      background-color: $white
-      z-index: $zBase
-
-  &.state3
-    +position(absolute, $gap, null, null, $gap)
-    +square(calc(100% - #{$gap * 2}))
-    margin: 0
-    background-color: $white
-    z-index: $zBase
+  &.right
+    border: 1px solid $primary

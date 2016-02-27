@@ -14,7 +14,8 @@ class Renderer
       windowHeight: @$window.height()
       deviceSize: 196
       deviceBorder: 16
-      overlaySize: 600
+      overlaySize: 604
+      gap: 22
       controllers: []
     fxs = @fxs
     fxs.sort (a, b) ->

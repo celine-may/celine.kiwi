@@ -9,5 +9,11 @@
     <h2 class="home-lead lead">Digital Alchemist &amp; Front&nbsp;End&nbsp;Developer</h2>
 
     <a href="mailto:hello@celine.kiwi" class="link contact-link small-only">contact</a>
+
+    <button class="scroll-cta">
+      <svg class="shape-arrow">
+        <use xlink:href="#shape-arrow"></use>
+      </svg>
+    </button>
   </div>
 </section>

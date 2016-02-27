@@ -3,10 +3,10 @@
 
 // Menu button
 .menu-btn
-  +center('vertical')
-  left: $gap * 2
+  +position(fixed, 50%, null, null, $gap * 2)
   +size(24px, 84px)
   color: $white
+  transform: translateY(-50%)
   z-index: $zXTop
 
   &::before, &::after

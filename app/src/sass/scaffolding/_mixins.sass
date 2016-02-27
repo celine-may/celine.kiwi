@@ -15,15 +15,15 @@
     left: $left
 
 // Horizontal and/or vertical align
-@mixin center($direction)
+@mixin center($direction, $position: absolute)
   @if $direction == 'both'
-    +position(absolute, 50%, null, null, 50%)
+    +position($position, 50%, null, null, 50%)
     transform: translateY(-50%) translateX(-50%)
   @if $direction == 'horizontal'
-    +position(absolute, null, null, null, 50%)
+    +position($position, null, null, null, 50%)
     transform: translateX(-50%)
   @if $direction == 'vertical'
-    +position(absolute, 50%)
+    +position($position, 50%)
     transform: translateY(-50%)
 
 // Retina Image
