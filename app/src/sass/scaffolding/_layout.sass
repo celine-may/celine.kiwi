@@ -27,7 +27,7 @@ body
 // Wrappers
 .main
   position: relative
-  +size(100vw, 200vh)
+  +size(100vw, 300vh)
   overflow: hidden
 
   &::before
@@ -38,6 +38,11 @@ body
     opacity: .2
 
 // Device
+.device-container
+  +position(fixed, $gap, null, null, $gap)
+  +size(calc(100vw - #{$gap * 2}), calc(100vh - #{$gap * 2}))
+  overflow: hidden
+
 .device-wrapper
   +position(fixed, 50%, null, null, 50%)
   +square($device)

@@ -1,4 +1,6 @@
 <section class="section work">
+
+  <div class="work-bg"></div>
   <h3 class="work-title title separator">Work</h3>
 
   <div class="slideshow">
@@ -16,6 +18,7 @@
       </div>
     </article>
   </div>
+
   <div class="slideshow-nav">
     <button class="slideshow-prev">
       <svg class="shape-arrow">

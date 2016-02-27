@@ -2,9 +2,17 @@
 // -----------------
 
 .work
+  +position(fixed, $gap, null, null, $gap)
+  +size(calc(100vw - #{$gap}), calc(100vh - #{$gap}))
   padding: $gap * 4 $gap * 4.5
   color: $primary
   z-index: $zTop
+
+.work-bg
+  +center('both', fixed)
+  +square($device * 2)
+  background-color: $white
+  opacity: 0
 
 // Title
 .work-title

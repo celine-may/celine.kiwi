@@ -10,6 +10,7 @@ class App.Animation
     @initiated = false
 
     @homeAboutTL = undefined
+    @aboutWorkTL = undefined
     @homeToContactTL = undefined
 
     @init exports
@@ -27,6 +28,9 @@ class App.Animation
     @$deviceBorderRight = @$deviceWrapper.find('.device-border.right')
 
     @$aboutElements = $('.about-lead, .about-copy')
+
+    @$workBg = $('.work-bg')
+    @$workElements = $('.work-title, .slideshow-image, .slideshow-description, .slideshow-nav')
 
     @$overlay = $('.overlay')
     @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
@@ -130,6 +134,7 @@ class App.Animation
     @scrollTop = @$window.scrollTop()
 
     @scrollTween 0, exports.windowHeight, @homeAboutTL
+    @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL
 
   initTimelines: (exports) ->
     @homeAboutTL = new TimelineMax
@@ -176,6 +181,39 @@ class App.Animation
       opacity: 1
       y: 0
     , .15
+
+    @aboutWorkTL = new TimelineMax
+      paused: true
+    .staggerTo @$aboutElements, 1,
+      opacity: 0
+      y: -exports.gap
+    , .15
+    .to @$deviceBorderLeft, 1,
+      x: 0
+      y: 0
+    .to @$deviceBorderRight, 1,
+      x: 0
+      y: 0
+    , '-=1'
+    .to @$deviceWrapper, 1,
+      rotation: 90
+    .fromTo @$workBg, 0,
+      opacity: 0
+    ,
+      opacity: 1
+    .to @$workBg, 1,
+      width: exports.windowWidth - exports.gap * 2
+      height: exports.windowHeight - exports.gap * 2
+    .staggerFromTo @$workElements, 1,
+      opacity: 0
+      y: exports.gap
+    ,
+      opacity: 1
+      y: 0
+    , .3
+
+
+
 
     @homeToContactTL = new TimelineMax
       paused: true

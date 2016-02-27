@@ -50,12 +50,15 @@ $view = isset($q[0]) ? $q[0] : 'home';
 
     <?php include('sections/home.php'); ?>
     <?php include('sections/about.php'); ?>
+    <?php include('sections/work.php'); ?>
   </main>
 
-  <div class="device-wrapper">
-    <div class="device-border left"></div>
-    <div class="device-border right"></div>
-    <div class="device"></div>
+  <div class="device-container">
+    <div class="device-wrapper">
+      <div class="device-border left"></div>
+      <div class="device-border right"></div>
+      <div class="device"></div>
+    </div>
   </div>
 
   <button class="menu-btn do-show-menu">
