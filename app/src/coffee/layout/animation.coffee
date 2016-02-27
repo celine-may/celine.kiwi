@@ -7,6 +7,8 @@ class App.Animation
     exports.controllers.push @
 
     @scrollTop = null
+    @initiated = false
+
     @homeAboutTL = undefined
     @homeToContactTL = undefined
 
@@ -37,14 +39,9 @@ class App.Animation
     @$showContactLink = $('.do-show-contact')
     @$hideContactLink = $('.do-hide-contact')
 
-    @setDevicePosition exports
-    @yPos = (exports.windowHeight - exports.deviceSize) / 2 - @posTop
-
-    @initTimelines exports
-    @initApp()
-
-    @$window.on 'scroll', =>
-      @scrollHandler exports
+    setTimeout =>
+      @initApp exports
+    , 200
 
     @$showContactLink.on 'click', (e) =>
       e.preventDefault()
@@ -58,10 +55,21 @@ class App.Animation
     @posTop = $('.logo').offset().top
     @$deviceWrapper.css 'top', @posTop
 
-  initApp: ->
+  initApp: (exports) ->
+    @$window.scrollTop 0
+
+    @setDevicePosition exports
+
+    @initTimelines exports
+
+    @$window.on 'scroll', =>
+      @scrollHandler exports
+
     TweenLite.to @$body, 1,
       opacity: 1
-      delay: .75
+      delay: .5
+      onComplete: =>
+        @initiated = true
 
   showContact: (exports) ->
     if exports.section is 'home'
@@ -129,7 +137,7 @@ class App.Animation
     .fromTo [ @$logo, @$deviceWrapper ], 1,
       y: 0
     ,
-      y: @yPos
+      y: (exports.windowHeight - exports.deviceSize) / 2 - @posTop
       ease: Power2.easeOut
     .staggerFromTo @$homeElements, 1,
       opacity: 1
@@ -169,13 +177,12 @@ class App.Animation
       y: 0
     , .15
 
-
     @homeToContactTL = new TimelineMax
       paused: true
     .fromTo [ @$deviceWrapper, @$logo ], .4,
       y: 0
     ,
-      y: @yPos
+      y: (exports.windowHeight - exports.deviceSize) / 2 - @posTop
       ease: Power2.easeOut
     .staggerFromTo @$homeElements, .3,
       opacity: 1
@@ -227,6 +234,7 @@ class App.Animation
     , '-=.1'
 
   resize: (exports) ->
-    @setDevicePosition exports
+    if @initiated
+      @setDevicePosition exports
 
 App.FXs.push new App.Animation
