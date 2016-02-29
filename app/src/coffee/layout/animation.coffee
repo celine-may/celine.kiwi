@@ -347,6 +347,8 @@ class App.Animation
       opacity: 0
     ,
       opacity: 1
+    .set @$deviceContainer,
+      zIndex: 0
     .to @$workBg, 1,
       width: exports.windowWidth - exports.gap * 2
       height: exports.windowHeight - exports.gap * 2
