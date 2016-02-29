@@ -10,10 +10,13 @@ class App.Animation
     @currentProgressValue = 0
     @initiated = false
 
+    @pannelsTL = undefined
+    @deviceTL = undefined
     @homeAboutTL = undefined
     @aboutWorkTL = undefined
     @workSkillsTL = undefined
     @contactTL = undefined
+    @formTL = undefined
 
     @init exports
 
@@ -42,10 +45,17 @@ class App.Animation
     @$overlay = $('.overlay')
     @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
     @$overlayPanelBottom = @$overlay.find '.overlay-panel.bottom'
-    @$overlayContent = @$overlay.find '.overlay-content.contact'
     @$overlayClose = @$overlay.find '.overlay-close'
 
-    @$contactElements = @$overlayContent.find '.contact-title, .contact-lead, .form-group, .form-action'
+    @$menu = @$overlay.find '.overlay-content.menu'
+    @$menuElements = @$overlay.find '.nav-item'
+
+    @$contact = @$overlay.find '.overlay-content.contact'
+    @$contactElements = @$overlay.find '.contact-title, .contact-lead, .form-group, .form-action'
+
+    # TODO: do-show-overlay
+    @$showMenuLink = $('.do-show-menu')
+    @$hideMenuLink = $('.do-hide-menu')
 
     @$showContactLink = $('.do-show-contact')
     @$hideContactLink = $('.do-hide-contact')
@@ -54,13 +64,21 @@ class App.Animation
       @initApp exports
     , 200
 
+    @$showMenuLink.on 'click', (e) =>
+      e.preventDefault()
+      @showOverlay exports, 'menu'
+
+    @$hideMenuLink.on 'click', (e) =>
+      e.preventDefault()
+      @hideOverlay exports
+
     @$showContactLink.on 'click', (e) =>
       e.preventDefault()
-      @showContact exports
+      @showOverlay exports, 'contact'
 
     @$hideContactLink.on 'click', (e) =>
       e.preventDefault()
-      @hideContact exports
+      @hideOverlay exports
 
   setDevicePosition: (exports) ->
     @posTop = $('.logo').offset().top
@@ -82,11 +100,8 @@ class App.Animation
       onComplete: =>
         @initiated = true
 
-  showContact: (exports) ->
-    console.log @currentProgressValue
-    @$body.addClass 'no-scroll'
-
-    overlayTL = new TimelineMax
+  initOverlay: (exports, overlay = 'contact') ->
+    @pannelsTL = new TimelineMax
       paused: true
     .set @$deviceContainer,
       zIndex: 30
@@ -96,12 +111,12 @@ class App.Animation
       y: '0%'
     , '-=.3'
 
-    deviceTL = new TimelineMax
+    @deviceTL = new TimelineMax
       paused: true
     .to @$device, .15,
-      borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}"
+      borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}px"
 
-    formTL = new TimelineMax
+    @overlayContentTL = new TimelineMax
       paused: true
     .set @$deviceContainer,
       zIndex: 10
@@ -109,10 +124,11 @@ class App.Animation
       opacity: 0
     .set @$overlayContent,
       opacity: 1
+      zIndex: 20
     .to @$overlayContent, .3,
       scale: 1
       ease: Power2.easeOut
-    .staggerFromTo @$contactElements, .3,
+    .staggerFromTo @$overlayElements, .3,
       opacity: 0
       y: 20
     ,
@@ -125,9 +141,23 @@ class App.Animation
       x: 0
     , '-=.1'
 
+  showOverlay: (exports, overlay = 'contact') ->
+    console.log @currentProgressValue
+    @$body.addClass 'no-scroll'
+
+    if overlay is 'contact'
+      @overlayTL = @contactTL = new TimelineMax { paused: true }
+      @$overlayContent = @$contact
+      @$overlayElements = @$contactElements
+    else
+      @overlayTL = @menuTL = new TimelineMax { paused: true }
+      @$overlayContent = @$menu
+      @$overlayElements = @$menuElements
+
+    @initOverlay exports, overlay
+
     if @currentProgressValue < .21
-      @contactTL = new TimelineMax
-        paused: true
+      @overlayTL
       .to [ @$deviceWrapper, @$logo ], .3,
         y: (exports.windowHeight - exports.deviceSize) / 2 - @posTop
         ease: Power2.easeOut
@@ -137,29 +167,34 @@ class App.Animation
       , .15, '-=.4'
       .set @$overlayContent,
         scale: .33
-      .add overlayTL.play(0), '-=.2'
-      .add deviceTL.play(0), '-=.1'
-      .add formTL.play(0)
+      .add @pannelsTL.play(0), '-=.2'
+      .add @overlayContentTL.play(0)
+
+      if overlay is 'contact'
+        @overlayTL.add @deviceTL.play(0), '-=1.6'
+
     else if .21 <= @currentProgressValue < .42
-      @contactTL = new TimelineMax
+      @overlayTL = new TimelineMax
         paused: true
       .set @$overlayContent,
         scale: .33
-      .add overlayTL.play(0), '-=.2'
-      .add deviceTL.play(0), '-=.1'
-      .add formTL.play(0)
+      .add @pannelsTL.play(0), '-=.2'
+      .add @deviceTL.play(0), '-=.1'
+      .add @overlayContentTL.play(0)
+
     else if .42 <= @currentProgressValue < .6
-      @contactTL = new TimelineMax
+      @overlayTL = new TimelineMax
         paused: true
       .to @$deviceWrapper, .3,
         scale: 2
         rotation: 90
       .set @$overlayContent,
         scale: .65
-      .add overlayTL.play(0), '-=.2'
-      .add formTL.play(0)
+      .add @pannelsTL.play(0), '-=.2'
+      .add @overlayContentTL.play(0)
+
     else if .6 <= @currentProgressValue < 1.31
-      @contactTL = new TimelineMax
+      @overlayTL = new TimelineMax
         paused: true
       .staggerTo @$aboutElements, .3,
         opacity: 0
@@ -177,19 +212,21 @@ class App.Animation
         rotation: 90
       .set @$overlayContent,
         scale: .65
-      .add overlayTL.play(0), '-=.2'
-      .add formTL.play(0)
+      .add @pannelsTL.play(0), '-=.2'
+      .add @overlayContentTL.play(0)
+
     else if 1.31 <= @currentProgressValue < 1.46
-      @contactTL = new TimelineMax
+      @overlayTL = new TimelineMax
         paused: true
       .to @$deviceWrapper, .3,
         rotation: 90
       .set @$overlayContent,
         scale: .65
-      .add overlayTL.play(0), '-=.2'
-      .add formTL.play(0)
+      .add @pannelsTL.play(0), '-=.2'
+      .add @overlayContentTL.play(0)
+
     else if 1.46 <= @currentProgressValue < 1.65
-      @contactTL = new TimelineMax
+      @overlayTL = new TimelineMax
         paused: true
       .set @$overlayContent,
         scale: 1
@@ -198,10 +235,11 @@ class App.Animation
         height: exports.overlaySize
       .set @$overlayContent,
         opacity: 1
-      .add overlayTL.play(0)
-      .add formTL.play(0), '-=.2'
+      .add @pannelsTL.play(0)
+      .add @overlayContentTL.play(0), '-=.2'
+
     else if 1.65 <= @currentProgressValue
-      @contactTL = new TimelineMax
+      @overlayTL = new TimelineMax
         paused: true
       .staggerTo @$workElements, .3,
         opacity: 0
@@ -214,10 +252,137 @@ class App.Animation
         height: exports.overlaySize
       .set @$overlayContent,
         opacity: 1
-      .add overlayTL.play(0)
-      .add formTL.play(0), '-=.2'
+      .add @pannelsTL.play(0)
+      .add @overlayContentTL.play(0), '-=.2'
 
-    @contactTL.timeScale(.8).play(0)
+    @overlayTL.timeScale(.8).play()
+
+  hideOverlay: (exports) ->
+    @overlayTL.reverse()
+
+    @$body.removeClass 'no-scroll'
+
+  # showContact: (exports) ->
+  #   console.log @currentProgressValue
+  #   @$body.addClass 'no-scroll'
+
+  #   formTL = new TimelineMax
+  #     paused: true
+  #   .set @$deviceContainer,
+  #     zIndex: 10
+  #   .set @$device,
+  #     opacity: 0
+  #   .set @$overlayContent,
+  #     opacity: 1
+  #   .to @$contact, .3,
+  #     scale: 1
+  #     ease: Power2.easeOut
+  #   .staggerFromTo @$contactElements, .3,
+  #     opacity: 0
+  #     y: 20
+  #   ,
+  #     opacity: 1
+  #     y: 0
+  #   , .15
+  #   .fromTo @$overlayClose, .15,
+  #     x: -100
+  #   ,
+  #     x: 0
+  #   , '-=.1'
+
+  #   if @currentProgressValue < .21
+  #     @contactTL = new TimelineMax
+  #       paused: true
+  #     .to [ @$deviceWrapper, @$logo ], .3,
+  #       y: (exports.windowHeight - exports.deviceSize) / 2 - @posTop
+  #       ease: Power2.easeOut
+  #     .staggerTo @$homeElements, .3,
+  #       opacity: 0
+  #       y: 20
+  #     , .15, '-=.4'
+  #     .set @$contact,
+  #       scale: .33
+  #     .add @pannelsTL.play(0), '-=.2'
+  #     .add @deviceTL.play(0), '-=.1'
+  #     .add formTL.play(0)
+  #   else if .21 <= @currentProgressValue < .42
+  #     @contactTL = new TimelineMax
+  #       paused: true
+  #     .set @$contact,
+  #       scale: .33
+  #     .add @pannelsTL.play(0), '-=.2'
+  #     .add @deviceTL.play(0), '-=.1'
+  #     .add formTL.play(0)
+  #   else if .42 <= @currentProgressValue < .6
+  #     @contactTL = new TimelineMax
+  #       paused: true
+  #     .to @$deviceWrapper, .3,
+  #       scale: 2
+  #       rotation: 90
+  #     .set @$contact,
+  #       scale: .65
+  #     .add @pannelsTL.play(0), '-=.2'
+  #     .add formTL.play(0)
+  #   else if .6 <= @currentProgressValue < 1.31
+  #     @contactTL = new TimelineMax
+  #       paused: true
+  #     .staggerTo @$aboutElements, .3,
+  #       opacity: 0
+  #       y: 20
+  #     , .15
+  #     .to @$deviceBorderLeft, .3,
+  #       x: 0
+  #       y: 0
+  #     , '-=.2'
+  #     .to @$deviceBorderRight, .3,
+  #       x: 0
+  #       y: 0
+  #     , '-=.3'
+  #     .to @$deviceWrapper, .3,
+  #       rotation: 90
+  #     .set @$contact,
+  #       scale: .65
+  #     .add @pannelsTL.play(0), '-=.2'
+  #     .add formTL.play(0)
+  #   else if 1.31 <= @currentProgressValue < 1.46
+  #     @contactTL = new TimelineMax
+  #       paused: true
+  #     .to @$deviceWrapper, .3,
+  #       rotation: 90
+  #     .set @$contact,
+  #       scale: .65
+  #     .add @pannelsTL.play(0), '-=.2'
+  #     .add formTL.play(0)
+  #   else if 1.46 <= @currentProgressValue < 1.65
+  #     @contactTL = new TimelineMax
+  #       paused: true
+  #     .set @$contact,
+  #       scale: 1
+  #     .to @$workBg, .3,
+  #       width: exports.overlaySize
+  #       height: exports.overlaySize
+  #     .set @$contact,
+  #       opacity: 1
+  #     .add @pannelsTL.play(0)
+  #     .add formTL.play(0), '-=.2'
+  #   else if 1.65 <= @currentProgressValue
+  #     @contactTL = new TimelineMax
+  #       paused: true
+  #     .staggerTo @$workElements, .3,
+  #       opacity: 0
+  #       y: 20
+  #     , .15
+  #     .set @$contact,
+  #       scale: 1
+  #     .to @$workBg, .3,
+  #       width: exports.overlaySize
+  #       height: exports.overlaySize
+  #     .set @$contact,
+  #       opacity: 1
+  #     .add @pannelsTL.play(0)
+  #     .add formTL.play(0), '-=.2'
+
+  #   @contactTL.timeScale(.8).play(0)
 
   hideContact: (exports) ->
     if exports.formSuccess? and exports.formSuccess and exports.section is 'home'
@@ -231,10 +396,10 @@ class App.Animation
       .to @$overlayClose, .15,
         opacity: 0
         x: -100
-      .to @$overlayContent, .3,
+      .to @$contact, .3,
         scale: .32667
         ease: Power2.easeOut
-      .set @$overlayContent,
+      .set @$contact,
         opacity: 0
       .set @$device,
         opacity: 1
