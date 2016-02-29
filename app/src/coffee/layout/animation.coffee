@@ -7,12 +7,13 @@ class App.Animation
     exports.controllers.push @
 
     @scrollTop = null
+    @currentProgressValue = 0
     @initiated = false
 
     @homeAboutTL = undefined
     @aboutWorkTL = undefined
     @workSkillsTL = undefined
-    @homeToContactTL = undefined
+    @contactTL = undefined
 
     @init exports
 
@@ -25,10 +26,11 @@ class App.Animation
     @$homeElements = $('.home-title, .home-lead, .home-copy, .scroll-cta')
     @$logo = $('.shape-logo')
 
-    @$deviceWrapper = $('.device-wrapper')
-    @$device = @$deviceWrapper.find('.device')
-    @$deviceBorderLeft = @$deviceWrapper.find('.device-border.left')
-    @$deviceBorderRight = @$deviceWrapper.find('.device-border.right')
+    @$deviceContainer = $('.device-container')
+    @$deviceWrapper = @$deviceContainer.find('.device-wrapper')
+    @$device = @$deviceContainer.find('.device')
+    @$deviceBorderLeft = @$deviceContainer.find('.device-border.left')
+    @$deviceBorderRight = @$deviceContainer.find('.device-border.right')
 
     @$aboutElements = $('.about-lead, .about-copy')
 
@@ -81,8 +83,141 @@ class App.Animation
         @initiated = true
 
   showContact: (exports) ->
-    if exports.section is 'home'
-      @homeToContactTL.timeScale(.8).play(0)
+    console.log @currentProgressValue
+    @$body.addClass 'no-scroll'
+
+    overlayTL = new TimelineMax
+      paused: true
+    .set @$deviceContainer,
+      zIndex: 30
+    .to @$overlayPanelTop, .3,
+      y: '0%'
+    .to @$overlayPanelBottom, .3,
+      y: '0%'
+    , '-=.3'
+
+    deviceTL = new TimelineMax
+      paused: true
+    .to @$device, .15,
+      borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}"
+
+    formTL = new TimelineMax
+      paused: true
+    .set @$deviceContainer,
+      zIndex: 10
+    .set @$device,
+      opacity: 0
+    .set @$overlayContent,
+      opacity: 1
+    .to @$overlayContent, .3,
+      scale: 1
+      ease: Power2.easeOut
+    .staggerFromTo @$contactElements, .3,
+      opacity: 0
+      y: 20
+    ,
+      opacity: 1
+      y: 0
+    , .15
+    .fromTo @$overlayClose, .15,
+      x: -100
+    ,
+      x: 0
+    , '-=.1'
+
+    if @currentProgressValue < .21
+      @contactTL = new TimelineMax
+        paused: true
+      .to [ @$deviceWrapper, @$logo ], .3,
+        y: (exports.windowHeight - exports.deviceSize) / 2 - @posTop
+        ease: Power2.easeOut
+      .staggerTo @$homeElements, .3,
+        opacity: 0
+        y: 20
+      , .15, '-=.4'
+      .set @$overlayContent,
+        scale: .33
+      .add overlayTL.play(0), '-=.2'
+      .add deviceTL.play(0), '-=.1'
+      .add formTL.play(0)
+    else if .21 <= @currentProgressValue < .42
+      @contactTL = new TimelineMax
+        paused: true
+      .set @$overlayContent,
+        scale: .33
+      .add overlayTL.play(0), '-=.2'
+      .add deviceTL.play(0), '-=.1'
+      .add formTL.play(0)
+    else if .42 <= @currentProgressValue < .6
+      @contactTL = new TimelineMax
+        paused: true
+      .to @$deviceWrapper, .3,
+        scale: 2
+        rotation: 90
+      .set @$overlayContent,
+        scale: .65
+      .add overlayTL.play(0), '-=.2'
+      .add formTL.play(0)
+    else if .6 <= @currentProgressValue < 1.31
+      @contactTL = new TimelineMax
+        paused: true
+      .staggerTo @$aboutElements, .3,
+        opacity: 0
+        y: 20
+      , .15
+      .to @$deviceBorderLeft, .3,
+        x: 0
+        y: 0
+      , '-=.2'
+      .to @$deviceBorderRight, .3,
+        x: 0
+        y: 0
+      , '-=.3'
+      .to @$deviceWrapper, .3,
+        rotation: 90
+      .set @$overlayContent,
+        scale: .65
+      .add overlayTL.play(0), '-=.2'
+      .add formTL.play(0)
+    else if 1.31 <= @currentProgressValue < 1.46
+      @contactTL = new TimelineMax
+        paused: true
+      .to @$deviceWrapper, .3,
+        rotation: 90
+      .set @$overlayContent,
+        scale: .65
+      .add overlayTL.play(0), '-=.2'
+      .add formTL.play(0)
+    else if 1.46 <= @currentProgressValue < 1.65
+      @contactTL = new TimelineMax
+        paused: true
+      .set @$overlayContent,
+        scale: 1
+      .to @$workBg, .3,
+        width: exports.overlaySize
+        height: exports.overlaySize
+      .set @$overlayContent,
+        opacity: 1
+      .add overlayTL.play(0)
+      .add formTL.play(0), '-=.2'
+    else if 1.65 <= @currentProgressValue
+      @contactTL = new TimelineMax
+        paused: true
+      .staggerTo @$workElements, .3,
+        opacity: 0
+        y: 20
+      , .15
+      .set @$overlayContent,
+        scale: 1
+      .to @$workBg, .3,
+        width: exports.overlaySize
+        height: exports.overlaySize
+      .set @$overlayContent,
+        opacity: 1
+      .add overlayTL.play(0)
+      .add formTL.play(0), '-=.2'
+
+    @contactTL.timeScale(.8).play(0)
 
   hideContact: (exports) ->
     if exports.formSuccess? and exports.formSuccess and exports.section is 'home'
@@ -123,26 +258,30 @@ class App.Animation
 
       contactTL2.timeScale(.8).play()
     else if exports.section is 'home'
-      @homeToContactTL.reverse()
+      @contactTL.reverse()
 
-  scrollTween: (startPoint, endPoint, tweenName) ->
-    progressNumber = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
+    @$body.removeClass 'no-scroll'
 
-    if 0 <= progressNumber <= 1
-      tweenName.progress progressNumber
-    else if progressNumber < 0
-      tweenName.progress 0
-    else if progressNumber > 1
-      tweenName.progress 1
+  scrollTween: (startPoint, endPoint, timeline, timelinePosition) ->
+    progressValue = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
+
+    if 0 <= progressValue <= 1
+      timeline.progress progressValue
+      @currentProgressValue = progressValue + timelinePosition
+    else if progressValue < 0
+      timeline.progress 0
+    else if progressValue > 1
+      timeline.progress 1
 
   scrollHandler: (exports) ->
     @scrollTop = @$window.scrollTop()
 
-    @scrollTween 0, exports.windowHeight, @homeAboutTL
-    @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL
-    @scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3, @workSkillsTL
+    @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
+    @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL, 1
+    @scrollTween exports.windowHeight * 3, exports.windowHeight * 3.5, @workSkillsTL, 2
 
   initTimelines: (exports) ->
+    # Home to About
     @homeAboutTL = new TimelineMax
       paused: true
     .fromTo [ @$logo, @$deviceWrapper ], 1,
@@ -188,6 +327,7 @@ class App.Animation
       y: 0
     , .15
 
+    # About to Work
     @aboutWorkTL = new TimelineMax
       paused: true
     .staggerTo @$aboutElements, 1,
@@ -219,8 +359,11 @@ class App.Animation
     ,
       opacity: 1
       y: 0
-    , .3
+    , .15, '-=1'
+    .to @$workElements, 1,
+      opacity: 1
 
+    # Work to skills
     @workSkillsTL = new TimelineMax
       paused: true
     .to @$ui, 1,
@@ -233,65 +376,6 @@ class App.Animation
       y: 0
     , .3, '=+1'
 
-
-
-
-
-    @homeToContactTL = new TimelineMax
-      paused: true
-    .fromTo [ @$deviceWrapper, @$logo ], .4,
-      y: 0
-    ,
-      y: (exports.windowHeight - exports.deviceSize) / 2 - @posTop
-      ease: Power2.easeOut
-    .staggerFromTo @$homeElements, .3,
-      opacity: 1
-      y: 0
-    ,
-      opacity: 0
-      y: 20
-    , .15, '-=.4'
-    .fromTo @$overlayPanelTop, .3,
-      y: '-100%'
-    ,
-      y: '0%'
-    .fromTo @$overlayPanelBottom, .3,
-      y: '100%'
-    ,
-      y: '0%'
-    , '-=.3'
-    .fromTo @$device, .15,
-      borderWidth: "#{exports.deviceBorder}"
-    ,
-      borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}"
-    , '-=.1'
-    .fromTo @$overlayContent, 0,
-      opacity: 0
-    ,
-      opacity: 1
-    , '+=.2'
-    .fromTo @$device, 0,
-      opacity: 1
-    ,
-      opacity: 0
-    .fromTo @$overlayContent, .3,
-      scale: .32667
-    ,
-      scale: 1
-      ease: Power2.easeOut
-    , '+=.2'
-    .staggerFromTo @$contactElements, .3,
-      opacity: 0
-      y: 20
-    ,
-      opacity: 1
-      y: 0
-    , .15
-    .fromTo @$overlayClose, .15,
-      x: -100
-    ,
-      x: 0
-    , '-=.1'
 
   resize: (exports) ->
     if @initiated

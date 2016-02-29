@@ -27,7 +27,7 @@ body
 // Wrappers
 .main
   position: relative
-  +size(100vw, calc(400vh - #{$gap}))
+  +size(100vw, calc(450vh - #{$gap}))
   overflow: hidden
 
   &::before
@@ -37,11 +37,17 @@ body
     background-color: $black
     opacity: .2
 
+.ui
+  +position(fixed, 50%)
+  color: $white
+  z-index: $zTop
+
 // Device
 .device-container
   +position(fixed, $gap, null, null, $gap)
   +size(calc(100vw - #{$gap * 2}), calc(100vh - #{$gap * 2}))
   overflow: hidden
+  z-index: $zBase
 
 .device-wrapper
   +position(fixed, 50%, null, null, 50%)
@@ -51,7 +57,6 @@ body
 .device
   +square(100%)
   border: 16px solid $white
-  z-index: $zXTop
 
 .device-border
   +position(absolute, 0, null, null, 0)

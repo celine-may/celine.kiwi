@@ -54,27 +54,27 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php include('sections/skills.php'); ?>
   </main>
 
-  <div class="device-container">
-    <div class="device-wrapper">
-      <div class="device-border left"></div>
-      <div class="device-border right"></div>
-      <div class="device"></div>
-    </div>
-  </div>
-
-  <button class="menu-btn do-show-menu">
+  <button class="menu-btn ui do-show-menu">
     <span class="burger">
       <span class="burger-layer"></span>
     </span>
   </button>
 
-  <button class="contact-link main-copy small-hidden do-show-contact">contact</button>
+  <button class="contact-link ui main-copy small-hidden do-show-contact">contact</button>
 
   <div class="overlay">
     <div class="overlay-panel top"></div>
     <div class="overlay-panel bottom"></div>
     <?php include("sections/menu.php"); ?>
     <?php include("sections/contact.php"); ?>
+  </div>
+
+  <div class="device-container">
+    <div class="device-wrapper">
+      <div class="device-border left"></div>
+      <div class="device-border right"></div>
+      <div class="device"></div>
+    </div>
   </div>
 
   <script type="text/javascript">

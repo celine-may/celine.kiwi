@@ -3,19 +3,11 @@
 
 // Link
 .contact-link
-  color: $white
   font-size: .875rem
   transition: letter-spacing $transitionDuration $transitionFunction
-  z-index: $zXTop
 
   &:hover
     letter-spacing: 2px
-
-  body[data-section="work"] &
-    color: $primary
-
-  body[data-section="skills"] &
-    color: $secondary
 
   +max-screen($small)
     display: inline-block
@@ -25,7 +17,7 @@
     text-align: center
 
   +min-screen($small + 1px)
-    +position(fixed, 50%, $gap * 2)
+    right: $gap * 2
     transform-origin: top left
     transform: translateX(100%) rotate(90deg) translateX(-50%)
 

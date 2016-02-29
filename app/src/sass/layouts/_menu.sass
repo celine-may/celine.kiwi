@@ -3,11 +3,9 @@
 
 // Menu button
 .menu-btn
-  +position(fixed, 50%, null, null, $gap * 2)
+  left: $gap * 2
   +size(24px, 84px)
-  color: $white
   transform: translateY(-50%)
-  z-index: $zXTop
 
   &::before, &::after
     content: ""
@@ -28,12 +26,6 @@
 
     &::after
       transform: translateY(3px)
-
-  body[data-section="work"] &
-    color: $primary
-
-  body[data-section="skills"] &
-    color: $secondary
 
 .burger
   +center('both')
