@@ -22,6 +22,7 @@ $assets['javascripts'] = array(
   $js_path . 'vendor/TweenMax.min.js',
   $js_path . 'vendor/TimelineMax.min.js',
   $js_path . 'vendor/CSSPlugin.min.js',
+  $js_path . 'vendor/ScrollToPlugin.min.js',
   $js_path . 'vendor/modernizr-custom.min.js',
   $js_path . 'build/app.js',
   $js_path . 'build/renderer.js',

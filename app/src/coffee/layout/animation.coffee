@@ -10,6 +10,7 @@ class App.Animation
     @currentProgressValue = 0
     @initiated = false
     @activeOverlay = null
+    @goToSection = null
 
     @pannelsTL = undefined
     @deviceTL = undefined
@@ -56,6 +57,7 @@ class App.Animation
 
     @$showOverlayLink = $('.do-show-overlay')
     @$hideOverlayLink = $('.do-hide-overlay')
+    @$showSectionLink = $('.do-show-section')
 
     setTimeout =>
       @initApp exports
@@ -71,6 +73,15 @@ class App.Animation
 
     @$hideOverlayLink.on 'click', (e) =>
       e.preventDefault()
+      @hideOverlay exports
+
+    @$showSectionLink.on 'click', (e) =>
+      e.preventDefault()
+      @$menuElements.removeClass 'active'
+      $link = $(e.target)
+      unless $link.hasClass 'do-show-section'
+        $link = $link.parents '.do-show-section'
+      @goToSection = $link.addClass('active').attr 'data-section'
       @hideOverlay exports
 
   setDevicePosition: (exports) ->
@@ -151,16 +162,17 @@ class App.Animation
     , '-=.1'
 
   showOverlay: (exports, overlay = 'contact') ->
-    console.log @currentProgressValue
     @activeOverlay = overlay
     @$body.addClass 'no-scroll'
 
+    @overlayTL = @contactTL = new TimelineMax
+      paused: true
+    .call @onComplete, [exports]
+
     if overlay is 'contact'
-      @overlayTL = @contactTL = new TimelineMax { paused: true }
       @$overlayContent = @$contact
       @$overlayElements = @$contactElements
     else
-      @overlayTL = @menuTL = new TimelineMax { paused: true }
       @$overlayContent = @$menu
       @$overlayElements = @$menuElements
 
@@ -189,8 +201,7 @@ class App.Animation
         .add @overlayContentTL.play(0)
 
     else if .21 <= @currentProgressValue < .42
-      @overlayTL = new TimelineMax
-        paused: true
+      @overlayTL
       .set @$overlayContent,
         scale: .33
 
@@ -206,8 +217,7 @@ class App.Animation
         .add @overlayContentTL.play(0)
 
     else if .42 <= @currentProgressValue < .6
-      @overlayTL = new TimelineMax
-        paused: true
+      @overlayTL
       .to @$deviceWrapper, .3,
         scale: 2
         rotation: 90
@@ -225,8 +235,7 @@ class App.Animation
         .add @overlayContentTL.play(0)
 
     else if .6 <= @currentProgressValue < 1.31
-      @overlayTL = new TimelineMax
-        paused: true
+      @overlayTL
       .staggerTo @$aboutElements, .3,
         opacity: 0
         y: 20
@@ -255,8 +264,7 @@ class App.Animation
         .add @overlayContentTL.play(0)
 
     else if 1.31 <= @currentProgressValue < 1.46
-      @overlayTL = new TimelineMax
-        paused: true
+      @overlayTL
       .to @$deviceWrapper, .3,
         rotation: 90
       .set @$overlayContent,
@@ -273,8 +281,7 @@ class App.Animation
         .add @overlayContentTL.play(0)
 
     else if 1.46 <= @currentProgressValue < 1.65
-      @overlayTL = new TimelineMax
-        paused: true
+      @overlayTL
       .set @$overlayContent,
         scale: 1
       .to @$workBg, .3,
@@ -295,8 +302,7 @@ class App.Animation
         .add @overlayContentTL.play(0), '-=.2'
 
     else if 1.65 <= @currentProgressValue
-      @overlayTL = new TimelineMax
-        paused: true
+      @overlayTL
       .staggerTo @$workElements, .3,
         opacity: 0
         y: 20
@@ -350,6 +356,21 @@ class App.Animation
       @overlayTL.reverse()
 
     @$body.removeClass 'no-scroll'
+
+  onComplete: (exports) =>
+    if @overlayTL.reversed() and @goToSection?
+      delta = switch
+        when @goToSection is 'home' then 0
+        when @goToSection is 'about' then 1
+        when @goToSection is 'work' then 2
+        when @goToSection is 'skills' then 3
+
+      TweenLite.to @$window, 2,
+        scrollTo:
+          y: exports.windowHeight * delta
+          ease:Power2.easeOut
+        delay: .25
+      @goToSection = null
 
   scrollTween: (startPoint, endPoint, timeline, timelinePosition) ->
     progressValue = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
@@ -415,6 +436,7 @@ class App.Animation
       opacity: 1
       y: 0
     , .15
+    .add -> @currentSection = 'about'
 
     # About to Work
     @aboutWorkTL = new TimelineMax
