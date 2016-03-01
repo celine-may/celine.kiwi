@@ -119,6 +119,13 @@ class App.Animation
     @device2TL = new TimelineMax
       paused: true
     .set @$device,
+      borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}px"
+    .to @$device, .15,
+      borderWidth: "#{exports.deviceBorder}px #{exports.deviceBorder}px"
+
+    @device3TL = new TimelineMax
+      paused: true
+    .set @$device,
       borderWidth: "#{exports.deviceBorder / 2}px #{exports.deviceSize / 2}px"
     .to @$device, .15,
       borderWidth: "#{exports.deviceBorder / 2}px #{exports.deviceBorder / 2}px"
@@ -220,7 +227,7 @@ class App.Animation
       else
         @overlayTL
         .add @pannelsTL.play(0), '-=.2'
-        .add @device2TL.play(0)
+        .add @device3TL.play(0)
         .add @overlayContentTL.play(0)
 
     else if .6 <= @currentProgressValue < 1.31
@@ -250,7 +257,7 @@ class App.Animation
       else
         @overlayTL
         .add @pannelsTL.play(0), '-=.2'
-        .add @device2TL.play(0)
+        .add @device3TL.play(0)
         .add @overlayContentTL.play(0)
 
     else if 1.31 <= @currentProgressValue < 1.46
@@ -268,7 +275,7 @@ class App.Animation
       else
         @overlayTL
         .add @pannelsTL.play(0), '-=.2'
-        .add @device2TL.play(0)
+        .add @device3TL.play(0)
         .add @overlayContentTL.play(0)
 
     else if 1.46 <= @currentProgressValue < 1.65
