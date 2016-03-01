@@ -116,6 +116,13 @@ class App.Animation
     .to @$device, .15,
       borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}px"
 
+    @device2TL = new TimelineMax
+      paused: true
+    .set @$device,
+      borderWidth: "#{exports.deviceBorder / 2}px #{exports.deviceSize / 2}px"
+    .to @$device, .15,
+      borderWidth: "#{exports.deviceBorder / 2}px #{exports.deviceBorder / 2}px"
+
     @overlayContentTL = new TimelineMax
       paused: true
     .set @$deviceContainer,
@@ -136,8 +143,10 @@ class App.Animation
       y: 0
     , .15
     .fromTo @$overlayClose, .15,
+      opacity: 0
       x: -100
     ,
+      opacity: 1
       x: 0
     , '-=.1'
 
@@ -167,20 +176,33 @@ class App.Animation
       , .15, '-=.4'
       .set @$overlayContent,
         scale: .33
-      .add @pannelsTL.play(0), '-=.2'
-      .add @overlayContentTL.play(0)
 
       if overlay is 'contact'
-        @overlayTL.add @deviceTL.play(0), '-=1.6'
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @deviceTL.play(0), '-=.1'
+        .add @overlayContentTL.play(0)
+      else
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @overlayContentTL.play(0)
 
     else if .21 <= @currentProgressValue < .42
       @overlayTL = new TimelineMax
         paused: true
       .set @$overlayContent,
         scale: .33
-      .add @pannelsTL.play(0), '-=.2'
-      .add @deviceTL.play(0), '-=.1'
-      .add @overlayContentTL.play(0)
+
+      if overlay is 'contact'
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @deviceTL.play(0), '-=.1'
+        .add @overlayContentTL.play(0)
+      else
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @device2TL.play(0)
+        .add @overlayContentTL.play(0)
 
     else if .42 <= @currentProgressValue < .6
       @overlayTL = new TimelineMax
@@ -190,8 +212,16 @@ class App.Animation
         rotation: 90
       .set @$overlayContent,
         scale: .65
-      .add @pannelsTL.play(0), '-=.2'
-      .add @overlayContentTL.play(0)
+
+      if overlay is 'contact'
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @overlayContentTL.play(0)
+      else
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @device2TL.play(0)
+        .add @overlayContentTL.play(0)
 
     else if .6 <= @currentProgressValue < 1.31
       @overlayTL = new TimelineMax
@@ -212,8 +242,16 @@ class App.Animation
         rotation: 90
       .set @$overlayContent,
         scale: .65
-      .add @pannelsTL.play(0), '-=.2'
-      .add @overlayContentTL.play(0)
+
+      if overlay is 'contact'
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @overlayContentTL.play(0)
+      else
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @device2TL.play(0)
+        .add @overlayContentTL.play(0)
 
     else if 1.31 <= @currentProgressValue < 1.46
       @overlayTL = new TimelineMax
@@ -222,8 +260,16 @@ class App.Animation
         rotation: 90
       .set @$overlayContent,
         scale: .65
-      .add @pannelsTL.play(0), '-=.2'
-      .add @overlayContentTL.play(0)
+
+      if overlay is 'contact'
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @overlayContentTL.play(0)
+      else
+        @overlayTL
+        .add @pannelsTL.play(0), '-=.2'
+        .add @device2TL.play(0)
+        .add @overlayContentTL.play(0)
 
     else if 1.46 <= @currentProgressValue < 1.65
       @overlayTL = new TimelineMax
@@ -235,8 +281,17 @@ class App.Animation
         height: exports.overlaySize
       .set @$overlayContent,
         opacity: 1
-      .add @pannelsTL.play(0)
-      .add @overlayContentTL.play(0), '-=.2'
+      .set @$deviceWrapper,
+        opacity: 0
+
+      if overlay is 'contact'
+        @overlayTL
+        .add @pannelsTL.play(0)
+        .add @overlayContentTL.play(0), '-=.2'
+      else
+        @overlayTL
+        .add @pannelsTL.play(0)
+        .add @overlayContentTL.play(0), '-=.2'
 
     else if 1.65 <= @currentProgressValue
       @overlayTL = new TimelineMax
@@ -252,10 +307,19 @@ class App.Animation
         height: exports.overlaySize
       .set @$overlayContent,
         opacity: 1
-      .add @pannelsTL.play(0)
-      .add @overlayContentTL.play(0), '-=.2'
+      .set @$deviceWrapper,
+        opacity: 0
 
-    @overlayTL.timeScale(.8).play()
+      if overlay is 'contact'
+        @overlayTL
+        .add @pannelsTL.play(0)
+        .add @overlayContentTL.play(0), '-=.2'
+      else
+        @overlayTL
+        .add @pannelsTL.play(0)
+        .add @overlayContentTL.play(0), '-=.2'
+
+    @overlayTL.timeScale(.5).play()
 
   hideOverlay: (exports) ->
     @overlayTL.reverse()
