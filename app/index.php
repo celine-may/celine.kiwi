@@ -54,13 +54,13 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php include('sections/skills.php'); ?>
   </main>
 
-  <button class="menu-btn ui do-show-menu">
+  <button class="menu-btn ui do-show-overlay" data-overlay="menu">
     <span class="burger">
       <span class="burger-layer"></span>
     </span>
   </button>
 
-  <button class="contact-link ui main-copy small-hidden do-show-contact">contact</button>
+  <button class="contact-link ui main-copy small-hidden do-show-overlay" data-overlay="contact">contact</button>
 
   <div class="overlay">
     <div class="overlay-panel top"></div>

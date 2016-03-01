@@ -14,6 +14,7 @@ class App.Form
     @$formBtn = @$form.find '.form-btn'
     @$contactContent = $('.overlay-content.contact')
     @$contactElements = @$contactContent.find '.contact-title, .contact-lead, .form-group, .form-action'
+    @$formAction = @$contactContent.find '.form-action'
 
     @$formError = undefined
     @$formSuccess = undefined
@@ -40,7 +41,7 @@ class App.Form
   showErrorMessage: ->
     unless @$formError?
       @$formError = $('<p class="form-error main-copy">Please complete highlighted fields</p>')
-      @$form.append @$formError
+      @$formAction.append @$formError
 
     TweenLite.fromTo @$formError, .3,
       y: '100%'
@@ -117,13 +118,9 @@ class App.Form
       opacity: 1
       ease: Power2.easeOut
 
-    successTL.timeScale(.8).play()
+    successTL.timeScale(.9).play()
 
   resetForm: ->
-    TweenLite.set @$contactElements,
-      opacity: 1
-    TweenLite.set @$contactContent,
-      backgroundColor: '#ffffff'
     @$formSuccess.remove()
 
   resize: ->

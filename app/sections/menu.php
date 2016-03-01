@@ -18,7 +18,7 @@
     </button>
   </nav>
 
-  <button class="overlay-close do-hide-menu">
+  <button class="overlay-close do-hide-overlay">
     <svg class="shape-cross">
       <use xlink:href="#shape-cross"></use>
     </svg>
