@@ -28,6 +28,7 @@ $assets['javascripts'] = array(
   $js_path . 'build/renderer.js',
   $js_path . 'build/layout/animation.js',
   $js_path . 'build/base/form.js',
+  $js_path . 'build/components/slideshow.js',
 );
 $assets['stylesheets'] = array(
   $css_path . 'vendor/normalize.css',

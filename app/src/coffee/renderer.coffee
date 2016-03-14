@@ -10,6 +10,7 @@ class Renderer
     exports = @exports =
       path: App.path
       section: 'home'
+      controllers: []
       windowWidth: @$window.width()
       windowHeight: @$window.height()
       deviceSize: 196
@@ -18,7 +19,8 @@ class Renderer
       gap: 22
       primaryColor: '#125e72'
       secondaryColor: '#7dffe3'
-      controllers: []
+
+
     fxs = @fxs
     fxs.sort (a, b) ->
       a.order - b.order

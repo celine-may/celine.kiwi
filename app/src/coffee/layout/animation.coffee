@@ -40,7 +40,7 @@ class App.Animation
     @$aboutElements = $('.about-lead, .about-copy')
 
     @$workBg = $('.work-bg')
-    @$workElements = $('.work-title, .slideshow-image, .slideshow-description, .slideshow-nav')
+    @$workElements = $('.work-title, .slide-image, .slide-description, .slideshow-nav')
 
     @$skillsElements = $('.skills-title, .skills-lead, .skills-list, .skills-btn')
 
