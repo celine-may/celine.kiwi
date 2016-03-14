@@ -10,25 +10,45 @@
         </div>
         <div class="slide-description">
           <h2 class="slide-title title separator">Heart Kids</h2>
-          <p class="slide-lead lead">Lorem ispum dolor sit amet.</p>
-          <p class="slide-copy body-copy">
-            Heart Kids New Zealand's mission is to provide life long support for those affected by congenital heart disease (CHD) and to reach and imrive their lifes. In August 2015, we launch the Born Fighter campaign to create awareness and promote donations to HK NZ.
-          </p>
-          <a href="http://www.heartkids.co.nz/" class="slide-link btn">view site</a>
+          <!-- <p class="slide-lead lead">Lorem ispum dolor sit amet.</p> -->
+          <div class="slide-copy">
+            <p class="body-copy">
+              Heart Kids New Zealand's mission is to provide life long support for those affected by congenital heart disease (CHD) and to reach and imrive their lifes. In August 2015, we launch the Born Fighter campaign to create awareness and promote donations to HK NZ.
+            </p>
+            <ul class="slide-list body-copy">
+              <li>HTML</li>
+              <li>SASS</li>
+              <li>CoffeeScript</li>
+              <li>AJAX</li>
+              <li>Parallax</li>
+              <li>Responsive</li>
+            </ul>
+          </div>
+          <a href="http://www.heartkids.co.nz/" target="_blank" class="slide-link btn">view site</a>
         </div>
       </article>
 
       <article class="slide" data-slide="2">
         <div class="slide-image">
-          <img src="<?php echo IMAGES_PATH; ?>work/heart-kids.jpg">
+          <img src="<?php echo IMAGES_PATH; ?>work/wynyard-quarter.jpg">
         </div>
         <div class="slide-description">
-          <h2 class="slide-title title separator">Panuku</h2>
-          <p class="slide-lead lead">Lorem ispum dolor sit amet.</p>
-          <p class="slide-copy body-copy">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae ipsum qui itaque, neque minima! Voluptates, ducimus blanditiis officiis, nihil eius consectetur ad ratione cupiditate, minima, aperiam deleniti modi aspernatur ipsum.
-          </p>
-          <a href="http://www.heartkids.co.nz/" class="slide-link btn">view site</a>
+          <h2 class="slide-title title separator">Wynyard Quarter</h2>
+          <div class="slide-copy">
+            <p class="body-copy">
+              The aim of this website is to showcase the vibrant precinct of Wynyard Quarter as well as promoting &amp; attracting visitors and communicating on future developments.
+            </p>
+            <ul class="slide-list body-copy">
+              <li>HTML</li>
+              <li>SASS</li>
+              <li>CoffeeScript</li>
+              <li>JSON</li>
+              <li>AJAX</li>
+              <li>Responsive</li>
+              <li>Google Maps API</li>
+            </ul>
+          </div>
+          <a href="http://www.wynyard-quarter.co.nz/" target="_blank" class="slide-link btn">view site</a>
         </div>
       </article>
 
@@ -38,10 +58,20 @@
         </div>
         <div class="slide-description">
           <h2 class="slide-title title separator">WQ Smart</h2>
-          <p class="slide-lead lead">Lorem ispum dolor sit amet.</p>
-          <p class="slide-copy body-copy">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae ipsum qui itaque, neque minima! Voluptates, ducimus blanditiis officiis, nihil eius consectetur ad ratione cupiditate, minima, aperiam deleniti modi aspernatur ipsum.
-          </p>
+          <div class="slide-copy">
+            <p class="body-copy">
+              Panuku Development Auckland's aim for Wynyard Quarter is to create a mix of residential, retail &amp; commercial development. This website is an engaging way of sharing the progress of implementing sustainability in Wynyard Quarter.
+            </p>
+            <ul class="slide-list body-copy">
+              <li>HTML</li>
+              <li>WebGL</li>
+              <li>SASS</li>
+              <li>CoffeeScript</li>
+              <li>JSON</li>
+              <li>AJAX</li>
+              <li>Responsive</li>
+            </ul>
+          </div>
           <a href="http://www.heartkids.co.nz/" class="slide-link btn">view site</a>
         </div>
       </article>

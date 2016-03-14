@@ -78,6 +78,18 @@
   margin-bottom: $gap
   font-size: .9375rem
 
+.slide-list
+  margin-top: $gap / 2
+
+  li
+    position: relative
+    display: inline-block
+
+  li:not(:last-child)::after
+    content: "|"
+    display: inline-block
+    margin: 0 $gap / 4
+
 // Navigation
 .slideshow-nav
   height: $gap

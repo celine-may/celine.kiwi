@@ -35,7 +35,7 @@ class App.Slideshow
     else
       newSlide = @activeSlide - 1
 
-    @toggleSlide exports, newSlide, -1
+    @toggleSlide exports, newSlide, 1
 
   showNextSlide: (exports) ->
     if @activeSlide is @slidesCount
@@ -43,7 +43,7 @@ class App.Slideshow
     else
       newSlide = @activeSlide + 1
 
-    @toggleSlide exports, newSlide, 1
+    @toggleSlide exports, newSlide, -1
 
   toggleSlide: (exports, newSlide, direction) ->
     $activeSlide = @$slideshow.find ".slide[data-slide='#{@activeSlide}']"
@@ -66,8 +66,10 @@ class App.Slideshow
     , .15
     .set $activeSlide,
       opacity: 0
+      pointerEvents: 'none'
     .set $newSlide,
       opacity: 1
+      pointerEvents: 'auto'
     .staggerFromTo $newSlideElements, .3,
       opacity: 0
       x: 100 * direction * -1
