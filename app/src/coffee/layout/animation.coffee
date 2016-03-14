@@ -9,8 +9,12 @@ class App.Animation
     @scrollTop = null
     @currentProgressValue = 0
     @initiated = false
+    @activeSection = 'home'
     @activeOverlay = null
     @goToSection = null
+
+    @event = document.createEvent 'Event'
+    @event.initEvent 'toggleSection', true, true
 
     @pannelsTL = undefined
     @deviceTL = undefined
@@ -27,6 +31,7 @@ class App.Animation
     @$body = $('body')
 
     @$ui = $('.menu-btn, .contact-link')
+    @$nav = $('.nav')
 
     @$deviceContainer = $('.device-container')
     @$deviceWrapper = @$deviceContainer.find('.device-wrapper')
@@ -85,6 +90,9 @@ class App.Animation
         $link = $link.parents '.do-show-section'
       @goToSection = $link.addClass('active').attr 'data-section'
       @hideOverlay exports
+
+    window.addEventListener 'toggleSection', (e) =>
+      @toggleSection()
 
   setDevicePosition: (exports) ->
     @posTop = $('.logo').offset().top
@@ -383,7 +391,7 @@ class App.Animation
         when @goToSection is 'home' then 0
         when @goToSection is 'about' then 1
         when @goToSection is 'work' then 2
-        when @goToSection is 'skills' then 3
+        when @goToSection is 'skills' then 3.5
 
       TweenLite.to @$window, 2,
         scrollTo:
@@ -391,6 +399,16 @@ class App.Animation
           ease:Power2.easeOut
         delay: .25
       @goToSection = null
+
+  toggleSection: ->
+    console.log @activeSection
+    @$nav
+      .find '.active'
+      .removeClass 'active'
+
+    @$nav
+      .find ".nav-item[data-section='#{@activeSection}']"
+      .addClass 'active'
 
   initTimelines: (exports) ->
     # Home to About
@@ -440,7 +458,6 @@ class App.Animation
     , .15
     .set @$home,
       zIndex: 0
-    .add -> @currentSection = 'about'
 
     # About to Work
     @aboutWorkTL = new TimelineMax
@@ -503,6 +520,20 @@ class App.Animation
       y: 0
     , .3, '=+1'
 
+  toggleMenuActive: (exports) ->
+    if @scrollTop < exports.windowHeight / 2
+      newSection = 'home'
+    else if exports.windowHeight / 2 <= @scrollTop < exports.windowHeight * 1.5
+      newSection = 'about'
+    else if exports.windowHeight * 1.5 <= @scrollTop < exports.windowHeight * 3
+      newSection = 'work'
+    else
+      newSection = 'skills'
+
+    if newSection isnt @activeSection
+      @activeSection = newSection
+      window.dispatchEvent @event
+
   scrollTween: (startPoint, endPoint, timeline, timelinePosition) ->
     progressValue = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
 
@@ -516,6 +547,8 @@ class App.Animation
 
   scrollHandler: (exports) ->
     @scrollTop = @$window.scrollTop()
+
+    @toggleMenuActive exports
 
     @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
     @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL, 1
