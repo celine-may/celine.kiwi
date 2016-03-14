@@ -20,7 +20,6 @@ class Renderer
       primaryColor: '#125e72'
       secondaryColor: '#7dffe3'
 
-
     fxs = @fxs
     fxs.sort (a, b) ->
       a.order - b.order

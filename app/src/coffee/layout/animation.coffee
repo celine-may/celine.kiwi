@@ -105,6 +105,8 @@ class App.Animation
         @initiated = true
 
   initOverlay: (exports, overlay = 'contact') ->
+    @$overlay.css 'z-index', 30
+
     @pannelsTL = new TimelineMax
       paused: true
     .set @$deviceContainer,
@@ -358,6 +360,8 @@ class App.Animation
     @$body.removeClass 'no-scroll'
 
   onComplete: (exports) =>
+    if @overlayTL.reversed()
+      @$overlay.css 'z-index', -1
     if @overlayTL.reversed() and @goToSection?
       delta = switch
         when @goToSection is 'home' then 0
