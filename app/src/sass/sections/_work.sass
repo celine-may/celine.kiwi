@@ -2,7 +2,6 @@
 // -----------------
 
 .work
-  // +position(fixed, $gap, null, null, $gap)
   +size(calc(100vw - #{$gap}), calc(100vh - #{$gap}))
   color: $primary
   z-index: $zBase
@@ -20,29 +19,43 @@
 // Title
 .work-title
   display: inline-block
+  height: $gap
+  margin-bottom: 0
   padding-bottom: 0
   font-size: .875rem
 
   &::after
-    +position(absolute, null, -$separator - $gap * .5, 50%)
+    +position(absolute, 5px, -$separator - $gap * .5)
 
 // Slideshow
 .slideshow
-  +size(100%, calc(100% - .875rem - #{$gap * 3}))
+  position: relative
+  +size(100%, calc(100% - #{$gap * 4}))
   max-width: 1024px
-  margin: 0 auto
+  margin: $gap auto
 
 .slideshow-item
-  display: table
-  +square(100%)
+  +center('vertical')
+  width: 100%
+  max-height: 100%
+  font-size: 0
+
+%slideshow-content
+  display: inline-block
+  vertical-align: middle
 
 .slideshow-image
-  display: table-cell
-  vertical-align: middle
+  @extend %slideshow-content
+  width: calc(100% - 300px)
+  height: 100%
+
+  img
+    max-height: 100%
+    max-width: 100%
 
 // Description
 .slideshow-description
-  @extend .slideshow-image
+  @extend %slideshow-content
   width: 300px
 
 .slideshow-title
@@ -63,22 +76,28 @@
 
 // Navigation
 .slideshow-nav
-  height: $gap * 2
+  height: $gap
   text-align: center
 
+%slideshow-nav-item
+  display: inline-block
+  +size(10px, 96px)
+  vertical-align: top
+
 .slideshow-prev
-  margin: $gap $gap 0 0
-  transform-origin: right top
-  transform: rotate(90deg)
+  @extend %slideshow-nav-item
+  transform-origin: center top
+  transform: rotate(90deg) translateX($gap / 2)
   transition: transform $transitionDuration $transitionFunction
 
   .no-touchevents &:hover
-    transform: rotate(90deg) translateY($gap / 2)
+    transform: rotate(90deg) translateX($gap / 2) translateY($gap / 2)
 
 .slideshow-next
-  transform-origin: left top
-  transform: rotate(-90deg)
+  @extend %slideshow-nav-item
+  transform-origin: center top
+  transform: rotate(-90deg) translateX($gap / -2)
   transition: transform $transitionDuration $transitionFunction
 
   .no-touchevents &:hover
-    transform: rotate(-90deg) translateY($gap / 2)
+    transform: rotate(-90deg) translateX($gap / -2) translateY($gap / 2)
