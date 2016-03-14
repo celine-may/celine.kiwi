@@ -35,7 +35,7 @@ class App.Slideshow
     else
       newSlide = @activeSlide - 1
 
-    @toggleSlide newSlide
+    @toggleSlide exports, newSlide, -1
 
   showNextSlide: (exports) ->
     if @activeSlide is @slidesCount
@@ -43,20 +43,39 @@ class App.Slideshow
     else
       newSlide = @activeSlide + 1
 
-    @toggleSlide newSlide
+    @toggleSlide exports, newSlide, 1
 
-  toggleSlide: (newSlide) ->
+  toggleSlide: (exports, newSlide, direction) ->
     $activeSlide = @$slideshow.find ".slide[data-slide='#{@activeSlide}']"
+    $activeSlideElements = $activeSlide.find '.slide-image, .slide-description'
     $newSlide = @$slideshow.find ".slide[data-slide='#{newSlide}']"
+    $newSlideElements = $newSlide.find '.slide-image, .slide-description'
 
-    TweenLite.to $activeSlide, .3,
-      display: 'none'
-      opacity: 0
+    if direction is 1
+      $activeSlideElements = $activeSlideElements.toArray().reverse()
+      $newSlideElements = $newSlideElements.toArray().reverse()
 
-    TweenLite.to $newSlide, .3,
-      display: 'block'
+    slideTL = new TimelineMax()
+    .staggerFromTo $activeSlideElements, .3,
       opacity: 1
-      delay: .3
+      x: 0
+    ,
+      opacity: 0
+      x: 100 * direction
+      ease: Power2.easeOut
+    , .15
+    .set $activeSlide,
+      opacity: 0
+    .set $newSlide,
+      opacity: 1
+    .staggerFromTo $newSlideElements, .3,
+      opacity: 0
+      x: 100 * direction * -1
+    ,
+      opacity: 1
+      x: 0
+      ease: Power2.easeOut
+    , .15
 
     @activeSlide = newSlide
 
