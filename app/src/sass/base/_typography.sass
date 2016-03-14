@@ -35,15 +35,45 @@ a
 // Buttons
 .btn
   @extend .main-copy
+  position: relative
   display: inline-block
   width: 100%
-  background-color: rgba($primary, .2)
   +font($primary, null, .875rem, null, null, $gap * 2)
   letter-spacing: 2px
   text-align: center
+  transform: color $transitionDuration cubic-bezier(.75, 0, .125, 1)
 
   &.inverse
     background-color: $secondary
+
+  &::before, &::after
+    content: ""
+    +position(absolute, 0, null, null, 0)
+    +square(100%)
+    pointer-events: none
+    transition: transform $transitionDuration, opacity $transitionDuration
+    transition-timing-function: cubic-bezier(.75, 0, .125, 1)
+    z-index: $zHidden
+    -webkit-backface-visibility: hidden
+
+  &::before
+    background-color: $primary
+    opacity: 0
+    transform: scale3d(1.2, 1.2, 1)
+
+  &::after
+    background-color: rgba($primary, .2)
+
+  &:hover
+    color: $white
+
+  &:hover::before
+    opacity: 1
+    transform: scale3d(1, 1, 1)
+
+  &:hover::after
+    opacity: 0
+    transform: scale3d(0.8, 0.8, 1)
 
 // SVGs
 svg
