@@ -28,21 +28,23 @@ class App.Animation
 
     @$ui = $('.menu-btn, .contact-link')
 
-    @$homeElements = $('.home-title, .home-lead, .home-copy, .scroll-cta')
-    @$logo = $('.shape-logo')
-
     @$deviceContainer = $('.device-container')
     @$deviceWrapper = @$deviceContainer.find('.device-wrapper')
     @$device = @$deviceContainer.find('.device')
     @$deviceBorderLeft = @$deviceContainer.find('.device-border.left')
     @$deviceBorderRight = @$deviceContainer.find('.device-border.right')
 
+    @$home = $('.home')
+    @$homeElements = @$home.find '.home-title, .home-lead, .home-copy, .scroll-cta'
+    @$logo = @$home.find '.shape-logo'
+
     @$aboutElements = $('.about-lead, .about-copy')
 
     @$workBg = $('.work-bg')
     @$workElements = $('.work-title, .slide-image, .slide-description, .slideshow-nav')
 
-    @$skillsElements = $('.skills-title, .skills-lead, .skills-list, .skills-btn')
+    @$skills = $('.skills')
+    @$skillsElements = @$skills.find '.skills-title, .skills-lead, .skills-list, .skills-btn'
 
     @$overlay = $('.overlay')
     @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
@@ -303,7 +305,7 @@ class App.Animation
         .add @pannelsTL.play(0)
         .add @overlayContentTL.play(0), '-=.2'
 
-    else if 1.65 <= @currentProgressValue
+    else if 1.65 <= @currentProgressValue < 2.4
       @overlayTL
       .staggerTo @$workElements, .3,
         opacity: 0
@@ -327,6 +329,20 @@ class App.Animation
         @overlayTL
         .add @pannelsTL.play(0)
         .add @overlayContentTL.play(0), '-=.2'
+
+    else if 2.4 <= @currentProgressValue
+      @overlayTL
+      .set @$overlayContent,
+        scale: 0
+
+      if overlay is 'contact'
+        @overlayTL
+        .add @pannelsTL.play(0)
+        .add @overlayContentTL.play(0), '-=.1'
+      else
+        @overlayTL
+        .add @pannelsTL.play(0)
+        .add @overlayContentTL.play(0), '-=.1'
 
     @overlayTL.timeScale(.9).play()
 
@@ -376,24 +392,6 @@ class App.Animation
         delay: .25
       @goToSection = null
 
-  scrollTween: (startPoint, endPoint, timeline, timelinePosition) ->
-    progressValue = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
-
-    if 0 <= progressValue <= 1
-      timeline.progress progressValue
-      @currentProgressValue = progressValue + timelinePosition
-    else if progressValue < 0
-      timeline.progress 0
-    else if progressValue > 1
-      timeline.progress 1
-
-  scrollHandler: (exports) ->
-    @scrollTop = @$window.scrollTop()
-
-    @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
-    @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL, 1
-    @scrollTween exports.windowHeight * 3, exports.windowHeight * 3.5, @workSkillsTL, 2
-
   initTimelines: (exports) ->
     # Home to About
     @homeAboutTL = new TimelineMax
@@ -440,6 +438,8 @@ class App.Animation
       opacity: 1
       y: 0
     , .15
+    .set @$home,
+      zIndex: 0
     .add -> @currentSection = 'about'
 
     # About to Work
@@ -462,7 +462,8 @@ class App.Animation
       opacity: 0
     ,
       opacity: 1
-    .set @$deviceContainer,
+    .set [ @$deviceContainer, @$logo, @$deviceWrapper ],
+      opacity: 0
       zIndex: 0
     .to @$workBg, 1,
       width: exports.windowWidth - exports.gap * 2
@@ -483,6 +484,15 @@ class App.Animation
     # Work to skills
     @workSkillsTL = new TimelineMax
       paused: true
+    .staggerTo @$workElements, 1,
+      opacity: 0
+      y: -exports.gap
+    , .15, '-=1'
+    .to @$skills, 1,
+      opacity: 1
+    .to @$workBg, 1,
+      y: '-160%'
+    , '-=1'
     .to @$ui, 1,
       color: exports.secondaryColor
     .staggerFromTo @$skillsElements, 1,
@@ -493,6 +503,23 @@ class App.Animation
       y: 0
     , .3, '=+1'
 
+  scrollTween: (startPoint, endPoint, timeline, timelinePosition) ->
+    progressValue = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
+
+    if 0 <= progressValue <= 1
+      timeline.progress progressValue
+      @currentProgressValue = progressValue + timelinePosition
+    else if progressValue < 0
+      timeline.progress 0
+    else if progressValue > 1
+      timeline.progress 1
+
+  scrollHandler: (exports) ->
+    @scrollTop = @$window.scrollTop()
+
+    @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
+    @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL, 1
+    @scrollTween exports.windowHeight * 2.5, exports.windowHeight * 3.5, @workSkillsTL, 2
 
   resize: (exports) ->
     if @initiated

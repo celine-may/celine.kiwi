@@ -2,12 +2,13 @@
 // -----------------
 
 .skills
-  margin-top: 50vh
+  +position(fixed, 0, null, null, 0)
   background: url(#{$imagePath}skills-bg.jpg) no-repeat center center
   background-size: cover
   color: $white
+  opacity: 0
   text-align: center
-  z-index: $zTop - 1
+  z-index: $zBase - 1
 
 // Title
 .skills-title
