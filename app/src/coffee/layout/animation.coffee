@@ -43,10 +43,12 @@ class App.Animation
     @$homeElements = @$home.find '.home-title, .home-lead, .home-copy, .scroll-cta'
     @$logo = @$home.find '.shape-logo'
 
-    @$aboutElements = $('.about-lead, .about-copy')
+    @$about = $('.about')
+    @$aboutElements = @$about.find '.about-lead, .about-copy'
 
-    @$workBg = $('.work-bg')
-    @$workElements = $('.work-title, .slide-image, .slide-description, .slideshow-nav')
+    @$work = $('.work')
+    @$workBg = @$work.find '.work-bg'
+    @$workElements = @$work.find '.work-title, .slide-image, .slide-description, .slideshow-nav'
 
     @$skills = $('.skills')
     @$skillsElements = @$skills.find '.skills-title, .skills-lead, .skills-list, .skills-btn'
@@ -401,7 +403,6 @@ class App.Animation
       @goToSection = null
 
   toggleSection: ->
-    console.log @activeSection
     @$nav
       .find '.active'
       .removeClass 'active'
@@ -479,7 +480,7 @@ class App.Animation
       opacity: 0
     ,
       opacity: 1
-    .set [ @$deviceContainer, @$logo, @$deviceWrapper ],
+    .set [ @$deviceContainer, @$logo, @$deviceWrapper, @$about ],
       opacity: 0
       zIndex: 0
     .to @$workBg, 1,
@@ -512,6 +513,8 @@ class App.Animation
     , '-=1'
     .to @$ui, 1,
       color: exports.secondaryColor
+    .set [ @$work, @$workBg, @$workElements ],
+      zIndex: 0
     .staggerFromTo @$skillsElements, 1,
       opacity: 0
       y: exports.gap

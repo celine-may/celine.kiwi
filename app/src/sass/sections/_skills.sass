@@ -29,20 +29,43 @@
 .skills-list
   display: inline-block
   width: $label * 3 + 16px
-  margin-bottom: $gap * 1.5
+  margin-bottom: 8px
   font-size: 0
 
-.skill-item
+.skill
   @extend .main-copy
-  display: inline-block
+  display: none
   width: $label
   margin-bottom: 8px
   background-color: rgba($white, .3)
   +font($white, null, 1.125rem, null, null, 38px)
+  opacity: 0
   text-align: center
 
   &:nth-child(3n+2)
     margin: 0 8px
+
+// Skills nav
+.skills-nav
+  margin-bottom: $gap
+
+.sn-item
+  display: inline-block
+  +square(16px)
+  margin: 0 8px
+  text-align: center
+
+  &::after
+    content: ""
+    display: inline-block
+    +square($gap / 2)
+    background-color: $white
+    border-radius: 50%
+    opacity: .3
+    transition: opacity $transitionDuration $transitionFunction
+
+  .no-touchevents &:hover::after, &.active::after
+    opacity: 1
 
 // Skills button
 .skills-btn
