@@ -21,20 +21,8 @@ class App.Pagination
     @activePage = 1
 
     # Events
-    @initPages exports
-
-  initPages: (exports) ->
     @createNav exports
     @toggleNavActive exports
-
-    for item, index in @$items
-      if index is @itemsPerPage
-        return
-      TweenLite.set $(item),
-        display: 'inline-block'
-        opacity: 1
-        x: 0
-        className: '+=active'
 
   createNav: (exports) ->
     for i in [ 1..@pagesCount ]

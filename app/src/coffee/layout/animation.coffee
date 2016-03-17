@@ -505,7 +505,7 @@ class App.Animation
     .staggerTo @$workElements, 1,
       opacity: 0
       y: -exports.gap
-    , .15, '-=1'
+    , .15
     .to @$skills, 1,
       opacity: 1
     .to @$workBg, 1,
