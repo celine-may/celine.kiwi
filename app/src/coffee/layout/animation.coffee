@@ -6,71 +6,76 @@ class App.Animation
     exports.AnimationController = @
     exports.controllers.push @
 
-    @scrollTop = null
+    @canPlayVideo = undefined
     @currentProgressValue = 0
     @initiated = false
-    @activeSection = 'home'
-    @activeOverlay = null
-    @goToSection = null
+    @activeSection = undefined
+    @zHidden = -1
+    @zBase = 10
+    @zTop = 20
 
-    @event = document.createEvent 'Event'
-    @event.initEvent 'toggleSection', true, true
-
-    @pannelsTL = undefined
-    @deviceTL = undefined
-    @homeAboutTL = undefined
-    @aboutWorkTL = undefined
-    @workSkillsTL = undefined
-    @contactTL = undefined
-    @formTL = undefined
+    @toggleSectionEvent = document.createEvent 'Event'
+    @toggleSectionEvent.initEvent 'toggleSection', true, true
 
     @init exports
 
   init: (exports) ->
+    # DOM Elements
     @$window = $(window)
     @$body = $('body')
-
+    @$video = $('.video-bg')
     @$ui = $('.menu-btn, .contact-link')
     @$nav = $('.nav')
 
+    # Device
     @$deviceContainer = $('.device-container')
     @$deviceWrapper = @$deviceContainer.find('.device-wrapper')
     @$device = @$deviceContainer.find('.device')
     @$deviceBorderLeft = @$deviceContainer.find('.device-border.left')
     @$deviceBorderRight = @$deviceContainer.find('.device-border.right')
 
-    @$home = $('.home')
-    @$homeElements = @$home.find '.home-title, .home-lead, .home-copy, .scroll-cta'
+    # Home
+    @$home = $('.home .section-content')
+    @$homeElements = @$home.find '.home-element'
     @$logo = @$home.find '.shape-logo'
 
-    @$about = $('.about')
-    @$aboutElements = @$about.find '.about-lead, .about-copy'
+    # About
+    @$about = $('.about .section-content')
+    @$aboutElements = @$about.find '.about-element'
 
+    # Work
     @$work = $('.work')
     @$workBg = @$work.find '.work-bg'
-    @$workElements = @$work.find '.work-title, .slide-image, .slide-description, .slideshow-nav'
+    @$workElements = @$work.find '.work-element'
 
+    # Skills
     @$skills = $('.skills')
-    @$skillsElements = @$skills.find '.skills-title, .skills-lead, .skills-list, .skills-nav, .skills-btn'
+    @$skillsElements = @$skills.find '.skills-element'
 
+    # Overlay
     @$overlay = $('.overlay')
     @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
     @$overlayPanelBottom = @$overlay.find '.overlay-panel.bottom'
     @$overlayClose = @$overlay.find '.overlay-close'
 
+    # Menu
     @$menu = @$overlay.find '.overlay-content.menu'
     @$menuElements = @$overlay.find '.nav-item'
 
+    # Contact
     @$contact = @$overlay.find '.overlay-content.contact'
     @$contactElements = @$overlay.find '.contact-title, .contact-lead, .form-group, .form-action'
 
+    # Links
     @$showOverlayLink = $('.do-show-overlay')
     @$hideOverlayLink = $('.do-hide-overlay')
     @$showSectionLink = $('.do-show-section')
+    @$showAboutLink = $('.do-show-about')
 
+    # Events
     setTimeout =>
       @initApp exports
-    , 200
+    , 1000
 
     @$showOverlayLink.on 'click', (e) =>
       e.preventDefault()
@@ -90,11 +95,18 @@ class App.Animation
       $link = $(e.target)
       unless $link.hasClass 'do-show-section'
         $link = $link.parents '.do-show-section'
-      @goToSection = $link.addClass('active').attr 'data-section'
+      @newSection = $link.addClass('active').attr 'data-section'
       @hideOverlay exports
 
-    window.addEventListener 'toggleSection', (e) =>
+    @$showAboutLink.on 'click', (e) =>
+      e.preventDefault()
+      @newSection = 'about'
+      @goToSection exports,
+
+    @$window.on 'toggleSection', (e) =>
       @toggleSection()
+
+    @$video[0].addEventListener 'canplay', @canPlay, true
 
   setDevicePosition: (exports) ->
     @posTop = $('.logo').offset().top
@@ -102,10 +114,13 @@ class App.Animation
 
   initApp: (exports) ->
     @$window.scrollTop 0
+    @scrollTop = 0
+    @setActiveSection exports
 
     @setDevicePosition exports
-
     @initTimelines exports
+    @initSection exports
+    @playVideo exports
 
     @$window.on 'scroll', =>
       @scrollHandler exports
@@ -113,8 +128,22 @@ class App.Animation
     TweenLite.to @$body, 1,
       opacity: 1
       delay: .5
+      ease: Power2.easeOut
       onComplete: =>
         @initiated = true
+        @playVideo exports
+
+  canPlay: =>
+    @canPlayVideo = true
+
+  playVideo: (exports) ->
+    if @canPlayVideo and @initiated
+      @$video[0].play()
+    unless @canPlayVideo
+      $('.video-bg-fallback').css 'opacity', 1
+
+  initSection: (exports) ->
+    $(".section.#{@activeSection} .section-content").css 'z-index', @zTop
 
   initOverlay: (exports, overlay = 'contact') ->
     @$overlay.css 'z-index', 30
@@ -181,7 +210,7 @@ class App.Animation
 
     @overlayTL = @contactTL = new TimelineMax
       paused: true
-    .call @onComplete, [exports]
+    .call @onOverlayTLComplete, [exports]
 
     if overlay is 'contact'
       @$overlayContent = @$contact
@@ -385,22 +414,25 @@ class App.Animation
 
     @$body.removeClass 'no-scroll'
 
-  onComplete: (exports) =>
+  onOverlayTLComplete: (exports) =>
     if @overlayTL.reversed()
       @$overlay.css 'z-index', -1
-    if @overlayTL.reversed() and @goToSection?
-      delta = switch
-        when @goToSection is 'home' then 0
-        when @goToSection is 'about' then 1
-        when @goToSection is 'work' then 2
-        when @goToSection is 'skills' then 3.5
+    if @overlayTL.reversed() and @newSection?
+      @goToSection exports
 
-      TweenLite.to @$window, 2,
-        scrollTo:
-          y: exports.windowHeight * delta
-          ease:Power2.easeOut
-        delay: .25
-      @goToSection = null
+  goToSection: (exports) ->
+    delta = switch
+      when @newSection is 'home' then 0
+      when @newSection is 'about' then 1
+      when @newSection is 'work' then 2
+      when @newSection is 'skills' then 3.5
+
+    TweenLite.to @$window, 2,
+      scrollTo:
+        y: exports.windowHeight * delta
+        ease:Power2.easeOut
+      delay: .25
+    @newSection = null
 
   toggleSection: ->
     @$nav
@@ -412,55 +444,65 @@ class App.Animation
       .addClass 'active'
 
   initTimelines: (exports) ->
-    # Home to About
+    @initHomeAbout exports
+    @initAboutWork exports
+    @initWorkSkills exports
+
+  # Home to About TL
+  initHomeAbout: (exports) ->
     @homeAboutTL = new TimelineMax
       paused: true
-    .fromTo [ @$logo, @$deviceWrapper ], 1,
+    .set @$home,
+      zIndex: @zBase
+    .fromTo [ @$logo, @$deviceWrapper ], 1, # logo goes to center position
       y: 0
     ,
       y: (exports.windowHeight - exports.deviceSize) / 2 - @posTop
       ease: Power2.easeOut
-    .staggerFromTo @$homeElements, 1,
+    .staggerFromTo @$homeElements, 1, # home elements become transparent and go down
       opacity: 1
       y: 0
     ,
       opacity: 0
       y: exports.gap
     , .15, '-=1'
-    .fromTo @$device, 1,
+    .fromTo @$device, 1, # device border fills device (from top & bottom)
       borderWidth: "#{exports.deviceBorder}"
     ,
       borderWidth: "#{exports.deviceSize / 2}px #{exports.deviceBorder}"
-    .fromTo @$deviceWrapper, 1,
+    .fromTo @$deviceWrapper, 1, # device scales up and rotates
       scale: 1
       rotation: 0
     ,
       scale: 2
       rotation: 45
-    .fromTo @$deviceBorderLeft, 1,
+    .fromTo @$deviceBorderLeft, 1, # device external border goes to the left
       x: 0
       y: 0
     ,
       x: -exports.gap / 2
       y: exports.gap / 2
-    .fromTo @$deviceBorderRight, 1,
+    .fromTo @$deviceBorderRight, 1, # device external border goes to the right
       x: 0
       y: 0
     ,
       x: exports.gap / 2
       y: -exports.gap / 2
     , '-=1'
-    .staggerFromTo @$aboutElements, 1,
+    .set @$home, # set home to z-index hidden
+      zIndex: @zHidden
+    .set @$about, # set about to z-index top
+      zIndex: @zTop
+    .staggerFromTo @$aboutElements, 1, # about elements become visible and go up
       opacity: 0
       y: exports.gap
     ,
       opacity: 1
       y: 0
     , .15
-    .set @$home,
-      zIndex: 0
 
-    # About to Work
+  # About to Work TL
+  initAboutWork: (exports) ->
     @aboutWorkTL = new TimelineMax
       paused: true
     .staggerTo @$aboutElements, 1,
@@ -480,9 +522,10 @@ class App.Animation
       opacity: 0
     ,
       opacity: 1
-    .set [ @$deviceContainer, @$logo, @$deviceWrapper, @$about ],
-      opacity: 0
-      zIndex: 0
+    .set [ @$deviceContainer, @$about ],
+      zIndex: @zHidden
+    .set @$work,
+      zIndex: @zBase
     .to @$workBg, 1,
       width: exports.windowWidth - exports.gap * 2
       height: exports.windowHeight - exports.gap * 2
@@ -499,13 +542,16 @@ class App.Animation
     .to @$workElements, 1,
       opacity: 1
 
-    # Work to skills
+  # Work to skills TL
+  initWorkSkills: (exports) ->
     @workSkillsTL = new TimelineMax
       paused: true
     .staggerTo @$workElements, 1,
       opacity: 0
       y: -exports.gap
     , .15
+    .set @$skills,
+      zIndex: @zBase - 1
     .to @$skills, 1,
       opacity: 1
     .to @$workBg, 1,
@@ -513,8 +559,8 @@ class App.Animation
     , '-=1'
     .to @$ui, 1,
       color: exports.secondaryColor
-    .set [ @$work, @$workBg, @$workElements ],
-      zIndex: 0
+    .set [ @$work, @$workBg ],
+      zIndex: @zHidden
     .staggerFromTo @$skillsElements, 1,
       opacity: 0
       y: exports.gap
@@ -523,7 +569,7 @@ class App.Animation
       y: 0
     , .3
 
-  toggleMenuActive: (exports) ->
+  setActiveSection: (exports) ->
     if @scrollTop < exports.windowHeight / 2
       newSection = 'home'
     else if exports.windowHeight / 2 <= @scrollTop < exports.windowHeight * 1.5
@@ -535,7 +581,7 @@ class App.Animation
 
     if newSection isnt @activeSection
       @activeSection = newSection
-      window.dispatchEvent @event
+      window.dispatchEvent @toggleSectionEvent
 
   scrollTween: (startPoint, endPoint, timeline, timelinePosition) ->
     progressValue = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
@@ -550,8 +596,7 @@ class App.Animation
 
   scrollHandler: (exports) ->
     @scrollTop = @$window.scrollTop()
-
-    @toggleMenuActive exports
+    @setActiveSection exports
 
     @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
     @scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, 1

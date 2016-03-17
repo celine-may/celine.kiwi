@@ -1,14 +1,14 @@
 <section class="section work">
   <div class="section-content">
     <div class="work-bg"></div>
-    <h3 class="work-title title separator">Work</h3>
+    <h3 class="work-title title separator work-element">Work</h3>
 
     <div class="slideshow">
       <article class="slide init" data-slide="1">
-        <div class="slide-image">
+        <div class="slide-image work-element">
           <img src="<?php echo IMAGES_PATH; ?>work/heart-kids.jpg">
         </div>
-        <div class="slide-description">
+        <div class="slide-description work-element">
           <h2 class="slide-title title separator">Heart Kids</h2>
           <!-- <p class="slide-lead lead">Lorem ispum dolor sit amet.</p> -->
           <div class="slide-copy">
@@ -29,10 +29,10 @@
       </article>
 
       <article class="slide" data-slide="2">
-        <div class="slide-image">
+        <div class="slide-image work-element">
           <img src="<?php echo IMAGES_PATH; ?>work/wynyard-quarter.jpg">
         </div>
-        <div class="slide-description">
+        <div class="slide-description work-element">
           <h2 class="slide-title title separator">Wynyard Quarter</h2>
           <div class="slide-copy">
             <p class="body-copy">
@@ -53,10 +53,10 @@
       </article>
 
       <article class="slide" data-slide="3">
-        <div class="slide-image">
+        <div class="slide-image work-element">
           <img src="<?php echo IMAGES_PATH; ?>work/heart-kids.jpg">
         </div>
-        <div class="slide-description">
+        <div class="slide-description work-element">
           <h2 class="slide-title title separator">WQ Smart</h2>
           <div class="slide-copy">
             <p class="body-copy">
@@ -77,7 +77,7 @@
       </article>
     </div>
 
-    <div class="slideshow-nav">
+    <div class="slideshow-nav work-element">
       <button class="slideshow-prev do-slideshow-prev">
         <svg class="shape-arrow">
           <use xlink:href="#shape-arrow-left"></use>

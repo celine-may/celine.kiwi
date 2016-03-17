@@ -42,11 +42,12 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
   <main class="main">
-    <video loop poster="<?php echo IMAGES_PATH; ?>home-bg.jpg" class="video-bg">
+    <video loop class="video-bg">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
     </video>
+    <div class="video-bg-fallback"></div>
 
     <?php include('sections/home.php'); ?>
     <?php include('sections/about.php'); ?>
@@ -76,14 +77,6 @@ $view = isset($q[0]) ? $q[0] : 'home';
       <div class="device"></div>
     </div>
   </div>
-
-  <script type="text/javascript">
-    var video = document.getElementsByTagName("video")[0];
-    playVideo = function() {
-      video.play();
-    }
-    video.addEventListener('canplay', playVideo(), true);
-  </script>
 
   <?php foreach ($assets['javascripts'] as $file_path) : ?>
     <script src="<?php echo $file_path; ?>"></script>

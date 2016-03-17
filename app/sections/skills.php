@@ -1,8 +1,8 @@
 <section class="section skills">
   <div class="section-content">
-    <h3 class="skills-title title separator">Skills</h3>
-    <p class="skills-lead lead">Digital alchemy requires a broad skillset and knowledge of blah blah.</p>
-    <ul class="skills-list">
+    <h3 class="skills-title title separator skills-element">Skills</h3>
+    <p class="skills-lead lead skills-element">Digital alchemy requires a broad skillset and knowledge of blah blah.</p>
+    <ul class="skills-list skills-element">
       <li class="skill init active">html5</li>
       <li class="skill init active">css3</li>
       <li class="skill init active">js</li>
@@ -34,8 +34,8 @@
       <li class="skill">Mobile APP</li>
       <li class="skill">Local storage</li>
     </ul>
-    <div class="skills-nav"></div>
-    <button class="skills-btn btn">Let's talk</button>
+    <div class="skills-nav skills-element"></div>
+    <button class="skills-btn btn skills-element">Let's talk</button>
   </div>
 </section>
 
