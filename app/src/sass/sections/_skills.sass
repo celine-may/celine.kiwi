@@ -28,7 +28,7 @@
 // Skills list
 .skills-list
   display: inline-block
-  width: $label * 3 + 16px
+  +size($label * 3 + 16px, 184px)
   margin-bottom: 8px
   font-size: 0
 
@@ -39,7 +39,6 @@
   margin-bottom: 8px
   background-color: rgba($white, .3)
   +font($white, null, 1.125rem, null, null, 38px)
-  opacity: 0
   text-align: center
 
   &:nth-child(3n+2)

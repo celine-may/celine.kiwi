@@ -12,6 +12,7 @@ class App.Pagination
     # DOM Elements
     @$skills = $('.skills-list')
     @$items = @$skills.find '.skill'
+    @$nav = $('.skills-nav')
 
     # Variables
     @itemsPerPage = 12
@@ -21,9 +22,6 @@ class App.Pagination
 
     # Events
     @initPages exports
-    # @$PaginationNavLink.on 'click', (e) =>
-    #   e.preventDefault()
-    #   @showPage exports
 
   initPages: (exports) ->
     @createNav exports
@@ -35,10 +33,10 @@ class App.Pagination
       TweenLite.set $(item),
         display: 'inline-block'
         opacity: 1
+        x: 0
         className: '+=active'
 
   createNav: (exports) ->
-    @$nav = $('<div class="skills-nav"></div>')
     for i in [ 1..@pagesCount ]
       $navItem = $("""
   <button class="sn-item" data-page="#{i}">
@@ -46,8 +44,6 @@ class App.Pagination
   </button>
       """)
       @$nav.append $navItem
-
-    @$skills.after @$nav
 
     $('.sn-item').on 'click', (e) =>
       e.preventDefault()
@@ -63,15 +59,30 @@ class App.Pagination
     for item, index in @$items
       if (page - 1) * @itemsPerPage <= index < page * @itemsPerPage
         $itemsToShow.push $(item)
-    TweenLite.to $itemsToHide, .3,
-      display: 'none'
-      opacity: 0
-      className: '-=active'
-    TweenLite.to $itemsToShow, .3,
+
+    delta = 1
+    if page > @activePage
+      delta = -1
+
+    TweenLite.fromTo $itemsToHide, .4,
       display: 'inline-block'
       opacity: 1
+      x: 0
+    ,
+      display: 'none'
+      opacity: 0
+      x: 100 * delta
+      className: '-=active'
+    TweenLite.fromTo $itemsToShow, .4,
+      display: 'none'
+      opacity: 0
+      x: -100 * delta
+    ,
+      display: 'inline-block'
+      opacity: 1
+      x: 0
       className: '+=active'
-      delay: .3
+      delay: .4
 
     @activePage = page
     @toggleNavActive exports

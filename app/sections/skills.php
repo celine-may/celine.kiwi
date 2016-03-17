@@ -33,8 +33,8 @@
       <li class="skill">parallax</li>
       <li class="skill">Mobile APP</li>
       <li class="skill">Local storage</li>
-      <li class="skill">wordpress</li>
     </ul>
+    <div class="skills-nav"></div>
     <button class="skills-btn btn">Let's talk</button>
   </div>
 </section>
