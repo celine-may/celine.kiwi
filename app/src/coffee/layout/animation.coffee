@@ -521,7 +521,7 @@ class App.Animation
     ,
       opacity: 1
       y: 0
-    , .3, '=+1'
+    , .3
 
   toggleMenuActive: (exports) ->
     if @scrollTop < exports.windowHeight / 2
