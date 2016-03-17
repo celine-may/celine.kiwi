@@ -51,7 +51,7 @@ class App.Animation
     @$workElements = @$work.find '.work-title, .slide-image, .slide-description, .slideshow-nav'
 
     @$skills = $('.skills')
-    @$skillsElements = @$skills.find '.skills-title, .skills-lead, .skills-list, .skills-btn'
+    @$skillsElements = @$skills.find '.skills-title, .skills-lead, .skills-list, .skills-nav, .skills-btn'
 
     @$overlay = $('.overlay')
     @$overlayPanelTop = @$overlay.find '.overlay-panel.top'
@@ -509,7 +509,7 @@ class App.Animation
     .to @$skills, 1,
       opacity: 1
     .to @$workBg, 1,
-      y: '-160%'
+      marginTop: '-100%'
     , '-=1'
     .to @$ui, 1,
       color: exports.secondaryColor
@@ -554,8 +554,8 @@ class App.Animation
     @toggleMenuActive exports
 
     @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
-    @scrollTween exports.windowHeight, exports.windowHeight * 2, @aboutWorkTL, 1
-    @scrollTween exports.windowHeight * 2.5, exports.windowHeight * 3.5, @workSkillsTL, 2
+    @scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, 1
+    @scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, 2
 
   resize: (exports) ->
     if @initiated
