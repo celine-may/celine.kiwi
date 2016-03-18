@@ -55,7 +55,7 @@ class App.Slideshow
       $activeSlideElements = $activeSlideElements.toArray().reverse()
       $newSlideElements = $newSlideElements.toArray().reverse()
 
-    unless exports.isSmall
+    unless exports.isMedium or exports.isSmall
       slideTL = new TimelineMax()
       .staggerFromTo $activeSlideElements, .3,
         opacity: 1

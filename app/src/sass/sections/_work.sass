@@ -8,20 +8,23 @@
     +square(100%)
     padding: $gap * 4 $gap * 4.5
 
-    +max-screen($small)
+    +max-screen($medium)
       +position(relative, auto, null, null, auto)
-      min-height: 100%
-      padding: $gapSmall * 2
+      min-height: 100vh
       transform: translate3d(0, 0, 0)
+
+    +max-screen($small)
+      padding: $gapSmall * 2
 
 .work-bg
   +position(absolute, 0, null, null, 0)
   +square(100%)
   background-color: $white
 
-  +min-screen($small + 1px)
-    +center('both', fixed)
-    +square($device * 2)
+  +min-screen($medium + 1px)
+    .no-touchevents &
+      +center('both', fixed)
+      +square($device * 2)
 
 // Title
 .work-title
@@ -41,6 +44,9 @@
   max-width: 1024px
   margin: $gap auto
 
+  +min-max-screen($small + 1px, $medium)
+    margin: $gap * 2 auto
+
 .slide
   +square(100%)
   opacity: 0
@@ -50,12 +56,13 @@
     opacity: 1
     pointer-events: auto
 
-  +min-screen($small + 1px)
+  +min-screen($medium + 1px)
     +position(absolute, 0, null, null, 0)
     display: table
 
-  +max-screen($small)
+  +max-screen($medium)
     display: none
+    text-align: center
 
     &.init
       display: block
@@ -65,22 +72,28 @@
     max-width: 100%
     max-height: calc(100% - #{$gap * 4})
 
-  +min-screen($small + 1px)
+  +min-screen($medium + 1px)
     display: table-cell
     vertical-align: middle
 
-  +max-screen($small)
+  +max-screen($medium)
     display: block
     margin-bottom: $gapSmall * 3
 
 .slide-description
-  +min-screen($small + 1px)
+  +min-screen($medium + 1px)
     display: table-cell
     width: 300px
     vertical-align: middle
 
-  +max-screen($small)
-    display: block
+  +max-screen($medium)
+    display: inline-block
+    max-width: 640px
+    text-align: left
+
+    .slide-link
+      display: block
+      margin: 0 auto
 
 .slide-title
   display: inline-block

@@ -51,7 +51,8 @@ body
       +size(calc(100% - #{$gapSmall * 2}), 100%)
 
   +min-screen($small + 1px)
-    height: calc(440vh - #{$gap})
+    .no-touchevents &
+      height: calc(440vh - #{$gap})
 
 .ui
   color: $white

@@ -14,7 +14,9 @@ class Renderer
       windowWidth: @$window.width()
       windowHeight: @$window.height()
       isSmall: @$window.width() <= 767
+      isMedium: 767 < @$window.width() <= 1023
       smallBreakpoint: 767
+      mediumBreakpoint: 1023
       deviceSize: 196
       deviceBorder: 16
       overlaySize: 604
@@ -45,6 +47,11 @@ class Renderer
       exports.isSmall = false
       exports.deviceSize = 196
       exports.deviceBorder = 16
+
+    if exports.smallBreakpoint < windowWidth <= exports.mediumBreakpoint
+      exports.isMedium = true
+    else
+      isMedium = false
 
     for fx in @fxs
       fx.resize exports

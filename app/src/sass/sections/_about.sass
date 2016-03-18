@@ -33,19 +33,21 @@
         z-index: $zHidden
 
 .about-title
-  +font(null, null, 4rem, null, null, .8)
-
-  +min-screen($small + 1px)
+  +min-screen($medium + 1px)
     +center('both')
     padding-top: $gap
-    font-size: 13rem
+    +font(null, null, 13rem, null, null, .8)
     letter-spacing: $gap
     word-spacing: $gap
 
-  +max-screen($small)
+  +max-screen($medium)
     +center('horizontal')
     margin-top: $gap * 2
+    font-size: 8rem
     z-index: $zTop
+
+  +max-screen($small)
+    font-size: 4rem
 
 .about-lead
   font-size: 1.125rem
