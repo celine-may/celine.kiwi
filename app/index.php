@@ -41,13 +41,14 @@ $view = isset($q[0]) ? $q[0] : 'home';
 
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
+  <div class="video-bg-fallback"></div>
+
   <main class="main">
     <video loop class="video-bg">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
     </video>
-    <div class="video-bg-fallback"></div>
 
     <?php include('sections/home.php'); ?>
     <?php include('sections/about.php'); ?>
@@ -70,7 +71,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php include("sections/contact.php"); ?>
   </div>
 
-  <div class="device-container">
+  <div class="device-container small-hidden">
     <div class="device-wrapper">
       <div class="device-border left"></div>
       <div class="device-border right"></div>

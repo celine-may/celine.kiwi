@@ -55,29 +55,45 @@ class App.Slideshow
       $activeSlideElements = $activeSlideElements.toArray().reverse()
       $newSlideElements = $newSlideElements.toArray().reverse()
 
-    slideTL = new TimelineMax()
-    .staggerFromTo $activeSlideElements, .3,
-      opacity: 1
-      x: 0
-    ,
-      opacity: 0
-      x: 100 * direction
-      ease: Power2.easeOut
-    , .15
-    .set $activeSlide,
-      opacity: 0
-      pointerEvents: 'none'
-    .set $newSlide,
-      opacity: 1
-      pointerEvents: 'auto'
-    .staggerFromTo $newSlideElements, .3,
-      opacity: 0
-      x: 100 * direction * -1
-    ,
-      opacity: 1
-      x: 0
-      ease: Power2.easeOut
-    , .15
+    unless exports.isSmall
+      slideTL = new TimelineMax()
+      .staggerFromTo $activeSlideElements, .3,
+        opacity: 1
+        x: 0
+      ,
+        opacity: 0
+        x: 100 * direction
+        ease: Power2.easeOut
+      , .15
+      .set $activeSlide,
+        opacity: 0
+        pointerEvents: 'none'
+      .set $newSlide,
+        opacity: 1
+        pointerEvents: 'auto'
+      .staggerFromTo $newSlideElements, .3,
+        opacity: 0
+        x: 100 * direction * -1
+      ,
+        opacity: 1
+        x: 0
+        ease: Power2.easeOut
+      , .15
+    else
+      slideTL = new TimelineMax()
+      .to $activeSlide, .3,
+        display: 'none'
+        opacity: 0
+        pointerEvents: 'none'
+        x: 100 * direction
+        ease: Power2.easeOut
+      .fromTo $newSlide, .3,
+        x: 100 * direction * -1
+      ,
+        display: 'block'
+        opacity: 1
+        x: 0
+        ease: Power2.easeOut
 
     @activeSlide = newSlide
 

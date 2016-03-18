@@ -6,17 +6,37 @@
   text-align: center
 
   .section-content
-    width: 340px
+    width: calc(100% - #{$gap * 4})
+    max-width: 340px
 
-  .scroll-cta
-    bottom: $arrow * -.5
+  .touchevents &
+    .section-content::before
+      content: ""
+      +position(absolute, 50%, null, null, 50%)
+      width: 120%
+      padding-top: 120%
+      background-color: $white
+      transform: translate3d(-50%, -50%, 0) rotate(45deg)
+      z-index: $zHidden
+
+  +max-screen($small)
+    .section-content
+      width: calc(100% - #{$gapSmall * 4})
 
 .about-title
-  +center('both')
-  padding-top: $gap
-  +font(null, null, 13rem, null, null, .8)
-  letter-spacing: $gap
-  word-spacing: $gap
+  +font(null, null, 4rem, null, null, .8)
+
+  +min-screen($small + 1px)
+    +center('both')
+    padding-top: $gap
+    font-size: 13rem
+    letter-spacing: $gap
+    word-spacing: $gap
+
+  +max-screen($small)
+    +center('horizontal')
+    margin-top: $gap * 2
+    z-index: $zTop
 
 .about-lead
   font-size: 1.125rem

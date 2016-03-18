@@ -5,31 +5,57 @@
   color: $white
   text-align: center
 
+  .section-content
+    width: calc(100% - #{$gap * 2} - 140px)
+    max-width: 690px
+
   .scroll-cta
     bottom: -$arrow - $gap
 
 .logo
   display: inline-block
   +square($device)
-  margin-bottom: 60px
+  margin-bottom: $gap * 3
+
+  +max-screen($small)
+    +square($deviceSmall)
+    margin-bottom: $gap * 1.5
 
 .home-title
   font-size: 2.375rem
   letter-spacing: 27px
 
+  +max-screen($small)
+    font-size: 1.375rem
+    letter-spacing: 15px
+
 .home-lead
   margin-bottom: $gap * 2
   font-size: 1.875rem
 
+  +max-screen($small)
+    font-size: 1.25rem
+    line-height: 1.1
+
 // Scroll CTA
 .scroll-cta
-  +position(absolute, null, null, $gap, 50%)
-  +size(30px, $arrow)
-  margin-left: -15px
-  transition: transform $transitionDuration $transitionFunction
+  width: 30px
 
   .no-touchevents &:hover
     transform: translateY(10px)
 
+  +max-screen($small)
+    height: $arrow / 2
+    overflow: hidden
+
+  +min-screen($small + 1px)
+    +position(absolute, null, null, $gap, 50%)
+    height: $arrow
+    margin-left: -15px
+    transition: transform $transitionDuration $transitionFunction
+
 .shape-arrow
-  +size(10px, 100%)
+  +size(10px, $arrow)
+
+  +max-screen($small)
+    margin-top: -$arrow / 2

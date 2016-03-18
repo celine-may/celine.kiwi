@@ -2,18 +2,26 @@
 // -----------------
 
 .work
-  +size(calc(100vw - #{$gap}), calc(100vh - #{$gap}))
   color: $primary
 
   .section-content
     +square(100%)
     padding: $gap * 4 $gap * 4.5
 
+    +max-screen($small)
+      +position(relative, auto, null, null, auto)
+      min-height: 100%
+      padding: $gapSmall * 2
+      transform: translate3d(0, 0, 0)
+
 .work-bg
-  +center('both', fixed)
-  +square($device * 2)
+  +position(absolute, 0, null, null, 0)
+  +square(100%)
   background-color: $white
-  opacity: 0
+
+  +min-screen($small + 1px)
+    +center('both', fixed)
+    +square($device * 2)
 
 // Title
 .work-title
@@ -34,8 +42,6 @@
   margin: $gap auto
 
 .slide
-  +position(absolute, 0, null, null, 0)
-  display: table
   +square(100%)
   opacity: 0
   pointer-events: none
@@ -44,22 +50,37 @@
     opacity: 1
     pointer-events: auto
 
-%slide-content
-  display: table-cell
-  vertical-align: middle
+  +min-screen($small + 1px)
+    +position(absolute, 0, null, null, 0)
+    display: table
+
+  +max-screen($small)
+    display: none
+
+    &.init
+      display: block
 
 .slide-image
-  @extend %slide-content
-  width: calc(100% - 300px)
-
   img
     max-width: 100%
     max-height: calc(100% - #{$gap * 4})
 
-// Description
+  +min-screen($small + 1px)
+    display: table-cell
+    vertical-align: middle
+
+  +max-screen($small)
+    display: block
+    margin-bottom: $gapSmall * 3
+
 .slide-description
-  @extend %slide-content
-  width: 300px
+  +min-screen($small + 1px)
+    display: table-cell
+    width: 300px
+    vertical-align: middle
+
+  +max-screen($small)
+    display: block
 
 .slide-title
   display: inline-block
@@ -91,6 +112,7 @@
 
 // Navigation
 .slideshow-nav
+  position: relative
   height: $gap
   text-align: center
 
@@ -99,13 +121,12 @@
 
 %slideshow-nav-item
   display: inline-block
-  +size(96px, 10px)
+  +size(96px, 100%)
   margin: 0 $gap / 4
   vertical-align: top
 
 .slideshow-prev
   @extend %slideshow-nav-item
-  // transform: translateX($gap / 2)
   transition: transform $transitionDuration $transitionFunction
 
   .no-touchevents &:hover
@@ -113,7 +134,6 @@
 
 .slideshow-next
   @extend %slideshow-nav-item
-  // transform: translateX($gap / -2)
   transition: transform $transitionDuration $transitionFunction
 
   .no-touchevents &:hover

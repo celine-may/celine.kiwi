@@ -1,13 +1,20 @@
 // SKILLS
 // -----------------
 
+$skillsBreakpoint: $label * 3 + 16px + $gap * 2
+
 .skills
-  +position(fixed, 0, null, null, 0)
   background: url(#{$imagePath}skills-bg.jpg) no-repeat center center
   background-size: cover
   color: $white
-  opacity: 0
   text-align: center
+
+  .no-touchevents &
+    +position(fixed, 0, null, null, 0)
+
+  +max-screen($skillsBreakpoint)
+    .section-content
+      width: calc(100% - #{$gapSmall * 4})
 
 // Title
 .skills-title
@@ -18,6 +25,9 @@
   &::after
     +position(absolute, null, null, 0, 50%)
     margin-left: $separator * -.5
+
+  +max-screen($small)
+    font-size: 3.5rem
 
 .skills-lead
   max-width: 320px
@@ -31,22 +41,33 @@
   margin-bottom: 8px
   font-size: 0
 
+  +max-screen($skillsBreakpoint)
+    width: 100%
+
 .skill
   @extend .main-copy
   display: none
-  width: $label
   margin-bottom: 8px
   background-color: rgba($white, .3)
   +font($white, null, 1.125rem, null, null, 38px)
   text-align: center
 
-  &:nth-child(3n+2)
-    margin: 0 8px
-
   &.init
     display: inline-block
     opacity: 1
     transform: translateX(0)
+
+  +min-screen($skillsBreakpoint + 1px)
+    width: $label
+
+    &:nth-child(3n+2)
+      margin: 0 8px
+
+  +max-screen($small)
+    width: calc(50% - 4px)
+
+    &:nth-child(odd)
+      margin-right: 8px
 
 // Skills nav
 .skills-nav

@@ -118,7 +118,8 @@ class App.Animation
     @setActiveSection exports
 
     @setDevicePosition exports
-    @initTimelines exports
+    unless exports.isTouch
+      @initTimelines exports
     @initSection exports
     @playVideo exports
 
@@ -140,7 +141,10 @@ class App.Animation
     if @canPlayVideo and @initiated
       @$video[0].play()
     unless @canPlayVideo
-      $('.video-bg-fallback').css 'opacity', 1
+      @$video.remove()
+      $('.video-bg-fallback').css
+        height: exports.windowHeight + 75
+        opacity: 1
 
   initSection: (exports) ->
     $(".section.#{@activeSection} .section-content").css 'z-index', @zTop
@@ -552,7 +556,9 @@ class App.Animation
     , .15
     .set @$skills,
       zIndex: @zBase - 1
-    .to @$skills, 1,
+    .fromTo @$skills, 1,
+      opacity: 0
+    ,
       opacity: 1
     .to @$workBg, 1,
       marginTop: '-100%'
@@ -598,9 +604,10 @@ class App.Animation
     @scrollTop = @$window.scrollTop()
     @setActiveSection exports
 
-    @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
-    @scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, 1
-    @scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, 2
+    unless exports.isTouch
+      @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
+      @scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, 1
+      @scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, 2
 
   resize: (exports) ->
     if @initiated

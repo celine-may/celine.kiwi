@@ -3,7 +3,7 @@
 
 .overlay
   +position(fixed, 0, null, null, 0)
-  +size(100%, 100vh)
+  +square(100%)
   pointer-events: none
   z-index: $zHidden
 
@@ -33,6 +33,9 @@
   pointer-events: auto
   text-align: center
   z-index: $zBase
+
+  +max-screen($overlayContent + $gap * 2)
+    +square(calc(100% - #{$gap * 4 }))
 
 .overlay-close
   display: inline-block

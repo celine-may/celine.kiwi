@@ -3,23 +3,14 @@
 
 // Link
 .contact-link
+  right: $gap * 2
   font-size: .875rem
+  transform-origin: top left
+  transform: translateX(100%) rotate(90deg) translateX(-50%)
   transition: letter-spacing $transitionDuration $transitionFunction
 
   &:hover
     letter-spacing: 2px
-
-  +max-screen($small)
-    display: inline-block
-    width: 270px
-    background-color: $primary
-    line-height: 47px
-    text-align: center
-
-  +min-screen($small + 1px)
-    right: $gap * 2
-    transform-origin: top left
-    transform: translateX(100%) rotate(90deg) translateX(-50%)
 
 // Wrapper
 .overlay-content.contact

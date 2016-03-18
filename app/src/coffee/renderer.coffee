@@ -9,10 +9,12 @@ class Renderer
   init: ->
     exports = @exports =
       path: App.path
-      section: 'home'
+      isTouch: Modernizr.touchevents
       controllers: []
       windowWidth: @$window.width()
       windowHeight: @$window.height()
+      isSmall: @$window.width() <= 767
+      smallBreakpoint: 767
       deviceSize: 196
       deviceBorder: 16
       overlaySize: 604
@@ -32,8 +34,18 @@ class Renderer
 
   resize: (e) ->
     exports = @exports
-    exports.windowWidth = @$window.width()
+    windowWidth = exports.windowWidth = @$window.width()
     exports.windowHeight = @$window.height()
+
+    if windowWidth <= exports.smallBreakpoint
+      exports.isSmall = true
+      exports.deviceSize = 96
+      exports.deviceBorder = 10
+    else
+      exports.isSmall = false
+      exports.deviceSize = 196
+      exports.deviceBorder = 16
+
     for fx in @fxs
       fx.resize exports
 

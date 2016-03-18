@@ -3,29 +3,34 @@
 
 // Menu button
 .menu-btn
-  left: $gap * 2
-  +size(24px, 84px)
-  transform: translateY(-50%)
+  +min-screen($small + 1px)
+    left: $gap * 2
+    +size(24px, 84px)
+    transform: translateY(-50%)
 
-  &::before, &::after
-    content: ""
-    +position(absolute, null, null, null, 50%)
-    +size(1px, 24px)
-    background-color: currentColor
-    transition: transform $transitionDuration $transitionFunction
+    &::before, &::after
+      content: ""
+      +position(absolute, null, null, null, 50%)
+      +size(1px, 24px)
+      background-color: currentColor
+      transition: transform $transitionDuration $transitionFunction
 
-  &::before
-    top: 0
-
-  &::after
-    bottom: 0
-
-  .no-touchevents &:hover
     &::before
-      transform: translateY(-3px)
+      top: 0
 
     &::after
-      transform: translateY(3px)
+      bottom: 0
+
+    .no-touchevents &:hover
+      &::before
+        transform: translateY(-3px)
+
+      &::after
+        transform: translateY(3px)
+
+  +max-screen($small)
+    +position(fixed, $gapSmall, $gapSmall)
+    +square(44px)
 
 .burger
   +center('both')
@@ -35,7 +40,7 @@
 
 .burger-layer
   +position(absolute, 50%, null, null, 29%)
-  +size(42%, 1px)
+  +size(10px, 1px)
   background-color: currentColor
 
   &::before, &::after
@@ -58,6 +63,16 @@
     &::after
       transform: translateY(1px)
 
+  +max-screen($small)
+    left: 5px
+    width: 12px
+
+    &::before
+      top: -4px
+
+    &::after
+      top: 4px
+
 // Navigation
 .overlay-content.menu
   border: $deviceBorder solid currentColor
@@ -66,11 +81,20 @@
   .overlay-close
     +position(absolute, -$deviceBorder, -$deviceBorder - $gap * 2)
 
+  +max-screen($small)
+    border-width: $deviceSmallBorder
+
+    .overlay-close
+      +position(absolute, -$deviceSmallBorder - 30px, -$deviceSmallBorder - 30px)
+
 .nav-item
   display: block
   margin: 64px 0
   width: 100%
   text-align: center
+
+  +max-screen($small)
+    margin: 54px 0
 
 .nav-copy
   position: relative
@@ -90,3 +114,6 @@
 
   .no-touchevents .nav-item:hover &::after, .active &::after
     transform: translateX(0)
+
+  +max-screen($small)
+    font-size: 1.75rem
