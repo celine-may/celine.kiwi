@@ -118,7 +118,7 @@ class App.Animation
     @setActiveSection exports
 
     @setDevicePosition exports
-    unless exports.isTouch
+    unless exports.isTouch or exports.isSmall
       @initTimelines exports
     @initSection exports
     @playVideo exports
@@ -604,7 +604,7 @@ class App.Animation
     @scrollTop = @$window.scrollTop()
     @setActiveSection exports
 
-    unless exports.isTouch
+    unless exports.isTouch or exports.isSmall
       @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
       @scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, 1
       @scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, 2

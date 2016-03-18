@@ -23,6 +23,15 @@
     .section-content
       width: calc(100% - #{$gapSmall * 4})
 
+      &::before
+        content: ""
+        +position(absolute, 50%, null, null, 50%)
+        width: 120%
+        padding-top: 120%
+        background-color: $white
+        transform: translate3d(-50%, -50%, 0) rotate(45deg)
+        z-index: $zHidden
+
 .about-title
   +font(null, null, 4rem, null, null, .8)
 

@@ -71,7 +71,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
     <?php include("sections/contact.php"); ?>
   </div>
 
-  <div class="device-container small-hidden">
+  <div class="device-container touch-hidden small-hidden">
     <div class="device-wrapper">
       <div class="device-border left"></div>
       <div class="device-border right"></div>

@@ -9,8 +9,9 @@ $skillsBreakpoint: $label * 3 + 16px + $gap * 2
   color: $white
   text-align: center
 
-  .no-touchevents &
-    +position(fixed, 0, null, null, 0)
+  +min-screen($small + 1px)
+    .no-touchevents &
+      +position(fixed, 0, null, null, 0)
 
   +max-screen($skillsBreakpoint)
     .section-content
