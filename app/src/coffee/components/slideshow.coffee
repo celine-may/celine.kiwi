@@ -1,6 +1,6 @@
 class App.Slideshow
   constructor: ->
-    @order = 2
+    @order = 10
 
   build: (exports) ->
     exports.SlideshowController = @

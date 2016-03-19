@@ -26,6 +26,7 @@ $assets['javascripts'] = array(
   $js_path . 'vendor/modernizr-custom.min.js',
   $js_path . 'build/app.js',
   $js_path . 'build/renderer.js',
+  $js_path . 'build/layout/sections.js',
   $js_path . 'build/layout/animation.js',
   $js_path . 'build/base/form.js',
   $js_path . 'build/components/slideshow.js',

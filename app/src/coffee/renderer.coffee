@@ -62,11 +62,14 @@ class Renderer
     for fx in @fxs
       fx.onResize exports
 
-  scrollTween: (startPoint, endPoint, tweenName, scrollY) ->
+  scrollTween: (exports, startPoint, endPoint, tweenName, scrollY, timelinePosition) ->
+    unless tweenName?
+      return
     progressValue = (1 / (endPoint - startPoint)) * (scrollY - startPoint)
 
     if 0 <= progressValue <= 1
       tweenName.progress progressValue
+      exports.currentProgressValue = progressValue + timelinePosition
     else if progressValue < 0
       tweenName.progress 0
     else if progressValue > 1

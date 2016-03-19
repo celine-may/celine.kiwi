@@ -1,33 +1,22 @@
 class App.Animation
   constructor: ->
-    @order = 0
+    @order = 1
 
   build: (exports) ->
     exports.AnimationController = @
     exports.controllers.push @
 
-    @canPlayVideo = undefined
     @currentProgressValue = 0
-    @initiated = false
-    @activeSection = undefined
     @zHidden = -1
     @zBase = 10
     @zTop = 20
-
-    @toggleSectionEvent = document.createEvent 'Event'
-    @toggleSectionEvent.initEvent 'toggleSection', true, true
 
     @init exports
 
   init: (exports) ->
     # DOM Elements
-    @$window = $(window)
     @$body = $('body')
-    @$video = $('.video-bg')
     @$ui = $('.menu-btn, .contact-link')
-    @$uiBorder = @$ui.find '.burger'
-    @$uiBg = @$ui.find '.burger-layer'
-    @$nav = $('.nav')
 
     # Device
     @$deviceContainer = $('.device-container')
@@ -71,14 +60,8 @@ class App.Animation
     # Links
     @$showOverlayLink = $('.do-show-overlay')
     @$hideOverlayLink = $('.do-hide-overlay')
-    @$showSectionLink = $('.do-show-section')
-    @$showAboutLink = $('.do-show-about')
 
     # Events
-    setTimeout =>
-      @initApp exports
-    , 1000
-
     @$showOverlayLink.on 'click', (e) =>
       e.preventDefault()
       $link = $(e.target)
@@ -91,70 +74,11 @@ class App.Animation
       e.preventDefault()
       @hideOverlay exports
 
-    @$showSectionLink.on 'click', (e) =>
-      e.preventDefault()
-      @$menuElements.removeClass 'active'
-      $link = $(e.target)
-      unless $link.hasClass 'do-show-section'
-        $link = $link.parents '.do-show-section'
-      @newSection = $link.addClass('active').attr 'data-section'
-      @hideOverlay exports
-
-    @$showAboutLink.on 'click', (e) =>
-      e.preventDefault()
-      @newSection = 'about'
-      @goToSection exports,
-
-    @$window.on 'toggleSection', (e) =>
-      @toggleSection()
-
-    @$video[0].addEventListener 'canplay', @canPlay, true
-
   setDevicePosition: (exports) ->
     @posTop = $('.logo').offset().top
     @$deviceWrapper.css 'top', @posTop
 
-  initApp: (exports) ->
-    @$window.scrollTop 0
-    @scrollTop = 0
-
-    @getSectionHeights exports
-    @setActiveSection exports
-    @setDevicePosition exports
-    unless exports.isTouch or exports.isSmall
-      @initTimelines exports
-    @initSection exports
-    @playVideo exports
-
-    TweenLite.to @$body, 1,
-      opacity: 1
-      delay: .5
-      ease: Power2.easeOut
-      onComplete: =>
-        @initiated = true
-        @playVideo exports
-
-  getSectionHeights: (exports) ->
-    @homeHeight = $('.home').outerHeight()
-    @aboutHeight = $('.about').outerHeight()
-    @workHeight = $('.work').outerHeight()
-
-  canPlay: =>
-    @canPlayVideo = true
-
-  playVideo: (exports) ->
-    if @canPlayVideo and @initiated
-      @$video[0].play()
-    unless @canPlayVideo
-      @$video.remove()
-      $('.video-bg-fallback').css
-        height: exports.windowHeight + 75
-        opacity: 1
-
-  initSection: (exports) ->
-    $(".section.#{@activeSection} .section-content").css 'z-index', @zTop
-
-  initOverlay: (exports, overlay = 'contact') ->
+  initOverlayTL: (exports, overlay = 'contact') ->
     @$overlay.css 'z-index', 30
 
     @pannelsTL = new TimelineMax
@@ -228,7 +152,7 @@ class App.Animation
       @$overlayContent = @$menu
       @$overlayElements = @$menuElements
 
-    @initOverlay exports, overlay
+    @initOverlayTL exports, overlay
 
     if @currentProgressValue < .21
       @overlayTL
@@ -426,31 +350,8 @@ class App.Animation
   onOverlayTLComplete: (exports) =>
     if @overlayTL.reversed()
       @$overlay.css 'z-index', -1
-    if @overlayTL.reversed() and @newSection?
-      @goToSection exports
-
-  goToSection: (exports) ->
-    delta = switch
-      when @newSection is 'home' then 0
-      when @newSection is 'about' then 1
-      when @newSection is 'work' then 2
-      when @newSection is 'skills' then 3.5
-
-    TweenLite.to @$window, 2,
-      scrollTo:
-        y: exports.windowHeight * delta
-        ease:Power2.easeOut
-      delay: .25
-    @newSection = null
-
-  toggleSection: ->
-    @$nav
-      .find '.active'
-      .removeClass 'active'
-
-    @$nav
-      .find ".nav-item[data-section='#{@activeSection}']"
-      .addClass 'active'
+    if @overlayTL.reversed() and exports.newSection?
+      exports.SectionsController.goToSection exports
 
   initTimelines: (exports) ->
     @initHomeAbout exports
@@ -580,61 +481,18 @@ class App.Animation
       y: 0
     , .3
 
-  setActiveSection: (exports) ->
-    if @scrollTop < exports.windowHeight / 2
-      newSection = 'home'
-    else if exports.windowHeight / 2 <= @scrollTop < exports.windowHeight * 1.5
-      newSection = 'about'
-    else if exports.windowHeight * 1.5 <= @scrollTop < exports.windowHeight * 3
-      newSection = 'work'
-    else
-      newSection = 'skills'
-
-    if newSection isnt @activeSection
-      @activeSection = newSection
-      window.dispatchEvent @toggleSectionEvent
-
-  setUIStateMedium: (exports) ->
-    if @homeHeight + @aboutHeight * .5 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight * .5
-      uiColor = exports.primaryColor
-    else if @scrollTop >= @homeHeight + @aboutHeight + @workHeight * .5
-      uiColor = exports.secondaryColor
-    else
-      uiColor = '#ffffff'
-
-    @$ui.css 'color', uiColor
-    @$uiBorder.css 'border-color', 'currentColor'
-    @$uiBg.css 'background-color', 'currentColor'
-
-  setUIStateSmall: (exports) ->
-    if @homeHeight + @aboutHeight - 30 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight - 30
-      uiColor = exports.primaryColor
-    else if @scrollTop >= @homeHeight + @aboutHeight + @workHeight - 30
-      uiColor = exports.secondaryColor
-    else
-      uiColor = '#ffffff'
-
-    @$ui.css 'color', uiColor
-    # @$uiBorder.css 'border-color', 'currentColor'
-    # @$uiBg.css 'background-color', 'currentColor'
-
   onResize: (exports) ->
-    if @initiated
+    if exports.initiated
       @setDevicePosition exports
 
   onScroll: (exports, scrollY) ->
     @scrollTop = scrollY
-    @setActiveSection exports
 
     unless exports.isTouch or exports.isSmall
-      exports.RendererController.scrollTween 0, exports.windowHeight, @homeAboutTL, scrollY, 0
-      exports.RendererController.scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, scrollY, 1
-      exports.RendererController.scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, scrollY, 2
+      exports.RendererController.scrollTween exports, 0, exports.windowHeight, @homeAboutTL, scrollY, 0
+      exports.RendererController.scrollTween exports, exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, scrollY, 1
+      exports.RendererController.scrollTween exports, exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, scrollY, 2
 
-    if exports.isMedium
-      @setUIStateMedium exports
-    else if exports.isSmall
-      @setUIStateSmall exports
-
+      @currentProgressValue = exports.currentProgressValue
 
 App.FXs.push new App.Animation

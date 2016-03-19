@@ -1,6 +1,6 @@
 class App.Form
   constructor: ->
-    @order = 1
+    @order = 20
 
   build: (exports) ->
     exports.FormController = @

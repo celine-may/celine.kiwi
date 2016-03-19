@@ -1,6 +1,6 @@
 class App.Pagination
   constructor: ->
-    @order = 3
+    @order = 11
 
   build: (exports) ->
     exports.PaginationController = @
