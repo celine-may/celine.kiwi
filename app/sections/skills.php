@@ -35,7 +35,7 @@
       <li class="skill">Local storage</li>
     </ul>
     <div class="skills-nav skills-element"></div>
-    <button class="skills-btn btn skills-element">Let's talk</button>
+    <button class="skills-btn btn skills-element do-show-overlay" data-overlay="contact">Let's talk</button>
   </div>
 </section>
 
