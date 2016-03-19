@@ -82,7 +82,7 @@ class App.Sections
     @canPlayVideo = true
 
   initVideo: (exports) ->
-    if @canPlayVideo and @initiated
+    if @initiated and (@canPlayVideo or @$video[0].readyState > 1)
       @$video[0].play()
     unless @canPlayVideo
       @$video.remove()
