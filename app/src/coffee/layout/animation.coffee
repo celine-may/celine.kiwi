@@ -308,6 +308,10 @@ class App.Animation
         scale: 0
       .set @$deviceWrapper,
         opacity: 0
+      .staggerTo @$skillsElements, .3,
+        opacity: 0
+        y: exports.gap
+      , .15
 
       if overlay is 'contact'
         @overlayTL
