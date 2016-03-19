@@ -3,12 +3,12 @@
     <div class="work-bg"></div>
     <h3 class="work-title title separator work-element">Work</h3>
 
-    <div class="slideshow">
+    <div class="slideshow work-element">
       <article class="slide init" data-slide="1">
-        <div class="slide-image work-element">
+        <div class="slide-image">
           <img src="<?php echo IMAGES_PATH; ?>work/heart-kids.jpg">
         </div>
-        <div class="slide-description work-element">
+        <div class="slide-description">
           <h2 class="slide-title title separator">Heart Kids</h2>
           <!-- <p class="slide-lead lead">Lorem ispum dolor sit amet.</p> -->
           <div class="slide-copy">
@@ -29,10 +29,10 @@
       </article>
 
       <article class="slide" data-slide="2">
-        <div class="slide-image work-element">
+        <div class="slide-image">
           <img src="<?php echo IMAGES_PATH; ?>work/wynyard-quarter.jpg">
         </div>
-        <div class="slide-description work-element">
+        <div class="slide-description">
           <h2 class="slide-title title separator">Wynyard Quarter</h2>
           <div class="slide-copy">
             <p class="body-copy">
@@ -53,10 +53,10 @@
       </article>
 
       <article class="slide" data-slide="3">
-        <div class="slide-image work-element">
+        <div class="slide-image">
           <img src="<?php echo IMAGES_PATH; ?>work/heart-kids.jpg">
         </div>
-        <div class="slide-description work-element">
+        <div class="slide-description">
           <h2 class="slide-title title separator">WQ Smart</h2>
           <div class="slide-copy">
             <p class="body-copy">

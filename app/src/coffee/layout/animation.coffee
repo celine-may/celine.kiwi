@@ -306,6 +306,8 @@ class App.Animation
       @overlayTL
       .set @$overlayContent,
         scale: 0
+      .set @$deviceWrapper,
+        opacity: 0
 
       if overlay is 'contact'
         @overlayTL
@@ -462,12 +464,12 @@ class App.Animation
     , .15
     .set @$skills,
       zIndex: @zBase - 1
+    .to @$workBg, 1,
+      marginTop: '-100%'
     .fromTo @$skills, 1,
       opacity: 0
     ,
       opacity: 1
-    .to @$workBg, 1,
-      marginTop: '-100%'
     , '-=1'
     .to @$ui, 1,
       color: exports.secondaryColor
