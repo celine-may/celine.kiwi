@@ -119,11 +119,11 @@ class App.Sections
       .addClass 'active'
 
   setActiveSection: (exports) ->
-    if @scrollTop < exports.windowHeight / 2
+    if @scrollTop < @homeHeight / 2
       newSection = 'home'
-    else if exports.windowHeight / 2 <= @scrollTop < exports.windowHeight * 1.5
+    else if @homeHeight / 2 <= @scrollTop < @homeHeight + @aboutHeight / 2
       newSection = 'about'
-    else if exports.windowHeight * 1.5 <= @scrollTop < exports.windowHeight * 3
+    else if @homeHeight + @aboutHeight / 2 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight / 2
       newSection = 'work'
     else
       newSection = 'skills'
@@ -156,6 +156,8 @@ class App.Sections
 
   onScroll: (exports, scrollY) ->
     @scrollTop = scrollY
+
+    @setActiveSection exports
 
     if exports.isMedium
       @setUIStateMedium exports
