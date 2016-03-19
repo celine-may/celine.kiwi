@@ -8,20 +8,21 @@
     +square(100%)
     padding: $gap * 4 $gap * 4.5
 
-    +max-screen($medium)
-      +position(relative, auto, null, null, auto)
-      min-height: 100vh
-      transform: translate3d(0, 0, 0)
+    +max-screen-height(900px)
+      padding: $gap * 2 $gap * 4.5
 
     +max-screen($small)
+      +position(relative, auto, null, null, auto)
+      min-height: 100vh
       padding: $gapSmall * 2
+      transform: translate3d(0, 0, 0)
 
 .work-bg
   +position(absolute, 0, null, null, 0)
   +square(100%)
   background-color: $white
 
-  +min-screen($medium + 1px)
+  +min-screen($small + 1px)
     .no-touchevents &
       +center('both', fixed)
       +square($device * 2)
@@ -44,9 +45,6 @@
   max-width: 1024px
   margin: $gap auto
 
-  +min-max-screen($small + 1px, $medium)
-    margin: $gap * 2 auto
-
 .slide
   +square(100%)
   opacity: 0
@@ -68,6 +66,8 @@
       display: block
 
 .slide-image
+  padding-right: $gap
+
   img
     max-width: 100%
     max-height: calc(100% - #{$gap * 4})

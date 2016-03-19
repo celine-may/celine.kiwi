@@ -153,8 +153,6 @@ class App.Sections
     @$ui.css 'color', uiColor
 
   onResize: (exports) ->
-    if @initiated
-      @setDevicePosition exports
 
   onScroll: (exports, scrollY) ->
     @scrollTop = scrollY

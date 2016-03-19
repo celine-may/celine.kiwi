@@ -485,6 +485,11 @@ class App.Animation
     if exports.initiated
       @setDevicePosition exports
 
+    if @currentProgressValue > 1.6
+      @$workBg.css
+        width: exports.windowWidth - exports.gap * 2
+        height: exports.windowHeight - exports.gap * 2
+
   onScroll: (exports, scrollY) ->
     @scrollTop = scrollY
 
