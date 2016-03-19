@@ -94,10 +94,12 @@ class App.Pagination
       .find ".sn-item[data-page='#{@activePage}']"
       .addClass 'active'
 
-  resize: (exports) ->
+  onResize: (exports) ->
     if exports.isSmall
       @itemsPerPage = 8
     else
       @itemsPerPage = 12
+
+  onScroll: (exports, scrollY) ->
 
 App.FXs.push new App.Pagination

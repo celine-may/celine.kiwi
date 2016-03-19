@@ -25,6 +25,8 @@ class App.Animation
     @$body = $('body')
     @$video = $('.video-bg')
     @$ui = $('.menu-btn, .contact-link')
+    @$uiBorder = @$ui.find '.burger'
+    @$uiBg = @$ui.find '.burger-layer'
     @$nav = $('.nav')
 
     # Device
@@ -115,16 +117,14 @@ class App.Animation
   initApp: (exports) ->
     @$window.scrollTop 0
     @scrollTop = 0
-    @setActiveSection exports
 
+    @getSectionHeights exports
+    @setActiveSection exports
     @setDevicePosition exports
     unless exports.isTouch or exports.isSmall
       @initTimelines exports
     @initSection exports
     @playVideo exports
-
-    @$window.on 'scroll', =>
-      @scrollHandler exports
 
     TweenLite.to @$body, 1,
       opacity: 1
@@ -133,6 +133,11 @@ class App.Animation
       onComplete: =>
         @initiated = true
         @playVideo exports
+
+  getSectionHeights: (exports) ->
+    @homeHeight = $('.home').outerHeight()
+    @aboutHeight = $('.about').outerHeight()
+    @workHeight = $('.work').outerHeight()
 
   canPlay: =>
     @canPlayVideo = true
@@ -589,28 +594,47 @@ class App.Animation
       @activeSection = newSection
       window.dispatchEvent @toggleSectionEvent
 
-  scrollTween: (startPoint, endPoint, timeline, timelinePosition) ->
-    progressValue = (1 / (endPoint - startPoint)) * (@scrollTop - startPoint)
+  setUIStateMedium: (exports) ->
+    if @homeHeight + @aboutHeight * .5 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight * .5
+      uiColor = exports.primaryColor
+    else if @scrollTop >= @homeHeight + @aboutHeight + @workHeight * .5
+      uiColor = exports.secondaryColor
+    else
+      uiColor = '#ffffff'
 
-    if 0 <= progressValue <= 1
-      timeline.progress progressValue
-      @currentProgressValue = progressValue + timelinePosition
-    else if progressValue < 0
-      timeline.progress 0
-    else if progressValue > 1
-      timeline.progress 1
+    @$ui.css 'color', uiColor
+    @$uiBorder.css 'border-color', 'currentColor'
+    @$uiBg.css 'background-color', 'currentColor'
 
-  scrollHandler: (exports) ->
-    @scrollTop = @$window.scrollTop()
+  setUIStateSmall: (exports) ->
+    if @homeHeight + @aboutHeight - 30 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight - 30
+      uiColor = exports.primaryColor
+    else if @scrollTop >= @homeHeight + @aboutHeight + @workHeight - 30
+      uiColor = exports.secondaryColor
+    else
+      uiColor = '#ffffff'
+
+    @$ui.css 'color', uiColor
+    # @$uiBorder.css 'border-color', 'currentColor'
+    # @$uiBg.css 'background-color', 'currentColor'
+
+  onResize: (exports) ->
+    if @initiated
+      @setDevicePosition exports
+
+  onScroll: (exports, scrollY) ->
+    @scrollTop = scrollY
     @setActiveSection exports
 
     unless exports.isTouch or exports.isSmall
-      @scrollTween 0, exports.windowHeight, @homeAboutTL, 0
-      @scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, 1
-      @scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, 2
+      exports.RendererController.scrollTween 0, exports.windowHeight, @homeAboutTL, scrollY, 0
+      exports.RendererController.scrollTween exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, scrollY, 1
+      exports.RendererController.scrollTween exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, scrollY, 2
 
-  resize: (exports) ->
-    if @initiated
-      @setDevicePosition exports
+    if exports.isMedium
+      @setUIStateMedium exports
+    else if exports.isSmall
+      @setUIStateSmall exports
+
 
 App.FXs.push new App.Animation

@@ -3,8 +3,10 @@ class Renderer
     @$window = $(window)
 
     @exports = {}
-
     @fxs = options.fxs || []
+
+    @lastScrollY = 0
+    @ticking = false
 
   init: ->
     exports = @exports =
@@ -24,6 +26,8 @@ class Renderer
       primaryColor: '#125e72'
       secondaryColor: '#7dffe3'
 
+    exports.RendererController = @
+
     fxs = @fxs
     fxs.sort (a, b) ->
       a.order - b.order
@@ -31,10 +35,12 @@ class Renderer
     for fx in fxs
       fx.build exports
 
-    window.addEventListener 'resize', @resize.bind @
-    @resize()
+    @$window
+      .on 'resize', @onResize.bind @
+      .trigger 'resize'
+      .on 'scroll', @onScroll.bind @
 
-  resize: (e) ->
+  onResize: (e) ->
     exports = @exports
     windowWidth = exports.windowWidth = @$window.width()
     exports.windowHeight = @$window.height()
@@ -54,6 +60,26 @@ class Renderer
       isMedium = false
 
     for fx in @fxs
-      fx.resize exports
+      fx.onResize exports
+
+  scrollTween: (startPoint, endPoint, tweenName, scrollY) ->
+    progressValue = (1 / (endPoint - startPoint)) * (scrollY - startPoint)
+
+    if 0 <= progressValue <= 1
+      tweenName.progress progressValue
+    else if progressValue < 0
+      tweenName.progress 0
+    else if progressValue > 1
+      tweenName.progress 1
+
+  onScroll: (e) ->
+    exports = @exports
+    @lastScrollY = window.scrollY
+    if not @ticking
+      window.requestAnimationFrame =>
+        for fx in @fxs
+          fx.onScroll exports, @lastScrollY
+        @ticking = false
+    @ticking = true
 
 App.Renderer = Renderer

@@ -97,6 +97,8 @@ class App.Slideshow
 
     @activeSlide = newSlide
 
-  resize: ->
+  onResize: (exports) ->
+
+  onScroll: (exports, scrollY) ->
 
 App.FXs.push new App.Slideshow

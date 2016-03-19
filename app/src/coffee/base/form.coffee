@@ -123,6 +123,8 @@ class App.Form
   resetForm: ->
     @$formSuccess.remove()
 
-  resize: ->
+  onResize: (exports) ->
+
+  onScroll: (exports, scrollY) ->
 
 App.FXs.push new App.Form
