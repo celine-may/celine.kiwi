@@ -13,9 +13,6 @@
     <button class="nav-item main-copy do-show-section" data-section="skills">
       <span class="nav-copy">Skills</span>
     </button>
-    <button class="nav-item main-copy do-show-section" data-section="contact">
-      <span class="nav-copy">Contact</span>
-    </button>
   </nav>
 
   <button class="overlay-close do-hide-overlay">
