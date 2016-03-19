@@ -343,13 +343,13 @@ class App.Animation
         backgroundColor: '#ffffff'
         zIndex: 20
         onComplete: =>
-          @overlayTL.reverse(-.8)
+          @overlayTL.timeScale(1.5).reverse(-.8)
           setTimeout ->
             exports.FormController.resetForm()
           , 1000
       successFormTL.play()
     else
-      @overlayTL.reverse()
+      @overlayTL.timeScale(1.5).reverse()
 
     @$body.removeClass 'no-scroll'
 
