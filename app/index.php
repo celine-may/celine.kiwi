@@ -41,13 +41,20 @@ $view = isset($q[0]) ? $q[0] : 'home';
 
   <?php include_once('assets/svgs/svg-defs.svg'); ?>
 
-  <div class="video-bg-fallback"></div>
+  <div class="video-fallback inverse"></div>
+  <div class="video-fallback normal"></div>
 
   <main class="main">
-    <video class="video-bg">
+    <video class="video normal">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
-      <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
+      <img src="<?php echo IMAGES_PATH; ?>video-fallback.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
+    </video>
+
+    <video class="video inverse">
+      <source src="<?php echo VIDEOS_PATH ?>ink-inverse.mp4" type="video/mp4">
+      <source src="<?php echo VIDEOS_PATH ?>ink-inverse.webm" type="video/webm">
+      <img src="<?php echo IMAGES_PATH; ?>video-inverse-fallback.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
     </video>
 
     <?php include('sections/home.php'); ?>

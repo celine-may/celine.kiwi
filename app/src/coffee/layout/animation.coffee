@@ -17,6 +17,8 @@ class App.Animation
     # DOM Elements
     @$body = $('body')
     @$ui = $('.menu-btn, .contact-link')
+    @$video = $('.video.normal')
+    @$videoFallback = $('.video-fallback.normal')
 
     # Device
     @$deviceContainer = $('.device-container')
@@ -467,13 +469,11 @@ class App.Animation
       y: -exports.gap
     , .15
     .set @$skills,
-      zIndex: @zBase - 1
+      zIndex: @zBase
     .to @$workBg, 1,
       marginTop: '-100%'
-    .fromTo @$skills, 1,
+    .to [ @$video, @$videoFallback ], 1,
       opacity: 0
-    ,
-      opacity: 1
     , '-=1'
     .to @$ui, 1,
       color: exports.secondaryColor
