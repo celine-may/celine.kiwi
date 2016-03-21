@@ -44,7 +44,7 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <div class="video-bg-fallback"></div>
 
   <main class="main">
-    <video loop class="video-bg">
+    <video class="video-bg">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>home-bg.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
