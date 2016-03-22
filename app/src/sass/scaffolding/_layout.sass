@@ -42,6 +42,10 @@ body
   &.inverse
     background-image: url(#{$imagePath}video-inverse-fallback.jpg)
 
+  +max-screen($small)
+    &.normal
+      background-image: url(#{$imagePath}mobile-bg.gif)
+
 // Wrappers
 .main
   position: relative
