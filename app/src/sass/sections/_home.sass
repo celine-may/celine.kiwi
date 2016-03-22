@@ -5,13 +5,20 @@
   color: $white
   text-align: center
 
-  .section-content
-    width: calc(100% - #{$gap * 2} - 140px)
-    max-width: 690px
-    z-index: $zBase
-
   .scroll-cta
     bottom: -$arrow - $gap
+
+  +min-screen($small + 1px)
+    .section-content
+      width: calc(100% - #{$gap * 2} - 140px)
+      max-width: 690px
+      z-index: $zBase
+
+  +max-screen($small)
+    min-height: 100vh
+
+    .section-content
+      +center('both')
 
 .logo
   display: inline-block
@@ -19,7 +26,6 @@
   margin-bottom: $gap * 3
 
   +max-screen($small)
-    +square($deviceSmall)
     margin-bottom: $gap * 1.5
 
 .home-title
@@ -27,7 +33,7 @@
   letter-spacing: 27px
 
   +max-screen($small)
-    font-size: 1.375rem
+    font-size: 2rem
     letter-spacing: 15px
 
 .home-lead
@@ -35,8 +41,8 @@
   font-size: 1.875rem
 
   +max-screen($small)
-    font-size: 1.25rem
-    line-height: 1.1
+    font-size: 1.5rem
+    line-height: 1.2
 
 // Scroll CTA
 .scroll-cta

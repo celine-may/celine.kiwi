@@ -120,7 +120,7 @@ class App.Animation
       opacity: 0
     .set @$overlayContent,
       opacity: 1
-      zIndex: 20
+      zIndex: @zTop + 1
     .to @$overlayContent, .3,
       scale: 1
       ease: Power2.easeOut

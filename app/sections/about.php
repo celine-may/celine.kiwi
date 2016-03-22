@@ -8,5 +8,6 @@
     <p class="about-copy body-copy about-element">
       Kiwi born, I grew up in Switzerland enjoying snowboarding in the Alps and traveling around Europe. In 2014, I decided to move to Auckland to experience the kiwi lifestyle.
     </p>
+    <button class="about-cta btn small-only do-show-overlay" data-overlay="contact">Let's talk</button>
   </div>
 </section>

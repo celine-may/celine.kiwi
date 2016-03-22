@@ -155,7 +155,7 @@
         </svg>
       </button>
 
-      <button class="slideshow-all">
+      <button class="slideshow-all small-hidden">
         <span class="square"></span>
         <span class="square"></span>
         <span class="square"></span>

@@ -7,6 +7,9 @@
   padding: 52px $gap * 2 0
   overflow: hidden
 
+  +max-screen($small)
+    padding: $gapSmall * 2 $gapSmall * 2 0
+
 .form-group
   margin-bottom: $gap * 2
   text-align: left
@@ -46,6 +49,9 @@
   color: $secondary
   line-height: $gap * 3
 
+  +max-screen($small)
+    line-height: $gap * 2
+
 // Error message
 .form-error
   +position(absolute, null, null, 0, 0)
@@ -53,6 +59,10 @@
   background-color: $error
   color: $white
   line-height: $gap * 3
+
+  +max-screen($small)
+    padding: $gapSmall $gapSmall
+    line-height: 1.2
 
 // Success message
 .form-success
@@ -72,7 +82,7 @@
 .fs-copy
   position: relative
   display: table-cell
-  padding-bottom: $gap
+  padding: $gap
   color: $white
   letter-spacing: 2px
   vertical-align: middle

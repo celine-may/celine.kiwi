@@ -13,8 +13,7 @@
 
     +max-screen($small)
       +position(relative, auto, null, null, auto)
-      min-height: 100vh
-      padding: $gapSmall * 2
+      padding: $gapSmall * 2 $gap * 2
       transform: translate3d(0, 0, 0)
 
 .work-bg
@@ -38,12 +37,23 @@
   &::after
     +position(absolute, 5px, -$separator - $gap * .5)
 
+  +max-screen($small)
+    display: block
+    font-size: 1.5rem
+    text-align: center
+
+    &::after
+      +square(0)
+
 // Slideshow
 .slideshow
   position: relative
   +size(100%, calc(100% - #{$gap * 4}))
   max-width: 1024px
   margin: $gap auto
+
+  +max-screen($small)
+    margin: $gap * 2 0
 
 .slide
   +square(100%)
@@ -133,11 +143,18 @@
   .shape-arrow
     +size(100%, 10px)
 
+  +max-screen($small)
+    +position(absolute, $gapSmall * 2, null, null, $gap * 2)
+    width: calc(100% - #{$gap * 4})
+
 %slideshow-nav-item
   display: inline-block
   +size(96px, 100%)
   margin: 0 $gap / 4
   vertical-align: middle
+
+  +max-screen($small)
+    +position(absolute, 0)
 
 .slideshow-prev
   @extend %slideshow-nav-item
@@ -146,12 +163,18 @@
   .no-touchevents &:hover
     transform: translateX($gap / -2)
 
+  +max-screen($small)
+    left: 0
+
 .slideshow-next
   @extend %slideshow-nav-item
   transition: transform $transitionDuration $transitionFunction
 
   .no-touchevents &:hover
     transform: translateX($gap / 2)
+
+  +max-screen($small)
+    right: 0
 
 .slideshow-all
   display: inline-block

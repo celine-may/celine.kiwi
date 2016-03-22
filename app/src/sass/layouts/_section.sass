@@ -4,13 +4,18 @@
 .section
   position: relative
   width: 100%
-  min-height: 100vh
+
+  +min-screen($small + 1px)
+    min-height: 100vh
 
 .section-content
-  +center('both')
-  z-index: $zBase
-
   +min-screen($small + 1px)
     .no-touchevents &
       +center('both', fixed)
       z-index: $zHidden
+
+  +max-screen($small)
+    position: relative
+    width: 100%
+    padding: 0 $gap * 2
+    z-index: $zBase

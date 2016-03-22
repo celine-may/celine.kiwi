@@ -20,10 +20,18 @@
   .overlay-close
     +position(absolute, 0, $gap * -2)
 
+  +max-screen($small)
+    .overlay-close
+      +position(absolute, -30px, -30px)
+
 // Title
 .contact-title
   font-size: 2.375rem
   letter-spacing: 8px
+
+  +max-screen($small)
+    font-size: 1.5rem
+    letter-spacing: 3px
 
 .contact-lead
   margin-bottom: $gap

@@ -57,8 +57,8 @@ body
     z-index: 2
 
     +max-screen($small)
-      +position(fixed, 0, null, null, $gapSmall)
-      +size(calc(100% - #{$gapSmall * 2}), 100%)
+      +position(fixed, 0, null, null, 0)
+      +square(100%)
 
   +min-screen($small + 1px)
     .no-touchevents &
@@ -85,15 +85,15 @@ body
   margin-left: $device * -.5
 
   +max-screen($small)
-    +square($deviceSmall)
-    margin-left: $deviceSmall * -.5
+    +square($device)
+    margin-left: $device * -.5
 
 .device
   +square(100%)
   border: $deviceBorder solid $white
 
   +max-screen($small)
-    border-width: $deviceSmallBorder
+    border-width: $deviceBorder
 
 .device-border
   +position(absolute, 0, null, null, 0)

@@ -5,32 +5,30 @@
   color: $primary
   text-align: center
 
-  .section-content
-    width: calc(100% - #{$gap * 4})
-    max-width: 340px
-
-  .touchevents &
-    .section-content::before
-      content: ""
-      +position(absolute, 50%, null, null, 50%)
-      width: 120%
-      padding-top: 120%
-      background-color: $white
-      transform: translate3d(-50%, -50%, 0) rotate(45deg)
-      z-index: $zHidden
+  +min-screen($small + 1px)
+    .section-content
+      width: calc(100% - #{$gap * 4})
+      max-width: 340px
 
   +max-screen($small)
+    z-index: $zBase
+
     .section-content
-      width: calc(100% - #{$gapSmall * 4})
+      width: 100%
+      background-color: $white
 
       &::before
         content: ""
-        +position(absolute, 50%, null, null, 50%)
-        width: 120%
-        padding-top: 120%
-        background-color: $white
-        transform: translate3d(-50%, -50%, 0) rotate(45deg)
+        +position(absolute, -50vw, null, null, 0)
+        +square(0)
+        border-left: 50vw solid transparent
+        border-right: 50vw solid transparent
+        border-bottom: 50vw solid $white
         z-index: $zHidden
+
+      *
+        position: relative
+        top: -$gap
 
 .about-title
   +min-screen($small + 1px)
@@ -46,12 +44,11 @@
   +max-screen($medium)
     font-size: 8rem
 
-    .touchevents &
-      +center('horizontal')
-      margin-top: $gap * 2
-
   +max-screen($small)
-    font-size: 4rem
+    position: relative
+    margin-bottom: $gap * 2
+    font-size: 4.25rem
+    letter-spacing: 3px
     z-index: $zTop
 
 .about-lead
@@ -65,3 +62,6 @@
   display: inline-block
   margin-bottom: .8em
   +font(null, null, .9375rem, null, normal)
+
+.about-cta
+  margin: $gap * 2 0 $gap

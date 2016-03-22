@@ -153,7 +153,7 @@ class App.Sections
     @$ui.css 'color', uiColor
 
   setUIStateSmall: (exports) ->
-    if @homeHeight + @aboutHeight - 30 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight - 30
+    if @homeHeight + 30 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight - 30
       uiColor = exports.primaryColor
     else if @scrollTop >= @homeHeight + @aboutHeight + @workHeight - 30
       uiColor = exports.secondaryColor

@@ -30,7 +30,7 @@
 
   +max-screen($small)
     +position(fixed, $gapSmall, $gapSmall)
-    +square(44px)
+    +square($gapSmall * 2)
 
 .burger
   +center('both')
@@ -82,10 +82,10 @@
     +position(absolute, -$deviceBorder, -$deviceBorder - $gap * 2)
 
   +max-screen($small)
-    border-width: $deviceSmallBorder
+    border-width: $deviceBorder
 
     .overlay-close
-      +position(absolute, -$deviceSmallBorder - 30px, -$deviceSmallBorder - 30px)
+      +position(absolute, -$deviceBorder - 30px, -$deviceBorder - 30px)
 
 .nav-item
   display: block
