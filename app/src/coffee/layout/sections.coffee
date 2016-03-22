@@ -6,7 +6,7 @@ class App.Sections
     exports.SectionsController = @
     exports.controllers.push @
 
-    @canPlayVideo = undefined
+    @canPlayVideos = []
     @initiated = false
     @activeSection = 'home'
 
@@ -19,7 +19,7 @@ class App.Sections
     # DOM Elements
     @$window = $(window)
     @$body = $('body')
-    @$video = $('.video-bg')
+    @$video = $('.video')
     @$ui = $('.menu-btn, .contact-link')
     @$nav = $('.nav')
     @$menuElements = @$nav.find '.nav-item'
@@ -53,7 +53,12 @@ class App.Sections
     @$window.on 'sectionSwitch', (e) =>
       @toggleSection exports
 
-    @$video[0].addEventListener 'canplay', @canPlay, true
+    @$video[0].addEventListener 'canplay', =>
+      @canPlay 0
+    , true
+    @$video[1].addEventListener 'canplay', =>
+      @canPlay 1
+    , true
 
   initApp: (exports) ->
     @$window.scrollTop 0
@@ -71,24 +76,29 @@ class App.Sections
       ease: Power2.easeOut
       onComplete: =>
         @initiated = exports.initiated = true
-        @initVideo exports
+        @playVideo exports
 
   getSectionHeights: (exports) ->
     @homeHeight = $('.home').outerHeight()
     @aboutHeight = $('.about').outerHeight()
     @workHeight = $('.work').outerHeight()
 
-  canPlay: =>
-    @canPlayVideo = true
+  canPlay: (index) =>
+    @canPlayVideos[index] = true
 
   initVideo: (exports) ->
-    if @initiated and (@canPlayVideo or @$video[0].readyState > 1)
-      @$video[0].play()
-    unless @canPlayVideo
-      @$video.remove()
-      $('.video-bg-fallback').css
+    canPlayVideo = @canPlayVideos[0] and @canPlayVideos[1]
+    videoReady = @$video[0].readyState > 1 and @$video[1].readyState > 1
+    unless canPlayVideo or videoReady
+      $('.video-fallback').css
         height: exports.windowHeight + 75
         opacity: 1
+      @$video.remove()
+
+  playVideo: (exports) ->
+    if @$video?
+      @$video[0].play()
+      @$video[1].play()
 
   goToSection: (exports) ->
     if exports.isMedium or exports.isSmall

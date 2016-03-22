@@ -10,7 +10,7 @@ class App.Video
 
   init: (exports) ->
     # DOM Elements
-    @$video = $('.video-bg')
+    @$video = $('.video')
     console.log 'init video'
     @$video[0].addEventListener("ended", @reverseVideo) #.on 'ended', @reverseVideo exports
 
