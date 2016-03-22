@@ -155,6 +155,13 @@
         </svg>
       </button>
 
+      <button class="slideshow-all">
+        <span class="square"></span>
+        <span class="square"></span>
+        <span class="square"></span>
+        <span class="square"></span>
+      </button>
+
       <button class="slideshow-next do-slideshow-next">
         <svg class="shape-arrow">
           <use xlink:href="#shape-arrow-right"></use>

@@ -9,7 +9,7 @@
     padding: $gap * 4 $gap * 4.5
 
     +max-screen-height(900px)
-      padding: $gap * 2 $gap * 4.5
+      padding: $gap * 3 $gap * 4.5
 
     +max-screen($small)
       +position(relative, auto, null, null, auto)
@@ -137,7 +137,7 @@
   display: inline-block
   +size(96px, 100%)
   margin: 0 $gap / 4
-  vertical-align: top
+  vertical-align: middle
 
 .slideshow-prev
   @extend %slideshow-nav-item
@@ -152,3 +152,33 @@
 
   .no-touchevents &:hover
     transform: translateX($gap / 2)
+
+.slideshow-all
+  display: inline-block
+  +square(28px)
+  margin: 0 $gap / 4
+  font-size: 0
+  vertical-align: middle
+
+  .square
+    display: inline-block
+    +square(12px)
+    margin-bottom: 4px
+    border: 2px solid $primary
+    transition: transform $transitionDuration $transitionFunction
+
+    &:nth-child(odd)
+      margin-right: 4px
+
+  .no-touchevents &:hover
+    .square:first-child
+      transform: translate3d(-2px, -2px, 0)
+
+    .square:nth-child(2)
+      transform: translate3d(2px, -2px, 0)
+
+    .square:nth-child(3)
+      transform: translate3d(-2px, 2px, 0)
+
+    .square:nth-child(4)
+      transform: translate3d(2px, 2px, 0)
