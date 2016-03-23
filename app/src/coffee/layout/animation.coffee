@@ -485,7 +485,7 @@ class App.Animation
     ,
       opacity: 1
       y: 0
-    , .3
+    , .3, '-=1'
 
   onResize: (exports) ->
     if exports.initiated
