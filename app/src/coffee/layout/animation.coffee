@@ -500,9 +500,9 @@ class App.Animation
     @scrollTop = scrollY
 
     unless exports.isTouch or exports.isSmall
-      exports.RendererController.scrollTween exports, 0, exports.windowHeight, @homeAboutTL, scrollY, 0
-      exports.RendererController.scrollTween exports, exports.windowHeight * 1.2, exports.windowHeight * 2.2, @aboutWorkTL, scrollY, 1
-      exports.RendererController.scrollTween exports, exports.windowHeight * 2.4, exports.windowHeight * 3.4, @workSkillsTL, scrollY, 2
+      exports.RendererController.scrollTween exports, 0, exports.windowHeight * 1, @homeAboutTL, scrollY, 0
+      exports.RendererController.scrollTween exports, exports.windowHeight * 1.4, exports.windowHeight * 2.4, @aboutWorkTL, scrollY, 1
+      exports.RendererController.scrollTween exports, exports.windowHeight * 2.8, exports.windowHeight * 3.8, @workSkillsTL, scrollY, 2
 
       @currentProgressValue = exports.currentProgressValue
 
