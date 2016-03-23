@@ -1,8 +1,6 @@
 // SKILLS
 // -----------------
 
-$skillsBreakpoint: $label * 3 + 16px + $gap * 2
-
 .skills
   color: $white
   text-align: center
@@ -10,6 +8,9 @@ $skillsBreakpoint: $label * 3 + 16px + $gap * 2
   +min-screen($small + 1px)
     .no-touchevents &
       +position(fixed, 0, null, null, 0)
+
+    .touchevents &
+      background-color: $primary
 
   +max-screen($small)
     .section-content
@@ -55,6 +56,7 @@ $skillsBreakpoint: $label * 3 + 16px + $gap * 2
   background-color: rgba($white, .3)
   +font($white, null, 1.125rem, null, null, 38px)
   text-align: center
+  vertical-align: top
 
   &.init
     display: inline-block

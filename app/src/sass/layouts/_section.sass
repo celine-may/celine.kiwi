@@ -10,6 +10,10 @@
 
 .section-content
   +min-screen($small + 1px)
+    .touchevents &
+      +center('both', absolute)
+      z-index: $zBase
+
     .no-touchevents &
       +center('both', fixed)
       z-index: $zHidden

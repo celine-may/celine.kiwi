@@ -10,6 +10,16 @@
       width: calc(100% - #{$gap * 4})
       max-width: 340px
 
+    .touchevents &
+      .section-content::before
+        content: ""
+        +position(absolute, 50%, null, null, 50%)
+        width: 120%
+        padding-top: 120%
+        background-color: $white
+        transform: translate3d(-50%, -50%, 0) rotate(45deg)
+        z-index: $zHidden
+
   +max-screen($small)
     z-index: $zBase
 
@@ -31,25 +41,32 @@
         top: -$gap
 
 .about-title
+  position: relative
+  z-index: $zTop
+
   +min-screen($small + 1px)
     .no-touchevents &
       +center('both')
       padding-top: $gap
+      z-index: $zBase
 
   +min-screen($medium + 1px)
-    +font(null, null, 13rem, null, null, .8)
-    letter-spacing: $gap
-    word-spacing: $gap
+    +font(null, null, 11rem, null, null, .8)
+    letter-spacing: 15px
+    word-spacing: 15px
 
   +max-screen($medium)
     font-size: 8rem
 
+  +min-max-screen($small + 1px, $medium)
+    .touchevents &
+      +center('both')
+      margin-top: -200px
+
   +max-screen($small)
-    position: relative
     margin-bottom: $gap * 2
     font-size: 4.25rem
     letter-spacing: 3px
-    z-index: $zTop
 
   +max-screen($xSmall)
     font-size: 3.5rem

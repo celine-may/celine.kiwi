@@ -42,8 +42,8 @@ body
   &.inverse
     background-image: url(#{$imagePath}video-inverse-fallback.jpg)
 
-  +max-screen($small)
-    &.normal
+  +max-screen($medium + 1px)
+    .touchevents &.normal
       background-image: url(#{$imagePath}mobile-bg.gif)
 
 // Wrappers
