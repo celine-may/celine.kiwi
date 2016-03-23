@@ -48,8 +48,10 @@ $skillsBreakpoint: $label * 3 + 16px + $gap * 2
 
 .skill
   @extend .main-copy
+  @extend %text-overflow
   display: none
   margin-bottom: 8px
+  padding: 0 8px
   background-color: rgba($white, .3)
   +font($white, null, 1.125rem, null, null, 38px)
   text-align: center
@@ -67,9 +69,13 @@ $skillsBreakpoint: $label * 3 + 16px + $gap * 2
 
   +max-screen($small)
     width: calc(50% - 4px)
+    font-size: 1rem
 
     &:nth-child(odd)
       margin-right: 8px
+
+  +max-screen($xSmall)
+    font-size: .875rem
 
 // Skills nav
 .skills-nav
@@ -97,5 +103,6 @@ $skillsBreakpoint: $label * 3 + 16px + $gap * 2
 .skills-btn
   display: block
   width: $label * 1.5
+  max-width: 100%
   margin: 0 auto
   background-color: $secondary

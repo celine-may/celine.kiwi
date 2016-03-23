@@ -27,6 +27,9 @@
   .error &
     border-color: $error
 
+  +max-screen($small)
+    font-size: .9375rem
+
 .form-textarea
   @extend .form-input
   padding: $gap / 2
@@ -39,6 +42,9 @@
 
   .error &
     color: $error
+
+  +max-screen($small)
+    font-size: .9375rem
 
 .form-action
   +position(absolute, null, null, 0, 0)

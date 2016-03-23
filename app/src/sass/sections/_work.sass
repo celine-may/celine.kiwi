@@ -16,6 +16,9 @@
       padding: $gapSmall * 2 $gap * 2
       transform: translate3d(0, 0, 0)
 
+    +max-screen($xSmall)
+      padding: $gapSmall * 2
+
 .work-bg
   +position(absolute, 0, null, null, 0)
   +square(100%)
@@ -155,6 +158,7 @@
 
   +max-screen($small)
     +position(absolute, 0)
+    width: calc((100% - 120px) / 2)
 
 .slideshow-prev
   @extend %slideshow-nav-item
