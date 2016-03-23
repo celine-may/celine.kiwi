@@ -5,7 +5,7 @@
   <h2 class="slide-title title separator">Breitling</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      TODO
+      Breitling, a Swiss watchmaker, designs, engineers, manufactures and distributes chronometer watches. We created a set of interactive user manuals, allowing the user to choose his watch model and be guided through each step of the watch's different functionalities.
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>

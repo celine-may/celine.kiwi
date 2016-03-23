@@ -5,7 +5,7 @@
   <h2 class="slide-title title separator">Panuku</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      TO DO
+      Panuku Development Auckland is an Auckland Council Controlled organisation, responsible for the revitalisation of parts of the city. It's involved throughout the lifecycle of property, from buying, managing, and selling. This website allows Panuku to present their projects, properties and latest news as well as explaining who they are.
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>

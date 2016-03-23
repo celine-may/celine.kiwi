@@ -16,7 +16,7 @@
       <li>Responsive</li>
       <li>Google Maps API</li>
     </ul>
-    <ul class="slide-lit body-copy">
+    <ul class="slide-list body-copy">
       <li>W3 Awards Gold</li>
       <li>Webby Awards Honeree</li>
     </ul>

@@ -5,7 +5,7 @@
   <h2 class="slide-title title separator">Harrison Grierson</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      TODO
+      Harrison Grierson is one of New Zealand's leading engineering and design consultancies, operating throughout Australasia and the Pacific Rim. This corporate website showcases Harrison Grierson's expertise, projects and way of thinking, through case studies and&nbsp;articles.
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>

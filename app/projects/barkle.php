@@ -1,11 +1,11 @@
 <div class="slide-image">
-  <img src="<?php echo IMAGES_PATH; ?>work/temp.jpg" alt="Preview of Barkle's website on desktop">
+  <img src="<?php echo IMAGES_PATH; ?>work/barkle.jpg" alt="Preview of Barkle's website on desktop">
 </div>
 <div class="slide-description">
   <h2 class="slide-title title separator">Barkle</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      TODO
+      Benjamin Markby (aka Barkle) is a digital art director / interactive designer based in Auckland, New Zealand. We worked together to create his portfolio website, showcasing some of his awesome work.
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>

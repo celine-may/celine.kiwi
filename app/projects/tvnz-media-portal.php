@@ -5,7 +5,7 @@
   <h2 class="slide-title title separator">TVNZ Media Portal</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      TODO
+      TVNZ is New Zealand's national television broadcaster and digital media company. This media portal website showcases the new season programmes across all TVNZ channels. It also allows media to log in to view programme teasers to obtain content and related visuals to use in their write ups.
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>

@@ -5,7 +5,7 @@
   <h2 class="slide-title title separator">Sovereign RPM</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      TODO
+      In 2014, Sovereign, an insurance company, decided to launch a rewards campaign for its brokers. Each person entering the competition was led through a selection of artists, venues, transportations, entertainment and VIP treatments. The end result was an ultimate rockstar experience!
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>
