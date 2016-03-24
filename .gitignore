@@ -6,6 +6,7 @@ app/assets/js
 dist/assets
 dist/helpers
 dist/sections
+dist/projects
 dist/index.php
 
 *.sublime-project
