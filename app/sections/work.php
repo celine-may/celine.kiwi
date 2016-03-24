@@ -48,10 +48,6 @@
         <article class="slide" data-slide="11">
           <?php include('projects/perrelet.php'); ?>
         </article>
-
-        <article class="slide" data-slide="12">
-          <?php include('projects/attrib.php'); ?>
-        </article>
       </div>
     </div>
 
