@@ -64,14 +64,14 @@ a
     transform: scale3d(1.2, 1.2, 1)
     z-index: $zHidden
 
-  .no-touchevents &:hover
+  .no-touchevents &:not(.form-btn):hover
     color: $white
 
-  .no-touchevents &:hover::before
+  .no-touchevents &:not(.form-btn):hover::before
     opacity: 1
     transform: scale3d(1, 1, 1)
 
-  .no-touchevents &:hover::after
+  .no-touchevents &:not(.form-btn):hover::after
     opacity: 0
     transform: scale3d(0.8, 0.8, 1)
 
