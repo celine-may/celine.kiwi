@@ -157,7 +157,9 @@ gulp.task( 'cssconcat', function() {
 gulp.task( 'cssnano', function() {
   return gulp
     .src( appAssets + 'css/*.css' )
-    .pipe( cssnano() )
+    .pipe( cssnano({
+      safe: true
+    }) )
     .pipe( rename( renameOptions ) )
     .pipe( gulp.dest( distAssets + 'stylesheets' ) )
 });
