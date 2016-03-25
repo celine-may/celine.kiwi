@@ -7,7 +7,7 @@ $q = isset($_GET['q']) ? explode('/', $_GET['q']) : array();
 $view = isset($q[0]) ? $q[0] : 'home';
 
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
 
