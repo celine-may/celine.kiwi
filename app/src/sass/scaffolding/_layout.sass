@@ -36,14 +36,15 @@ body
   opacity: 0
   z-index: 0
 
-  &.normal
-    background-image: url(#{$imagePath}video-fallback.jpg)
-
   &.inverse
     background-image: url(#{$imagePath}video-inverse-fallback.jpg)
 
+  +min-screen($medium + 2px)
+    &.normal
+      background-image: url(#{$imagePath}video-fallback.jpg)
+
   +max-screen($medium + 1px)
-    .touchevents &.normal
+    &.normal
       background-image: url(#{$imagePath}mobile-bg.gif)
 
 // Wrappers
