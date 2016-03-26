@@ -5,13 +5,13 @@
 .menu-btn
   +min-screen($small + 1px)
     left: $gap * 2
-    +size(24px, 84px)
+    +size(28px, 94px)
     transform: translateY(-50%)
 
     &::before, &::after
       content: ""
       +position(absolute, null, null, null, 50%)
-      +size(1px, 24px)
+      +size(2px, 28px)
       background-color: currentColor
       transition: transform $transitionDuration $transitionFunction
 
@@ -35,12 +35,12 @@
 .burger
   +center('both')
   display: inline-block
-  +square(24px)
-  border: 1px solid currentColor
+  +square(28px)
+  border: 2px solid currentColor
 
 .burger-layer
-  +position(absolute, 50%, null, null, 29%)
-  +size(10px, 1px)
+  +position(absolute, 11px, null, null, 6px)
+  +size(12px, 2px)
   background-color: currentColor
 
   &::before, &::after
@@ -51,10 +51,10 @@
     transition: transform $transitionDuration $transitionFunction
 
   &::before
-    top: -3px
+    top: -4px
 
   &::after
-    top: 3px
+    top: 4px
 
   .no-touchevents .menu-btn:hover &
     &::before
