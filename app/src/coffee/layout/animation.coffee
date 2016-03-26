@@ -17,7 +17,7 @@ class App.Animation
     # DOM Elements
     @$body = $('body')
     @$ui = $('.menu-btn, .contact-link')
-    @$video = $('.video.normal')
+    @$video = $('.video-bg.normal')
     @$videoFallback = $('.video-fallback.normal')
 
     # Device

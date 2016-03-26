@@ -6,7 +6,7 @@ class App.Sections
     exports.SectionsController = @
     exports.controllers.push @
 
-    @canPlayVideos = []
+    @canPlayVideo = undefined
     @initiated = false
     @activeSection = 'home'
 
@@ -19,7 +19,7 @@ class App.Sections
     # DOM Elements
     @$window = $(window)
     @$body = $('body')
-    @$video = $('.video')
+    @$video = $('.video-bg')
     @$ui = $('.menu-btn, .contact-link')
     @$nav = $('.nav')
     @$menuElements = @$nav.find '.nav-item'
@@ -32,6 +32,8 @@ class App.Sections
     @$showAboutLink = $('.do-show-about')
 
     # Events
+    @initVideo exports
+
     setTimeout =>
       @initApp exports
     , 500
@@ -53,12 +55,16 @@ class App.Sections
     @$window.on 'sectionSwitch', (e) =>
       @toggleSection exports
 
-    @$video[0].addEventListener 'canplay', =>
-      @canPlay 0
-    , true
-    @$video[1].addEventListener 'canplay', =>
-      @canPlay 1
-    , true
+  initVideo: (exports) ->
+    Modernizr.on 'videoautoplay', (autoplay) =>
+      if autoplay
+        @canPlayVideo = true
+      else
+        @canPlayVideo = false
+        $('.video-fallback').css
+          height: exports.windowHeight + 75
+          opacity: 1
+        @$video.remove()
 
   initApp: (exports) ->
     @$window.scrollTop 0
@@ -68,7 +74,6 @@ class App.Sections
       exports.AnimationController.initTimelines exports
 
     @getSectionHeights exports
-    @initVideo exports
 
     TweenLite.to @$body, 1,
       opacity: 1
@@ -83,20 +88,8 @@ class App.Sections
     @aboutHeight = $('.about').outerHeight()
     @workHeight = $('.work').outerHeight()
 
-  canPlay: (index) =>
-    @canPlayVideos[index] = true
-
-  initVideo: (exports) ->
-    canPlayVideo = @canPlayVideos[0] and @canPlayVideos[1]
-    videoReady = @$video[0].readyState > 1 and @$video[1].readyState > 1
-    unless canPlayVideo or videoReady
-      $('.video-fallback').css
-        height: exports.windowHeight + 75
-        opacity: 1
-      @$video.remove()
-
   playVideo: (exports) ->
-    if @$video?
+    if @canPlayVideo?
       @$video[0].play()
       @$video[1].play()
 
