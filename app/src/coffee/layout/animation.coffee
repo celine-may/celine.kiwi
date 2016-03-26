@@ -130,7 +130,7 @@ class App.Animation
     ,
       opacity: 1
       y: 0
-    , .15
+    , .1
     .fromTo @$overlayClose, .15,
       opacity: 0
       x: -100
