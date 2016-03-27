@@ -25,7 +25,13 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
-  <link rel="icon" href="<?php echo IMAGES_PATH; ?>/layout/favicon.ico" type="image/x-icon"/>
+  <link rel="icon" href="<?php echo IMAGES_PATH; ?>favicon.png" type="image/x-icon"/>
+
+  <link rel="apple-touch-icon" sizes="76x76" href="<?php echo IMAGES_PATH; ?>icons/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="<?php echo IMAGES_PATH; ?>icons/touch-icon-iphone@2x.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="<?php echo IMAGES_PATH; ?>icons/touch-icon-ipad@2x.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="<?php echo IMAGES_PATH; ?>icons/touch-icon-ipad-pro@2x.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?php echo IMAGES_PATH; ?>icons/touch-icon-iphone@3x.png">
 
   <?php foreach ($assets['stylesheets'] as $file_path) : ?>
     <link rel="stylesheet" href="<?php echo $file_path ?>">
