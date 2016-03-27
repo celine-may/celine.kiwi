@@ -151,7 +151,7 @@ class App.Animation
           , 1000
       successFormTL.play()
     else
-      @overlayTL.reverse()
+      @overlayTL.timeScale(1.3).reverse()
 
     @$body.removeClass 'no-scroll'
 
