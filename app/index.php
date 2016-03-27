@@ -2,12 +2,9 @@
 
 include('config.php');
 
-/* Request */
-$q = isset($_GET['q']) ? explode('/', $_GET['q']) : array();
-$view = isset($q[0]) ? $q[0] : 'home';
-
 ?><!DOCTYPE html>
-<html lang="en" class="no-js">
+<!--[if lte IE 9]><html class="lte-ie9"><![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
 
@@ -33,9 +30,14 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <link rel="apple-touch-icon" sizes="167x167" href="<?php echo IMAGES_PATH; ?>icons/touch-icon-ipad-pro@2x.png">
   <link rel="apple-touch-icon" sizes="180x180" href="<?php echo IMAGES_PATH; ?>icons/touch-icon-iphone@3x.png">
 
+  <!--[if lte IE 9]>
+  <link rel="stylesheet" href="<?php echo PATH; ?>assets/css/build/lte-ie9.css">
+  <![endif]-->
+  <!--[if gt IE 9]><!-->
   <?php foreach ($assets['stylesheets'] as $file_path) : ?>
     <link rel="stylesheet" href="<?php echo $file_path ?>">
   <?php endforeach ?>
+  <!--<![endif]-->
 
   <script>
     window.App = {};
@@ -93,8 +95,13 @@ $view = isset($q[0]) ? $q[0] : 'home';
     </div>
   </div>
 
+  <!--[if lte IE 9]>
+  <script src="<?php echo PATH; ?>assets/js/build/lte-ie9.js"></script>
+  <![endif]-->
+  <!--[if gt IE 9]><!-->
   <?php foreach ($assets['javascripts'] as $file_path) : ?>
     <script src="<?php echo $file_path; ?>"></script>
   <?php endforeach; ?>
+  <!--<![endif]-->
 </body>
 </html>

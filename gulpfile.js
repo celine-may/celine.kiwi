@@ -148,8 +148,14 @@ gulp.task( 'sass', function() {
 // CSS Concat
 gulp.task( 'cssconcat', function() {
   return gulp
-    .src( [appAssets + 'css/vendor/*.css', appAssets + 'css/build/*.css'] )
+    .src( [appAssets + 'css/vendor/*.css', '!' + appAssets + 'css/build/lte-ie9.css', appAssets + 'css/build/*.css'] )
     .pipe( concat( 'application.css' ) )
+    .pipe( gulp.dest( appAssets + 'css' ) )
+});
+
+gulp.task( 'lte-ie9-css', function() {
+  return gulp
+    .src( appAssets + 'css/build/lte-ie9.css' )
     .pipe( gulp.dest( appAssets + 'css' ) )
 });
 
@@ -182,8 +188,14 @@ gulp.task( 'coffee', function() {
 // JS Concat
 gulp.task( 'jsconcat', function() {
   return gulp
-    .src( [appAssets + 'js/vendor/*.js', appAssets + 'js/build/**/*.js'] )
+    .src( [ appAssets + 'js/vendor/*.js', '!' + appAssets + 'js/build/lte-ie9.js', appAssets + 'js/build/**/*.js' ] )
     .pipe( concat( 'application.js' ) )
+    .pipe( gulp.dest( appAssets + 'js' ) )
+});
+
+gulp.task( 'lte-ie9-js', function() {
+  return gulp
+    .src( appAssets + 'js/build/lte-ie9.js' )
     .pipe( gulp.dest( appAssets + 'js' ) )
 });
 
@@ -215,7 +227,7 @@ gulp.task( 'default', function(callback) {
 // Production
 gulp.task( 'prod', function(callback) {
   runSequence( 'clean:dist',
-    [ 'php', 'fonts', 'images', 'videos', 'svgs', 'cssconcat', 'jsconcat' ],
+    [ 'php', 'fonts', 'images', 'videos', 'svgs', 'cssconcat', 'lte-ie9-css', 'jsconcat', 'lte-ie9-js' ],
     [ 'cssnano', 'uglify' ],
     callback
   )
