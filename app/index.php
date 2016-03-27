@@ -14,12 +14,13 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <title>Celine Rufener | Digital Alchemist &amp; Front End Developer | Auckland, New Zealand</title>
   <meta name="description" content="I am an Auckland based front end developer with a passion for code and bringing designs to life.">
 
-  <meta property="og:site_name" content="Celine">
+  <meta property="og:site_name" content="Celine.kiwi">
   <meta property="og:type" content="Website">
   <meta property="og:url" content="http://celine.kiwi">
-  <meta property="og:title" content="Celine.kiwi">
-  <meta property="og:description" content="Front End Developer">
-  <meta property="og:image" content="<?php echo IMAGES_PATH; ?>layout/celine-fb.jpg">
+  <meta property="og:title" content="Celine Rufener | Digital Alchemist &amp; Front End Developer">
+  <meta property="og:description" content="I am an Auckland based front end developer with a passion for code and bringing designs to life.">
+  <meta property="og:image" content="http://www.celine.kiwi/assets/images/celine-fb.png">
+  <meta property="fb:app_id" content="1520512718258604">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
