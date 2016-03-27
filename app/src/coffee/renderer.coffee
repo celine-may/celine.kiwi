@@ -67,7 +67,6 @@ class Renderer
     unless tweenName?
       return
     progressValue = (1 / (endPoint - startPoint)) * (scrollY - startPoint)
-
     if 0 <= progressValue <= 1
       tweenName.progress progressValue
       exports.currentProgressValue = progressValue + timelinePosition
@@ -78,7 +77,7 @@ class Renderer
 
   onScroll: (e) ->
     exports = @exports
-    @lastScrollY = window.scrollY
+    @lastScrollY = window.pageYOffset
     if not @ticking
       window.requestAnimationFrame =>
         for fx in @fxs
