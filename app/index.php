@@ -45,13 +45,13 @@ $view = isset($q[0]) ? $q[0] : 'home';
   <div class="video-fallback normal"></div>
 
   <main class="main">
-    <video loop class="video-bg normal">
+    <video autoplay loop class="video-bg normal">
       <source src="<?php echo VIDEOS_PATH ?>ink.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>video-fallback.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
     </video>
 
-    <video loop class="video-bg inverse">
+    <video autoplay loop class="video-bg inverse">
       <source src="<?php echo VIDEOS_PATH ?>ink-inverse.mp4" type="video/mp4">
       <source src="<?php echo VIDEOS_PATH ?>ink-inverse.webm" type="video/webm">
       <img src="<?php echo IMAGES_PATH; ?>video-inverse-fallback.jpg" alt="Fallback image for the background video. Captures ink floating in water.">
