@@ -27,9 +27,23 @@ class App.Sections
     @$home = $('.home')
     @$about = $('.about')
     @$work = $('.work')
+    @$skills = $('.skills')
 
     @$showSectionLink = $('.do-show-section')
     @$showAboutLink = $('.do-show-about')
+
+    # Variables
+    if exports.isSmall
+      @aboutGap = -70
+    else if not exports.isSmall and exports.isTouch
+      @aboutGap = -20
+    else
+      @aboutGap = 0
+
+    if exports.isTouch
+      @delta = 1
+    else
+      @delta = 1.4
 
     # Events
     @initVideo exports
@@ -80,29 +94,18 @@ class App.Sections
       ease: Power2.easeOut
       onComplete: =>
         @initiated = exports.initiated = true
-        @playVideo exports
 
   getSectionHeights: (exports) ->
     @homeHeight = $('.home').outerHeight()
     @aboutHeight = $('.about').outerHeight()
     @workHeight = $('.work').outerHeight()
 
-  playVideo: (exports) ->
-    if @canPlayVideo?
-      @$video[0].play()
-      @$video[1].play()
-
   goToSection: (exports, newSection) ->
-    if exports.isMedium or exports.isSmall
-      delta = 1
-    else
-      delta = 1.4
-
     scrollTo = switch newSection
       when 'home' then 0
-      when 'about' then @homeHeight
-      when 'work' then @homeHeight + @aboutHeight * delta
-      when 'skills' then @homeHeight + @aboutHeight * delta + @workHeight * delta
+      when 'about' then @$about.offset().top + @aboutGap
+      when 'work' then @$work.offset().top * @delta
+      when 'skills' then @$skills.offset().top * @delta
 
     exports.prevSection = exports.activeSection
 
@@ -110,14 +113,14 @@ class App.Sections
       scrollTo:
         y: scrollTo
         ease:Power2.easeOut
-      onComplete: =>
+      onComplete: ->
         exports.prevProgressValue = exports.currentProgressValue || 0
         exports.AnimationController.hideOverlay exports, newSection
 
   goToAbout: (exports) ->
     TweenLite.to @$window, 1,
       scrollTo:
-        y: @homeHeight
+        y: @$about.offset().top + aboutGap
         ease:Power2.easeOut
 
   toggleSection: (exports) ->
@@ -172,9 +175,9 @@ class App.Sections
 
     @setActiveSection exports
 
-    if exports.isMedium
-      @setUIStateMedium exports
-    else if exports.isSmall
+    if exports.isSmall
       @setUIStateSmall exports
+    else if not exports.isSmall and exports.isTouch
+      @setUIStateMedium exports
 
 App.FXs.push new App.Sections
