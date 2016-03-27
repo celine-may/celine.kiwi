@@ -13,6 +13,7 @@ class Renderer
       path: App.path
       isTouch: Modernizr.touchevents
       controllers: []
+      activeSection: 'home'
       windowWidth: @$window.width()
       windowHeight: @$window.height()
       isSmall: @$window.width() <= 767

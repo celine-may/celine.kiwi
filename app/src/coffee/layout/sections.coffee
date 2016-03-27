@@ -8,7 +8,7 @@ class App.Sections
 
     @canPlayVideo = undefined
     @initiated = false
-    @activeSection = 'home'
+    @activeSection = exports.activeSection
 
     @sectionSwitchEvent = document.createEvent 'Event'
     @sectionSwitchEvent.initEvent 'sectionSwitch', true, true
@@ -44,13 +44,12 @@ class App.Sections
       $link = $(e.target)
       unless $link.hasClass 'do-show-section'
         $link = $link.parents '.do-show-section'
-      @newSection = exports.newSection = $link.addClass('active').attr 'data-section'
-      exports.AnimationController.hideOverlay exports
+      newSection = exports.newSection = $link.addClass('active').attr 'data-section'
+      @goToSection exports, newSection, 0, 0
 
     @$showAboutLink.on 'click', (e) =>
       e.preventDefault()
-      @newSection = exports.newSection = 'about'
-      @goToSection exports
+      @goToAbout exports
 
     @$window.on 'sectionSwitch', (e) =>
       @toggleSection exports
@@ -93,24 +92,33 @@ class App.Sections
       @$video[0].play()
       @$video[1].play()
 
-  goToSection: (exports) ->
+  goToSection: (exports, newSection) ->
     if exports.isMedium or exports.isSmall
       delta = 1
     else
-      delta = 1.2
+      delta = 1.4
 
-    scrollTo = switch
-      when @newSection is 'home' then 0
-      when @newSection is 'about' then @homeHeight
-      when @newSection is 'work' then @homeHeight + @aboutHeight * delta
-      when @newSection is 'skills' then @homeHeight + @aboutHeight * delta + @workHeight * delta
+    scrollTo = switch newSection
+      when 'home' then 0
+      when 'about' then @homeHeight
+      when 'work' then @homeHeight + @aboutHeight * delta
+      when 'skills' then @homeHeight + @aboutHeight * delta + @workHeight * delta
 
-    TweenLite.to @$window, 2,
+    exports.prevSection = exports.activeSection
+
+    TweenLite.set @$window,
       scrollTo:
         y: scrollTo
         ease:Power2.easeOut
-      delay: .25
-    @newSection = exports.newSection = null
+      onComplete: =>
+        exports.prevProgressValue = exports.currentProgressValue || 0
+        exports.AnimationController.hideOverlay exports, newSection
+
+  goToAbout: (exports) ->
+    TweenLite.to @$window, 1,
+      scrollTo:
+        y: @homeHeight
+        ease:Power2.easeOut
 
   toggleSection: (exports) ->
     @$nav
@@ -120,6 +128,8 @@ class App.Sections
     @$nav
       .find ".nav-item[data-section='#{@activeSection}']"
       .addClass 'active'
+
+    exports.activeSection = @activeSection
 
   setActiveSection: (exports) ->
     if @scrollTop < @homeHeight / 2
