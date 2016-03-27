@@ -121,6 +121,7 @@ class App.Form
     successTL.timeScale(.9).play()
 
   resetForm: ->
+    @$form.find('.form-input, .form-textarea').val ''
     @$formSuccess.remove()
 
   onResize: (exports) ->
