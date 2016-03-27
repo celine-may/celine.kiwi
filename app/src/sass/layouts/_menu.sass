@@ -99,7 +99,7 @@
   position: relative
   display: inline-block
   padding: 0 $gap * 1.5
-  +font(null, null, 2.375rem, null, null, .94)
+  +font(null, null, 2.375rem, null, null, 1)
   letter-spacing: 4px
   overflow: hidden
 
@@ -108,7 +108,7 @@
     +position(absolute, calc(50% - 2px), null, null, 0)
     +size(100%, 2px)
     background-color: currentColor
-    transform: translateX(calc(-100% - 1px))
+    transform: translateX(-100%)
     transition: transform $transitionDuration $transitionFunction
 
   .no-touchevents .nav-item:hover &::after, .active &::after
