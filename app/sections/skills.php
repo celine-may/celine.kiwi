@@ -1,7 +1,7 @@
 <section class="section skills">
   <div class="section-content">
     <h3 class="skills-title title separator skills-element">Skills</h3>
-    <p class="skills-lead lead skills-element">Digital alchemy requires a broad skillset and knowledge of blah blah.</p>
+    <p class="skills-lead lead skills-element">Digital alchemy requires a broad skillset and knowledge.</p>
     <ul class="skills-list skills-element">
       <li class="skill">html5</li>
       <li class="skill">css3</li>

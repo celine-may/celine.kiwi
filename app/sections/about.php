@@ -1,7 +1,7 @@
 <section class="section about">
   <h3 class="about-title title">About&nbsp;me</h3>
   <div class="section-content">
-    <h2 class="about-lead lead separator about-element">... with a Swiss Touch</h2>
+    <h2 class="about-lead lead separator about-element">A Swiss Touch in Auckland</h2>
     <p class="about-copy body-copy about-element">
       Being part of the generation that grew up with computers, I've always been into technology. An inclination toward high quality design has naturally grown my passion for front end development.
     </p>
