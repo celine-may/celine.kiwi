@@ -103,9 +103,9 @@ class App.Sections
   goToSection: (exports, newSection) ->
     scrollTo = switch newSection
       when 'home' then 0
-      when 'about' then @$about.offset().top + @aboutGap
-      when 'work' then @$work.offset().top * @delta
-      when 'skills' then @$skills.offset().top * @delta
+      when 'about' then @$about.offset().top
+      when 'work' then @$work.offset().top
+      when 'skills' then @homeHeight + @aboutHeight * @delta + @workHeight * @delta
 
     exports.prevSection = exports.activeSection
 
