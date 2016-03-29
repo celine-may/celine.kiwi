@@ -120,7 +120,7 @@ class App.Sections
   goToAbout: (exports) ->
     TweenLite.to @$window, 1,
       scrollTo:
-        y: @$about.offset().top + aboutGap
+        y: @$about.offset().top + @aboutGap
         ease:Power2.easeOut
 
   toggleSection: (exports) ->
