@@ -44,10 +44,6 @@
         <article class="slide" data-slide="10">
           <?php include('projects/breitling.php'); ?>
         </article>
-
-        <article class="slide" data-slide="11">
-          <?php include('projects/perrelet.php'); ?>
-        </article>
       </div>
     </div>
 
