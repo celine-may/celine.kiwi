@@ -16,5 +16,6 @@
       <li>Responsive</li>
     </ul>
   </div>
-  <a href="http://www.method.kiwi/" target="_blank" class="slide-link btn">view site</a>
+  <span class="slide-link btn">Coming soon</span>
+  <!-- <a href="http://www.method.kiwi/" target="_blank" class="slide-link btn">view site</a> -->
 </div>
