@@ -19,5 +19,5 @@
       <li>W3 Awards Gold</li>
     </ul>
   </div>
-  <a href="http://www.harrisongrierson.com/" class="slide-link btn">view site</a>
+  <a href="http://www.harrisongrierson.com/" target="_blank" class="slide-link btn">view site</a>
 </div>

@@ -5,7 +5,7 @@
   <h2 class="slide-title title separator">Method</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      Method is a digital led creative agency. Late 2015, they decided to go through a total rebranding so we created this website to explain who Method is, how they work and to show to wide variety of projects they've worked&nbsp;on.
+      Method is a digital led creative agency. Late 2015, they decided to go through a total rebranding so we created this website to explain who Method is, how they work and to show the wide variety of projects they've worked&nbsp;on.
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>

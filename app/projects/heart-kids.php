@@ -5,7 +5,7 @@
   <h2 class="slide-title title separator">Heart Kids</h2>
   <div class="slide-copy">
     <p class="body-copy">
-      Heart Kids New Zealand's mission is to provide life long support for those affected by congenital heart disease (CHD) and to reach and improve their lifes. In August 2015, we launch the Born Fighter campaign to create awareness and promote donations to HK NZ.
+      Heart Kids New Zealand's mission is to provide life long support for those affected by congenital heart disease (CHD) and to reach and improve their lives. In August 2015, we launched the Born Fighter campaign to create awareness and promote donations to HK NZ.
     </p>
     <ul class="slide-list body-copy">
       <li>HTML5</li>

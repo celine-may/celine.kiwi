@@ -15,5 +15,6 @@
       <li>AJAX</li>
     </ul>
   </div>
-  <a href="#todo" target="_blank" class="slide-link btn">view site</a>
+  <span class="slide-link btn">Available soon</span>
+  <!-- <a href="#todo" target="_blank" class="slide-link btn" >view site</a> -->
 </div>

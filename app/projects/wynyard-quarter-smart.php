@@ -17,5 +17,5 @@
       <li>Responsive</li>
     </ul>
   </div>
-  <a href="http://www.wqsmart.co.nz/" class="slide-link btn">view site</a>
+  <a href="http://www.wqsmart.co.nz/" target="_blank" class="slide-link btn">view site</a>
 </div>

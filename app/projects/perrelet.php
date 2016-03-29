@@ -15,5 +15,5 @@
       <li>Parallax</li>
     </ul>
   </div>
-  <a href="http://www.breitling.com/en/service/user-manuals" target="_blank" class="slide-link btn">view site</a>
+  <a href="http://www.turbineperrelet.com/" target="_blank" class="slide-link btn">view site</a>
 </div>
