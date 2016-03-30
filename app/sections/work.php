@@ -18,30 +18,26 @@
         </article>
 
         <article class="slide" data-slide="4">
-          <?php include('projects/method.php'); ?>
-        </article>
-
-        <article class="slide" data-slide="5">
           <?php include('projects/wynyard-quarter.php'); ?>
         </article>
 
-        <article class="slide" data-slide="6">
+        <article class="slide" data-slide="5">
           <?php include('projects/tvnz-media-portal.php'); ?>
         </article>
 
-        <article class="slide" data-slide="7">
+        <article class="slide" data-slide="6">
           <?php include('projects/panuku.php'); ?>
         </article>
 
-        <article class="slide" data-slide="8">
+        <article class="slide" data-slide="7">
           <?php include('projects/sovereign-rpm.php'); ?>
         </article>
 
-        <article class="slide" data-slide="9">
+        <article class="slide" data-slide="8">
           <?php include('projects/harrison-grierson.php'); ?>
         </article>
 
-        <article class="slide" data-slide="10">
+        <article class="slide" data-slide="9">
           <?php include('projects/breitling.php'); ?>
         </article>
       </div>
