@@ -148,7 +148,7 @@ class App.Sections
       @activeSection = newSection
       window.dispatchEvent @sectionSwitchEvent
 
-  setUIStateMedium: (exports) ->
+  setUIState: (exports) ->
     if @homeHeight + @aboutHeight * .5 <= @scrollTop < @homeHeight + @aboutHeight + @workHeight * .5
       uiColor = exports.primaryColor
     else if @scrollTop >= @homeHeight + @aboutHeight + @workHeight * .5
@@ -178,6 +178,6 @@ class App.Sections
     if exports.isSmall
       @setUIStateSmall exports
     else if not exports.isSmall and exports.isTouch
-      @setUIStateMedium exports
+      @setUIState exports
 
 App.FXs.push new App.Sections
