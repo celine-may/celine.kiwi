@@ -2,7 +2,7 @@
 
 // Global variables + SMTP init
 define('PATH', '/');
-define('EMAIL', 'celine.may@gmail.com');
+define('EMAIL', 'hello@celine.kiwi');
 define('IMAGES_PATH', PATH . 'assets/images/');
 define('VIDEOS_PATH', PATH . 'assets/videos/');
 
